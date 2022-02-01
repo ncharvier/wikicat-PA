@@ -2,5 +2,3 @@
 
 
 <?php $this->includePartial("form", $user->getFormRegister()) ?>
-
-<?php $this->includePartial("form", $user->getFormLogin()) ?>

@@ -7,10 +7,9 @@ class User extends BaseSQL
 {
 
     protected $id = null;
+    protected $login;
     protected $email;
     protected $password;
-    protected $firstname;
-    protected $lastname;
     protected $status = null;
     protected $token = null;
 
@@ -18,6 +17,11 @@ class User extends BaseSQL
     {
         parent::__construct();
     }
+
+    public function getByEmail($email): ?object{
+        return parent::getFromValue($email, "email");
+    }
+
     /**
      * @return mixed
      */
@@ -26,6 +30,21 @@ class User extends BaseSQL
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLogin(): string
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param mixed $login
+     */
+    public function setLogin($login): void
+    {
+        $this->login = trim($login);
+    }
 
     /**
      * @return mixed
@@ -57,38 +76,6 @@ class User extends BaseSQL
     public function setPassword($password): void
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirstname(): string
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param mixed $firstname
-     */
-    public function setFirstname($firstname): void
-    {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastname(): string
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param mixed $lastname
-     */
-    public function setLastname($lastname): void
-    {
-        $this->lastname = strtoupper(trim($lastname));
     }
 
     /**
@@ -140,6 +127,14 @@ class User extends BaseSQL
                 "submit"=>"S'inscrire"
             ],
             "inputs"=>[
+                    "login"=>[
+                        "type"=>"text",
+                        "placeholder"=>"Pseudonyme",
+                        "id"=>"loginRegister",
+                        "class"=>"inputRegister",
+                        "required"=>true,
+                        "error"=>"Pseudonyme invalide"
+                    ],
                     "email"=>[
                         "type"=>"email",
                         "placeholder"=>"Votre email ...",
@@ -157,33 +152,6 @@ class User extends BaseSQL
                         "class"=>"inputRegister",
                         "required"=>true,
                         "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
-                    ],
-                    "passwordConfirm"=>[
-                        "type"=>"password",
-                        "placeholder"=>"Confirmation ...",
-                        "id"=>"pwdConfirmRegister",
-                        "class"=>"inputRegister",
-                        "required"=>true,
-                        "confirm"=>"password",
-                        "error"=>"Votre mot de passe de confirmation ne correspond pas",
-                    ],
-                    "firstname"=>[
-                        "type"=>"text",
-                        "placeholder"=>"Prénom ...",
-                        "id"=>"firstnameRegister",
-                        "class"=>"inputRegister",
-                        "min"=>2,
-                        "max"=>50,
-                        "error"=>"Votre prénom n'est pas correct",
-                    ],
-                    "lastname"=>[
-                        "type"=>"text",
-                        "placeholder"=>"Nom ...",
-                        "id"=>"lastnameRegister",
-                        "class"=>"inputRegister",
-                        "min"=>2,
-                        "max"=>100,
-                        "error"=>"Votre nom n'est pas correct",
                     ],
                 ]
 
