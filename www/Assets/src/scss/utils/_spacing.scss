@@ -1,0 +1,40 @@
+@each $direction-name, $direction-set in $direction {
+  @for $i from 0 through 10 {
+    .m#{$direction-name}-#{$i}{
+      margin-#{$direction-set}: #{$i * .5}rem !important;
+    }
+  }
+}
+
+@for $i from 0 through 10 {
+  .mx-#{$i}{
+    margin-right: #{$i * .5}rem !important;
+    margin-left: #{$i * .5}rem !important;
+  }
+
+  .my-#{$i}{
+    margin-top: #{$i * .5}rem !important;
+    margin-bottom: #{$i * .5}rem !important;
+  }
+}
+
+
+@each $direction-name, $direction-set in $direction {
+  @for $i from 0 through 10 {
+    .p#{$direction-name}-#{$i}{
+      padding-#{$direction-set}: #{$i * .5}rem !important;
+    }
+  }
+}
+
+@for $i from 0 through 10 {
+  .px-#{$i}{
+    padding-right: #{$i * .5}rem !important;
+    padding-left: #{$i * .5}rem !important;
+  }
+
+  .py-#{$i}{
+    padding-top: #{$i * .5}rem !important;
+    padding-bottom: #{$i * .5}rem !important;
+  }
+}

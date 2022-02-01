@@ -1,0 +1,89 @@
+.form-controller{
+  position: relative;
+  padding: 15px 5px 0;
+  margin-top: 10px;
+  width: 100%;
+
+  .form-input{
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid grey;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #222;
+    padding: 7px 0;
+    background: transparent;
+    border-image: none;
+    transition:  border-image 0.2s;
+
+    &::placeholder {
+      color: transparent;
+      font-size: 0.8rem;
+    }
+
+    &:placeholder-shown ~ .form-label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+
+    &:focus {
+      ~ .form-label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: map-get(map-get($theme-colors, "primary"), "700");
+        font-weight:700;
+      }
+
+      &::placeholder {
+        color: grey;
+      }
+
+      padding-bottom: 6px;
+      font-weight: 700;
+      border-width: 3px;
+      border-image: linear-gradient(to right, map-get(map-get($theme-colors, "primary"), "700"), map-get(map-get($theme-colors, "info"), "400"));
+      border-image-slice: 1;
+    }
+    &:required,&:invalid { box-shadow:none; }
+
+    &.form-input--validate{
+      border-width: 3px;
+      border-image: linear-gradient(to right, map-get(map-get($theme-colors, "success"), "700"), map-get(map-get($theme-colors, "success"), "300"));
+      border-image-slice: 1;
+
+      ~ .form-label {
+        position: absolute;
+        top: 0;
+        display: block;
+        color: map-get(map-get($theme-colors, "success"), "700");
+      }
+    }
+
+    &.form-input--reject{
+      border-width: 3px;
+      border-image: linear-gradient(to right, map-get(map-get($theme-colors, "danger"), "700"), map-get(map-get($theme-colors, "danger"), "200"));
+      border-image-slice: 1;
+
+      ~ .form-label {
+        position: absolute;
+        top: 0;
+        display: block;
+        color: map-get(map-get($theme-colors, "danger"), "700");
+      }
+    }
+  }
+  .form-label{
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s, font-weight .2s;
+    font-weight: 400;
+    font-size: 1rem;
+    color: grey;
+  }
+}

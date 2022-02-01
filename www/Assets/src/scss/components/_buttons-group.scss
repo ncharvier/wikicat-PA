@@ -1,0 +1,19 @@
+.btn-group{
+  display: flex;
+
+  .btn{
+    &:not(:last-child) {
+      border-right-width: 1px;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      margin-right: 0;
+
+    }
+    &:not(:first-child) {
+      border-left-width: 1px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      margin-left: 0;
+    }
+  }
+}

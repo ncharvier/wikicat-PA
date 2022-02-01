@@ -1,0 +1,66 @@
+.btn{
+  all: unset;
+  padding: 0.7em 1.5em;
+  margin: 5px;
+  border-radius: 7px;
+  color: #FFF;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+
+  text-decoration: none;
+  vertical-align: middle;
+  font-weight: 700;
+  transition: background-color .3s, color .3s, border .3s;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  &:hover{
+
+  }
+}
+
+.btn--sm{
+  padding: 0.5em 1.5em;
+  font-size: 0.8rem;
+}
+
+.btn--lg{
+  padding: 0.9em 2em;
+  font-size: 1rem;
+}
+
+@each $color-name, $color-set in $theme-colors {
+  .btn--#{$color-name}{
+    border: solid map-get($color-set, "800") 2px;
+    background-color: map-get($color-set, "800");
+    &:hover{
+      background-color: map-get($color-set, "500");
+      border: solid map-get($color-set, "500") 2px;
+    }
+  }
+}
+
+@each $color-name, $color-set in $theme-colors {
+  .btn--outline-#{$color-name}{
+    border: solid map-get($color-set, "800") 2px;
+    background-color: transparent;
+    color: map-get($color-set, "800");
+    &:hover{
+      background-color: map-get($color-set, "800");
+      color: #fff;
+    }
+  }
+}
+
+@each $color-name, $color-set in $theme-colors {
+  .btn--light-#{$color-name}{
+    border: solid map-get($color-set, "800") 2px;
+    background-color: map-get($color-set, "100");
+    color: map-get($color-set, "800");
+    &:hover{
+      background-color: map-get($color-set, "800");
+      color: #fff;
+    }
+  }
+}
+

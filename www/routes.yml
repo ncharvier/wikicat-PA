@@ -1,0 +1,23 @@
+/:
+  controller: general
+  action: home
+
+/login:
+  controller: user
+  action: login
+
+/register:
+  controller: user
+  action: register
+
+/logout:
+  controller: user
+  action : logout
+
+/page404:
+  controller: error
+  action: page404
+
+/page500:
+  controller: error
+  action: page500

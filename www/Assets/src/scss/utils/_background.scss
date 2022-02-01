@@ -1,0 +1,6 @@
+@each $color-name, $color-set in $theme-colors {
+  .bg-#{$color-name}{
+    background-color: map-get($color-set, "800");
+    color: #fff;
+  }
+}
