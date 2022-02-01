@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Core\CleanWords;
+use App\Core\BaseSQL;
+use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
@@ -10,7 +11,8 @@ class User{
 
     public function login()
     {
-        new View("login");
+        $view = new View("Login");
+        $view->assign("titleSeo","Se connecter au site");
     }
 
     public function logout()
@@ -20,18 +22,21 @@ class User{
 
     public function register()
     {
+
         $user = new UserModel();
 
-        $user = $user->setId(1);
+        print_r($_POST);
+        if( !empty($_POST)){
+            $result = Validator::run($user->getFormRegister(), $_POST);
+            print_r($result);
+        }
 
-        $user->setEmail("CHarVier.NIcolas@gmail.com   ");
-        $user->setFirstname("NICOlas ");
-        $user->setLastname("  charVIER");
-        $user->setPassword("Test1234");
+        //$user= $user->setId(3);
+        //$user->setEmail("toto@gmail.com");
+        //$user->save();
 
-        $user->save();
-
-        new View("register");
+        $view = new View("register");
+        $view->assign("user",$user);
     }
 
 }
