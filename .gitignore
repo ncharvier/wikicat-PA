@@ -1,3 +1,5 @@
 db_data
 www/.env*
+www/Lib/PHPMailer
 www/Assets/webpack
+www/conf.inc.php
