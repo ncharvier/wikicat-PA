@@ -10,6 +10,22 @@ use App\Core\View;
 use App\Model\User as UserModel;
 
 class User{
+    public function logout(){
+
+        if(!empty($_SESSION["connectedUser"]["id"])){
+            $user = new UserModel();
+
+            $user = $user->setId($_SESSION["connectedUser"]["id"]);
+
+            $user->clearToken();
+
+            $user->save();
+        }
+
+        session_destroy();
+
+        echo "déconnecté";
+    }
 
     public function login()
     {
@@ -26,16 +42,9 @@ class User{
                 $user = $userToConnect;
 
                 if(password_verify($_POST["password"],$user->getPassword()) || $user->getStatus() == 1){
-                    $user->generateToken();
+                    $user->updateUserSession();
 
-                    $user->save();
-
-                    $_SESSION["connectedUser"]["id"] = $user->getId();
-                    $_SESSION["connectedUser"]["login"] = $user->getLogin();
-                    $_SESSION["connectedUser"]["email"] = $user->getEmail();
-                    $_SESSION["connectedUser"]["token"] = $user->getToken();
-
-                    print_r($_SESSION);
+                    header('Location: /');
                 }
                 else{
                     $loginError = true;
@@ -54,25 +63,23 @@ class User{
         $view->assign("user",$user);
     }
 
-    public function logout()
-    {
-        echo "Se deco";
-    }
-
     public function register()
     {
         $user = new UserModel();
 
-        print_r($_POST);
         if( !empty($_POST)){
             $result = Validator::run($user->getFormRegister(), $_POST);
             print_r($result);
 
-            $user->setLogin($_POST["login"]);
-            $user->setEmail($_POST["email"]);
-            $user->setPassword($_POST["password"]);
+            if(empty($result)){
+                $user->setLogin($_POST["login"]);
+                $user->setEmail($_POST["email"]);
+                $user->setPassword($_POST["password"]);
 
-            $user->save();
+                $user->save();
+
+                header('Location: /login');
+            }
         }
 
 

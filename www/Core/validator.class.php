@@ -21,9 +21,9 @@ class Validator
             }
 
             if($input["type"]=="password" && !self::checkPassword($data[$name])){
-                $result[]="Password incorrect";
+                $result[] = $input["error"];
             }else if($input["type"]=="email"  && !self::checkEmail($data[$name])){
-                $result[]="Email incorrect";
+                $result[] = $input["error"];
             }
 
         }
