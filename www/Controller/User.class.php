@@ -79,4 +79,21 @@ class User{
         $view = new View("register");
         $view->assign("user",$user);
     }
+    public function accountUpdate()
+    {
+        $user = new UserModel();
+        print_r($_POST);
+        if(!empty($_POST)){
+            $result = Validator::run($user->getLoginUpdate(), $_POST);
+            print_r($result);
+
+            $user->setLogin($_POST["login"]);
+            $user->setEmail($_POST["email"]);
+            $user->setPassword($_POST["password"]);
+
+            $user->save();
+        }
+        $view = new View("accountUpdate");
+        $view->assign("user",$user);
+    }
 }

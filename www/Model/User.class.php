@@ -117,7 +117,6 @@ class User extends BaseSQL
         parent::save();
     }
 
-
     public function getFormRegister(): array
     {
         return [
@@ -158,7 +157,6 @@ class User extends BaseSQL
         ];
     }
 
-
     public function getFormLogin(): array
     {
         return [
@@ -184,6 +182,65 @@ class User extends BaseSQL
                 ]
             ]
 
+        ];
+    }
+    public function getLoginUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre Pseudo"
+            ],
+            "inputs"=>[
+                "login"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Pseudonyme",
+                    "id"=>"loginRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Pseudonyme invalide"
+                ]
+            ]
+        ];
+    }
+    public function getEmailUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre mail"
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "id"=>"emailRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                ],
+            ]
+        ];
+    }
+    public function getPasswordUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre mdp"
+            ],
+            "inputs"=>[
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "id"=>"pwdRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
         ];
     }
 }
