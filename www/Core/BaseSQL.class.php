@@ -57,7 +57,7 @@ abstract class BaseSQL
         $columns  = get_object_vars($this);
         $varsToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varsToExclude);
-        $columns = array_filter($columns);
+        //$columns = array_filter($columns);
 
 
        if( !is_null($this->getId()) ){
@@ -72,8 +72,6 @@ abstract class BaseSQL
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
-
 
     }
 
