@@ -120,6 +120,44 @@
 <br>
 <br>
 
+<button class="btn btn--lg btn--degradee-primary">test</button>
+<button class="btn btn--degradee-primary">test</button>
+<button class="btn btn--sm btn--degradee-primary">test</button>
+
+<br>
+
+<button class="btn btn--lg btn--degradee-secondary">test</button>
+<button class="btn btn--degradee-secondary">test</button>
+<button class="btn btn--sm btn--degradee-secondary">test</button>
+
+<br>
+
+<button class="btn btn--lg btn--degradee-danger">test</button>
+<button class="btn btn--degradee-danger">test</button>
+<button class="btn btn--sm btn--degradee-danger">test</button>
+
+<br>
+
+<button class="btn btn--lg btn--degradee-warning">test</button>
+<button class="btn btn--degradee-warning">test</button>
+<button class="btn btn--sm btn--degradee-warning">test</button>
+
+<br>
+
+<button class="btn btn--lg btn--degradee-success">test</button>
+<button class="btn btn--degradee-success">test</button>
+<button class="btn btn--sm btn--degradee-success">test</button>
+
+<br>
+
+<button class="btn btn--lg btn--degradee-info">test</button>
+<button class="btn btn--degradee-info">test</button>
+<button class="btn btn--sm btn--degradee-info">test</button>
+
+<br>
+<br>
+<br>
+
 <div class="btn-group">
     <button class="btn btn--info">test</button>
     <button class="btn btn--info">test</button>
