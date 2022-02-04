@@ -132,10 +132,14 @@ class User extends BaseSQL
 
     public function getFormRegister(): array
     {
+        $className = explode("\\",get_called_class());
+        $className = end($className);
+
         return [
             "config"=>[
                 "method"=>"POST",
                 "action"=>"",
+                "className"=>$className,
                 "submit"=>"S'inscrire"
             ],
             "inputs"=>[
@@ -155,7 +159,7 @@ class User extends BaseSQL
                     "required"=>true,
                     "error"=>"Email incorrect",
                     "unicity"=>true,
-                    "errorUnicity"=>"Email existe déjà en bdd"
+                    "errorUnicity"=>"Un compte existe déjà sur cette adresse email"
                 ],
                 "password"=>[
                     "type"=>"password",
