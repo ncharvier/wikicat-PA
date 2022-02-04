@@ -4,6 +4,7 @@ namespace App\Controller;
 
 session_start();
 
+use App\Core\AccessManager;
 use App\Core\BaseSQL;
 use App\Core\Validator;
 use App\Core\View;
@@ -85,5 +86,43 @@ class User{
 
         $view = new View("register");
         $view->assign("user",$user);
+    }
+    public function accountUpdate()
+    {
+        if(AccessManager::isLogged()){
+            $user = new UserModel();
+            $user = $user->setId($_SESSION['connectedUser']['id']);
+            print_r($_POST);
+
+            if(!empty($_POST['login']))
+            {
+                $result = Validator::run($user->getLoginUpdate(), $_POST);
+                print_r($result);
+
+                $user->setLogin($_POST["login"]);
+                $user->save();
+            }
+            else if(!empty($_POST['email']))
+            {
+                $result = Validator::run($user->getEmailUpdate(), $_POST);
+                print_r($result);
+
+                $user->setEmail($_POST["email"]);
+                $user->save();
+            }
+            else if(!empty($_POST['password']))
+            {
+                $result = Validator::run($user->getPasswordUpdate(), $_POST);
+                print_r($result);
+
+                $user->setPassword($_POST["password"]);
+                $user->save();
+            }
+            $view = new View("accountUpdate");
+            $view->assign("user",$user);
+        }else{
+            echo 'Error';
+        }
+
     }
 }
