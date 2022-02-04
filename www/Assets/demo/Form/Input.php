@@ -18,4 +18,45 @@
         <input type="text" class="form-input form-input--reject" placeholder="Error" name="error" id='error' value="error"  required />
         <label for="error" class="form-label">Error</label>
     </div>
+
+    <div class="form-controller">
+        <input class="form-checkbox" type="checkbox">
+    </div>
+
+    <div class="form-controller">
+        <input class="form-checkbox" type="checkbox" checked="checked">
+    </div>
+
+    <div class="form-controller">
+        <input class="form-checkbox" type="checkbox" disabled="disabled">
+    </div>
+
+    <div class="form-controller">
+        <input class="form-checkbox" type="checkbox" checked="checked" disabled="disabled">
+    </div>
+
+
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio1" checked="checked">
+    </div>
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio1">
+    </div>
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio1">
+    </div>
+
+
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio2" checked="checked" disabled="disabled">
+    </div>
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio2" disabled="disabled">
+    </div>
+    <div class="form-controller">
+        <input class="form-radio" type="radio" name="radio2" disabled="disabled">
+    </div>
+
+
 </div>
+

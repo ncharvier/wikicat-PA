@@ -61,6 +61,64 @@
         top: 0;
         display: block;
         color: #d74654; }
+  .form-controller .form-checkbox[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: #6c64d7;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid #848484;
+    border-radius: 0.2em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center; }
+    .form-controller .form-checkbox[type="checkbox"]:before {
+      content: "";
+      width: 0.65em;
+      height: 0.65em;
+      border-radius: 0.1em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em;
+      transform-origin: bottom left;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+    .form-controller .form-checkbox[type="checkbox"]:checked:before {
+      transform: scale(1); }
+    .form-controller .form-checkbox[type="checkbox"]:disabled {
+      color: #d0d0d0;
+      width: 1.15em;
+      height: 1.15em;
+      border: 0.15em solid #d0d0d0; }
+  .form-controller .form-radio[type="radio"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: #6c64d7;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid #848484;
+    border-radius: 50em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center; }
+    .form-controller .form-radio[type="radio"]:before {
+      content: "";
+      width: 0.65em;
+      height: 0.65em;
+      border-radius: 50em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em; }
+    .form-controller .form-radio[type="radio"]:checked:before {
+      transform: scale(1); }
+    .form-controller .form-radio[type="radio"]:disabled {
+      color: #d0d0d0;
+      width: 1.15em;
+      height: 1.15em;
+      border: 0.15em solid #d0d0d0; }
   .form-controller .form-label {
     position: absolute;
     top: 0;
