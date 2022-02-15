@@ -16,6 +16,7 @@
 
             include_once "Components/Alerts.php";
             include_once "Components/Buttons.php";
+            include_once "Components/Card.php";
 
 
             echo "<h2>Utils</h2>";

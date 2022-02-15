@@ -1,3 +1,5 @@
 db_data
 www/.env*
+www/Lib/
 www/Assets/webpack
+tags
