@@ -1,5 +1,5 @@
 db_data
 www/.env*
-www/Lib/
+www/Lib/PHPMailer
 www/Assets/webpack
 tags

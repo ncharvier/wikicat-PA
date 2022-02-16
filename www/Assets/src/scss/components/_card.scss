@@ -1,15 +1,29 @@
 .card {
-    border: 1px solid black;
+    border: 1px solid #7f8c8d;
     width: 300px;
+    word-wrap: break-word;
+    border-radius: 5px;
 }
+
 .card--sm {
 }
+
 .card--lg {
 }
+
 .card-image {
     width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
 .card-title {
+    padding: 0;
 }
+
 .card-text {
+}
+
+.card-body {
+    padding: 0.7rem;
 }

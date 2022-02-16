@@ -335,11 +335,21 @@
     margin-left: 0; }
 
 .card {
-  border: 1px solid black;
-  width: 300px; }
+  border: 1px solid #7f8c8d;
+  width: 300px;
+  word-wrap: break-word;
+  border-radius: 5px; }
 
 .card-image {
-  width: 100%; }
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
+
+.card-title {
+  padding: 0; }
+
+.card-body {
+  padding: 0.7rem; }
 
 .bg-primary {
   background-color: #6c64d7;
