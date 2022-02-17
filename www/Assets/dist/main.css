@@ -336,9 +336,22 @@
 
 .card {
   border: 1px solid #7f8c8d;
-  width: 300px;
+  /*width: 300px;*/
+  width: 18rem;
   word-wrap: break-word;
-  border-radius: 5px; }
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column; }
+
+.card--sm {
+  width: 16rem; }
+  .card--sm .card-text {
+    font-size: 0.8rem; }
+  .card--sm .card-title {
+    font-size: 1.2rem; }
+
+.card--lg {
+  width: 20rem; }
 
 .card-image {
   width: 100%;
@@ -346,11 +359,27 @@
   border-top-right-radius: 5px; }
 
 .card-title {
-  padding: 0; }
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 10px; }
+
+.card-text {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 10px; }
 
 .card-body {
   padding: 0.7rem; }
 
+/* pour la demo */
+/*.demo-grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-grid > .card {
+    margin: 10px;
+}*/
 .bg-primary {
   background-color: #6c64d7;
   color: #fff; }
