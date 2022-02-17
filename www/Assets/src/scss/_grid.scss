@@ -1,0 +1,33 @@
+.container{
+
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col{
+  flex: 1 0 0%;
+  min-width: calc(100%/12);
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i}{
+    width: #{100%/12 * $i};
+  }
+
+  @each $breakName, $breakValue in $breakpoints{
+    .col-#{$breakName}-#{$i}{
+      flex: 1 0 0%;
+      min-width: calc(100%/12);
+    }
+
+    @media (min-width: $breakValue){
+      .col-#{$breakName}-#{$i} {
+        width: #{100%/12 * $i};
+      }
+    }
+  }
+}
