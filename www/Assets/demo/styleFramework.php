@@ -7,6 +7,10 @@
     </head>
     <body>
         <?php
+            echo "<h2>Grille</h2>";
+
+            include_once "Grid.php";
+
             echo "<h2>Input</h2>";
 
             include_once "Form/Input.php";
