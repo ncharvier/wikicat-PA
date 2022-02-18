@@ -1,0 +1,13 @@
+.badge{
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  font-size: 75%;
+  text-align: center;
+  border-radius: 0.2em;
+}
+
+.badge--pill{
+  border-radius: 100px;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
