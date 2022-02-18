@@ -2,3 +2,5 @@ db_data
 www/.env*
 www/Assets/webpack
 www/Assets/dist/main.css
+www/Lib/PHPMailer
+tags
