@@ -25,3 +25,7 @@
 /page500:
   controller: error
   action: page500
+
+/admin/dashboard:
+  controller: admin
+  action: dashboard

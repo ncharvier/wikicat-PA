@@ -1,0 +1,43 @@
+#body-back{
+  background-color: map-deep-get($theme-colors, "dark", "800");
+  color: #fff;
+}
+
+#main-header{
+  height: 48px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 7px 9px rgba(0, 0, 0, 0.25);
+}
+
+#main-nav{
+  background-color: map-deep-get($theme-colors, "dark", "700");
+  height: calc(100vh - 48px);
+  border-right: solid 1px map-deep-get($theme-colors, "dark", "500");
+
+  .main-nav-choice{
+    background-color: map-deep-get($theme-colors, "dark", "700");
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color : white;
+    text-decoration: none;
+    transition: background-color .3s;
+    padding: 10px 1.5rem;
+
+    &:hover{
+      background-color: map-deep-get($theme-colors, "dark", "600");
+    }
+
+    &.active{
+      background-color: map-deep-get($theme-colors, "dark", "600");
+    }
+
+    .main-nav-icon{
+      width: 2rem;
+      font-size: 1.2rem;
+    }
+  }
+}
+
