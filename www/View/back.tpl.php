@@ -10,8 +10,9 @@
     <body id="body-back">
         <header id="main-header" class="bg-primary">
             <h1>Wikicat</h1>
-            <div id="user">
-
+            <div class="user">
+                <span class="user-name">Picon Daniel</span>
+                <img class="user-image" src="../Assets/Images/user.jpg" alt="user profil image">
             </div>
         </header>
         <div class="row">

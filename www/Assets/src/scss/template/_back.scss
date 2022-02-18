@@ -4,15 +4,31 @@
 }
 
 #main-header{
-  height: 48px;
+  height: 56px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   box-shadow: 0 7px 9px rgba(0, 0, 0, 0.25);
+  padding: 0 1rem;
+
+  .user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .user-image{
+      height: 40px;
+      border-radius: 500px;
+      cursor: pointer;
+    }
+    .user-name{
+      padding: 0 1rem;
+    }
+  }
 }
 
 #main-nav{
   background-color: map-deep-get($theme-colors, "dark", "700");
-  height: calc(100vh - 48px);
+  height: calc(100vh - 56px);
   border-right: solid 1px map-deep-get($theme-colors, "dark", "500");
 
   .main-nav-choice{
@@ -23,15 +39,25 @@
     align-items: center;
     color : white;
     text-decoration: none;
-    transition: background-color .3s;
+    transition: background-color .3s, border-color .3s;
     padding: 10px 1.5rem;
+    border-left: 5px solid;
+    border-image: none;
+    border-left-color: map-deep-get($theme-colors, "dark", "700");
+
+    &:not(:last-child){
+      border-bottom: 1px solid map-deep-get($theme-colors, "dark", "500");
+    }
 
     &:hover{
       background-color: map-deep-get($theme-colors, "dark", "600");
+      border-left-color: map-deep-get($theme-colors, "dark", "600");
     }
 
     &.active{
       background-color: map-deep-get($theme-colors, "dark", "600");
+      border-left: solid 5px map-deep-get($theme-colors, "primary", "800");
+      border-image: linear-gradient(to right, map-deep-get($theme-colors, "secondary", "800"), map-deep-get($theme-colors, "primary", "800")) 1 100%;
     }
 
     .main-nav-icon{
