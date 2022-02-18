@@ -10,7 +10,7 @@ class User extends BaseSQL
     protected $login;
     protected $email;
     protected $password;
-    protected $status = null;
+    protected $status = 0;
     protected $token = null;
 
     public function __construct()
@@ -18,8 +18,17 @@ class User extends BaseSQL
         parent::__construct();
     }
 
+    public function updateUserSession(): void{
+        $this->generateToken();
+        $this->save();
+        $_SESSION["connectedUser"]["id"] = $this->getId();
+        $_SESSION["connectedUser"]["login"] = $this->getLogin();
+        $_SESSION["connectedUser"]["email"] = $this->getEmail();
+        $_SESSION["connectedUser"]["token"] = $this->getToken();
+    }
+
     public function getByEmail($email): ?object{
-        return parent::getFromValue($email, "email");
+        return parent::getFromValue(strtolower(trim($email)), "email");
     }
 
     /**
@@ -111,12 +120,14 @@ class User extends BaseSQL
         $this->token = str_shuffle(md5(uniqid()));
     }
 
+    public function clearToken(): void{
+        $this->token = null;
+    }
 
     public function save()
     {
         parent::save();
     }
-
 
     public function getFormRegister(): array
     {
@@ -127,37 +138,36 @@ class User extends BaseSQL
                 "submit"=>"S'inscrire"
             ],
             "inputs"=>[
-                    "login"=>[
-                        "type"=>"text",
-                        "placeholder"=>"Pseudonyme",
-                        "id"=>"loginRegister",
-                        "class"=>"inputRegister",
-                        "required"=>true,
-                        "error"=>"Pseudonyme invalide"
-                    ],
-                    "email"=>[
-                        "type"=>"email",
-                        "placeholder"=>"Votre email ...",
-                        "id"=>"emailRegister",
-                        "class"=>"inputRegister",
-                        "required"=>true,
-                        "error"=>"Email incorrect",
-                        "unicity"=>true,
-                        "errorUnicity"=>"Email existe déjà en bdd"
-                    ],
-                    "password"=>[
-                        "type"=>"password",
-                        "placeholder"=>"Votre mot de passe ...",
-                        "id"=>"pwdRegister",
-                        "class"=>"inputRegister",
-                        "required"=>true,
-                        "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
-                    ],
-                ]
+                "login"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Pseudonyme",
+                    "id"=>"loginRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Pseudonyme invalide"
+                ],
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "id"=>"emailRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Email incorrect",
+                    "unicity"=>true,
+                    "errorUnicity"=>"Email existe déjà en bdd"
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "id"=>"pwdRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
 
         ];
     }
-
 
     public function getFormLogin(): array
     {
@@ -184,6 +194,65 @@ class User extends BaseSQL
                 ]
             ]
 
+        ];
+    }
+    public function getLoginUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre Pseudo"
+            ],
+            "inputs"=>[
+                "login"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Pseudonyme",
+                    "id"=>"loginRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Pseudonyme invalide"
+                ]
+            ]
+        ];
+    }
+    public function getEmailUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre mail"
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "id"=>"emailRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                ],
+            ]
+        ];
+    }
+    public function getPasswordUpdate(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mettre à jour votre mdp"
+            ],
+            "inputs"=>[
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "id"=>"pwdRegister",
+                    "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
         ];
     }
 }

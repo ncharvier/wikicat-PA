@@ -31,7 +31,7 @@ class View
     {
         if(!file_exists("View/Partial/".$name.".partial.php"))
         {
-            die("partial ".$name." 404");
+            die("Partial ".$name." 404");
         }
         include "View/Partial/".$name.".partial.php";
     }
