@@ -1,0 +1,61 @@
+.container{
+  display: flex;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-fluid{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 98%;
+}
+
+@each $breakName, $breakValue in $breakpoints{
+  .container-#{$breakName}{
+    display: flex;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (min-width: $breakValue){
+    .container-#{$breakName}{
+      max-width: map-get($container-max-widths, $breakName);
+    }
+  }
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col{
+  flex: 1 0 0%;
+  min-width: calc(100%/12);
+  padding: 10px;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i}{
+    width: #{100%/12 * $i};
+    padding: 10px;
+  }
+}
+
+@each $breakName, $breakValue in $breakpoints{
+  @for $i from 1 through 12 {
+    .col-#{$breakName}-#{$i}{
+      min-width: calc(100%/12);
+      padding: 10px;
+    }
+
+    @media screen and (min-width: $breakValue){
+      .col-#{$breakName}-#{$i} {
+        width: #{100%/12 * $i} !important;
+      }
+    }
+  }
+}
