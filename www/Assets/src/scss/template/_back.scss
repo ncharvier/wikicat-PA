@@ -66,6 +66,12 @@
       border-image: linear-gradient(to right, map-deep-get($theme-colors, "secondary", "800"), map-deep-get($theme-colors, "primary", "800")) 1 100%;
     }
 
+    .subchoice-indicator{
+      position: relative;
+      right: 0;
+      margin: auto 0.6rem;
+    }
+
     .main-nav-icon{
       width: 2rem;
       font-size: 1.2rem;

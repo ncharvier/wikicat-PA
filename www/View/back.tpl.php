@@ -20,19 +20,20 @@
             <nav id="main-nav" class="col-2 p-0">
                 <a href="#" class="main-nav-choice active">
                     <span class="main-nav-icon"><i class="fas fa-chart-line"></i></span>
-                    Dashboard
+                    <span class="main-nav-title">Dashboard</span>
                 </a>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-users"></i></span>
-                    Utilisateurs
+                    <span class="main-nav-title">Utilisateurs</span>
                 </a>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-key"></i></span>
-                    Rôles
+                    <span class="main-nav-title">Rôles</span>
                 </a>
                 <div class="main-nav-choice" data-wc-target="main-nav-subchoice-page">
                     <span class="main-nav-icon"><i class="fas fa-file"></i></span>
-                    Pages
+                    <span class="main-nav-title">Pages</span>
+                    <i class="fas fa-chevron-down subchoice-indicator"></i>
                 </div>
                 <div class="main-nav-subchoices" id="main-nav-subchoice-page">
                     <a href="#" class="main-nav-subchoice">Liste pages</a>
@@ -40,19 +41,19 @@
                 </div>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-comments"></i></span>
-                    Commentaires
+                    <span class="main-nav-title">Commentaires</span>
                 </a>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-paint-roller"></i></span>
-                    Apparence
+                    <span class="main-nav-title">Apparence</span>
                 </a>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
-                    Plugins
+                    <span class="main-nav-title">Plugins</span>
                 </a>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-cogs"></i></span>
-                    Paramètres
+                    <span class="main-nav-title">Paramètres</span>
                 </a>
             </nav>
             <main class="col">
