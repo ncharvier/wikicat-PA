@@ -15,6 +15,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .user-notification{
+      cursor: pointer;
+    }
+
     .user-image{
       height: 40px;
       border-radius: 500px;
@@ -32,6 +37,7 @@
   border-right: solid 1px map-deep-get($theme-colors, "dark", "500");
 
   .main-nav-choice{
+    cursor: pointer;
     background-color: map-deep-get($theme-colors, "dark", "700");
     height: 60px;
     width: 100%;
@@ -63,6 +69,23 @@
     .main-nav-icon{
       width: 2rem;
       font-size: 1.2rem;
+    }
+  }
+
+  .main-nav-subchoices{
+    display: none;
+    .main-nav-subchoice{
+      cursor: pointer;
+      background-color: map-deep-get($theme-colors, "dark", "500");
+      height: 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color : white;
+      text-decoration: none;
+      padding: 0.2rem 2rem;
+      transition: background-color .3s, border-color .3s;
+      border-bottom: 1px solid map-deep-get($theme-colors, "dark", "400");
     }
   }
 }

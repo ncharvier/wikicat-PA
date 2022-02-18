@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Template de back</title>
+        <title><?=$pageTitle??"Administration"?></title>
         <meta name="description" content="ceci est la description de ma page">
         <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
         <link rel="stylesheet" href="../Assets/dist/main.css">
@@ -11,6 +11,7 @@
         <header id="main-header" class="bg-primary">
             <h1>Wikicat</h1>
             <div class="user">
+                <span class="user-notification"><i class="fas fa-bell"></i></span>
                 <span class="user-name">Picon Daniel</span>
                 <img class="user-image" src="../Assets/Images/user.jpg" alt="user profil image">
             </div>
@@ -29,10 +30,14 @@
                     <span class="main-nav-icon"><i class="fas fa-key"></i></span>
                     Rôles
                 </a>
-                <a href="#" class="main-nav-choice">
+                <div class="main-nav-choice" data-wc-target="main-nav-subchoice-page">
                     <span class="main-nav-icon"><i class="fas fa-file"></i></span>
                     Pages
-                </a>
+                </div>
+                <div class="main-nav-subchoices" id="main-nav-subchoice-page">
+                    <a href="#" class="main-nav-subchoice">Liste pages</a>
+                    <a href="#" class="main-nav-subchoice">Templates</a>
+                </div>
                 <a href="#" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-comments"></i></span>
                     Commentaires
@@ -55,4 +60,7 @@
             </main>
         </div>
     </body>
+
+    <script src="../Assets/Js/Jquery.js"></script>
+    <script src="../Assets/Js/Back-tpl-script.js"></script>
 </html>
