@@ -13,30 +13,30 @@ services:
     depends_on:
      - database
 
-  #database:
-  #  #platform: linux/x86_64
-  #  image: mysql:5.7
-  #  container_name: mysql-mvc
-  #  ports :
-  #    - "3306:3306"
-  #  environment:
-  #    MYSQL_DATABASE: mvcdocker2
-  #    MYSQL_ROOT_PASSWORD: password
-  #    #MYSQL_USER: root
-  #    MYSQL_PASSWORD: password
-  #  volumes:
-  #    - ./db_data:/var/lib/mysql
-  #  restart: always
+  database:
+    #platform: linux/x86_64
+    image: mysql:5.7
+    container_name: mysql-mvc
+    ports :
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: mvcdocker2
+      MYSQL_ROOT_PASSWORD: password
+      #MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
 
-  #phpmyadmin:
-  #  image: phpmyadmin/phpmyadmin:latest
-  #  container_name: phpmyadmin-mvc
-  #  depends_on:
-  #    - database
-  #  ports:
-  #    - 8888:80
-  #  environment:
-  #      - PMA_ARBITRARY=1
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-mvc
+    depends_on:
+      - database
+    ports:
+      - 8888:80
+    environment:
+        - PMA_ARBITRARY=1
 
       
       
