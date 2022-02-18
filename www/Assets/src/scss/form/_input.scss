@@ -86,7 +86,7 @@
     color: map-get(map-get($theme-colors, "primary"), "800");
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid map-get(map-get($theme-colors, "secondary"), "700");
+    border: 0.15em solid map-get(map-get($theme-colors, "grey"), "700");
     border-radius: 0.2em;
     transform: translateY(-0.075em);
     display: grid;
@@ -111,10 +111,10 @@
     }
 
     &:disabled {
-      color: map-get(map-get($theme-colors, "secondary"), "300");
+      color: map-get(map-get($theme-colors, "grey"), "300");
       width: 1.15em;
       height: 1.15em;
-      border: 0.15em solid map-get(map-get($theme-colors, "secondary"), "300");
+      border: 0.15em solid map-get(map-get($theme-colors, "grey"), "300");
     }
   }
 
@@ -126,7 +126,7 @@
     color: map-get(map-get($theme-colors, "primary"), "800");
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid map-get(map-get($theme-colors, "secondary"), "700");
+    border: 0.15em solid map-get(map-get($theme-colors, "grey"), "700");
     border-radius: 50em;
     transform: translateY(-0.075em);
     display: grid;
@@ -149,10 +149,10 @@
     }
 
     &:disabled {
-      color: map-get(map-get($theme-colors, "secondary"), "300");
+      color: map-get(map-get($theme-colors, "grey"), "300");
       width: 1.15em;
       height: 1.15em;
-      border: 0.15em solid map-get(map-get($theme-colors, "secondary"), "300");
+      border: 0.15em solid map-get(map-get($theme-colors, "grey"), "300");
     }
   }
 

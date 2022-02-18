@@ -25,7 +25,7 @@
 }
 
 @for $i from 0 through 10 {
-  .p-#{$i}{
+  .p-#{$i} {
     padding: #{$i * .5}rem !important;
   }
 }
