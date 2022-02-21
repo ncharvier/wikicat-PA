@@ -1,0 +1,5 @@
+@each $i in none, inline, block, inline-block, flex, inline-flex, grid, table, table-cell, table-row{
+  .d-#{$i}{
+    display: #{$i} !important;
+  }
+}

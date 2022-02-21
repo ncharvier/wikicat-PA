@@ -11,3 +11,25 @@
   padding-left: 0.6em;
   padding-right: 0.6em;
 }
+
+@each $color-name, $color-set in $theme-colors {
+  .badge--#{$color-name}{
+    border: solid map-get($color-set, "800") 2px;
+    background-color: map-get($color-set, "800");
+    &:hover{
+      background-color: map-get($color-set, "500");
+      border: solid map-get($color-set, "500") 2px;
+    }
+  }
+
+  .badge--outline-#{$color-name} {
+    border: solid map-get($color-set, "800") 2px;
+    background-color: transparent;
+    color: map-get($color-set, "800");
+
+    &:hover {
+      background-color: map-get($color-set, "800");
+      color: #fff;
+    }
+  }
+}

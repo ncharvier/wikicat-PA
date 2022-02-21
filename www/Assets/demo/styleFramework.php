@@ -22,11 +22,14 @@
             include_once "Components/Buttons.php";
             include_once "Components/Card.php";
             include_once "Components/Badges.php";
+            include_once "Components/Spinners.php";
 
 
             echo "<h2>Utils</h2>";
 
             include_once "Utils/Spacing.php";
+            include_once "Utils/Display.php";
+            include_once "Utils/Overflow.php";
         ?>
     </body>
 </html>
