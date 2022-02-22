@@ -7,12 +7,12 @@ ul, .tree {
     padding: 0;
 }
 
-.tree-title {
+.tree-arrow {
     cursor: pointer;
     user-select: none;
 }
 
-.tree-title::before {
+.tree-arrow::before {
     content: "\25B6";
     color: black;
     display: inline-block;
