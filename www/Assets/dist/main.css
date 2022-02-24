@@ -1653,75 +1653,76 @@
 #body-back {
   background-color: #13171E;
   color: #fff; }
-
-#main-header {
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 7px 9px rgba(0, 0, 0, 0.25);
-  padding: 0 1rem; }
-  #main-header .user {
+  #body-back #main-header {
+    height: 56px;
     display: flex;
     align-items: center;
-    justify-content: space-between; }
-    #main-header .user .user-notification {
-      cursor: pointer; }
-    #main-header .user .user-image {
-      height: 40px;
-      border-radius: 500px;
-      cursor: pointer; }
-    #main-header .user .user-name {
-      padding: 0 1rem; }
-
-#main-nav {
-  background-color: #1A1F28;
-  height: calc(100vh - 56px);
-  border-right: solid 1px #252B35; }
-  #main-nav .main-nav-choice {
-    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: 0 7px 9px rgba(0, 0, 0, 0.25);
+    padding: 0 1rem; }
+    #body-back #main-header .user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      #body-back #main-header .user .user-notification {
+        cursor: pointer; }
+      #body-back #main-header .user .user-image {
+        height: 40px;
+        border-radius: 500px;
+        cursor: pointer; }
+      #body-back #main-header .user .user-name {
+        padding: 0 1rem; }
+  #body-back #main-nav {
     background-color: #1A1F28;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    transition: background-color .3s, border-color .3s;
-    padding: 10px 1.5rem;
-    border-left: 5px solid;
-    border-image: none;
-    border-left-color: #1A1F28; }
-    #main-nav .main-nav-choice:not(:last-child) {
-      border-bottom: 1px solid #252B35; }
-    #main-nav .main-nav-choice:hover {
-      background-color: #222731;
-      border-left-color: #222731; }
-    #main-nav .main-nav-choice.active {
-      background-color: #222731;
-      border-left: solid 5px #5F56CC;
-      border-image: linear-gradient(to right, #C850C0, #5F56CC) 1 100%; }
-    #main-nav .main-nav-choice .subchoice-indicator {
-      position: relative;
-      right: 0;
-      margin: auto 0.6rem; }
-    #main-nav .main-nav-choice .main-nav-icon {
-      width: 2rem;
-      font-size: 1.2rem; }
-  #main-nav .main-nav-subchoices {
-    display: none; }
-    #main-nav .main-nav-subchoices .main-nav-subchoice {
+    height: calc(100vh - 56px);
+    border-right: solid 1px #252B35; }
+    #body-back #main-nav .main-nav-choice {
       cursor: pointer;
-      background-color: #252B35;
-      height: 32px;
+      background-color: #1A1F28;
+      height: 60px;
       width: 100%;
       display: flex;
       align-items: center;
       color: white;
       text-decoration: none;
-      padding: 0.2rem 2rem;
       transition: background-color .3s, border-color .3s;
-      border-bottom: 1px solid #323441; }
+      padding: 10px 1.5rem;
+      border-left: 5px solid;
+      border-image: none;
+      border-left-color: #1A1F28; }
+      #body-back #main-nav .main-nav-choice:not(:last-child) {
+        border-bottom: 1px solid #252B35; }
+      #body-back #main-nav .main-nav-choice:hover {
+        background-color: #222731;
+        border-left-color: #222731; }
+      #body-back #main-nav .main-nav-choice.active {
+        background-color: #222731;
+        border-left: solid 5px #5F56CC;
+        border-image: linear-gradient(to right, #C850C0, #5F56CC) 1 100%; }
+      #body-back #main-nav .main-nav-choice .subchoice-indicator {
+        position: relative;
+        right: 0;
+        margin: auto 0.6rem; }
+      #body-back #main-nav .main-nav-choice .main-nav-icon {
+        width: 2rem;
+        font-size: 1.2rem; }
+    #body-back #main-nav .main-nav-subchoices {
+      display: none; }
+      #body-back #main-nav .main-nav-subchoices .main-nav-subchoice {
+        cursor: pointer;
+        background-color: #252B35;
+        height: 32px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        padding: 0.2rem 2rem;
+        transition: background-color .3s, border-color .3s;
+        border-bottom: 1px solid #323441; }
+  #body-back .main-section {
+    background-color: #13171E;
+    border-radius: 5px; }
 
 * {
   box-sizing: border-box; }
