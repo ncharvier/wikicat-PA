@@ -1721,8 +1721,11 @@
         transition: background-color .3s, border-color .3s;
         border-bottom: 1px solid #323441; }
   #body-back .main-section {
-    background-color: #13171E;
-    border-radius: 5px; }
+    background-color: #1A1F28;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); }
 
 * {
   box-sizing: border-box; }
