@@ -1,0 +1,66 @@
+ul, .tree {
+    list-style-type: none;
+    padding: 0 20px;
+} 
+
+.tree {
+    margin: 0;
+    padding: 0;
+
+    > li::before {
+        border-left: none !important;
+        border-bottom: none !important;
+    }
+
+    li {
+        margin: 0;
+        padding: 0 7px;
+        line-height: 20px;
+        border-left:1px solid rgb(100,100,100);
+    }
+
+    li:before {
+        position:relative;
+        top:-0.3em;
+        height:1em;
+        width:12px;
+        color:white;
+        border-bottom:1px solid rgb(100,100,100);
+        content:"";
+        display:inline-block;
+        left:-7px;
+    }
+
+    li:last-child {
+        border-left:none;
+    }
+
+    li:last-child:before {
+        border-left:1px solid rgb(100,100,100);   
+    }
+}
+
+
+.tree-arrow {
+    cursor: pointer;
+    user-select: none;
+}
+
+.tree-arrow::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.tree-down::before {
+    transform: rotate(90deg);
+}
+
+.tree-nested {
+    display: none;
+}
+
+.active {
+    display: block;
+}

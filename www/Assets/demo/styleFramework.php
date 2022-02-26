@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <script src="../js/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="../js/tree.js"></script>
         <link href="../dist/main.css" rel="stylesheet">
     </head>
     <body>
@@ -23,9 +25,10 @@
             include_once "Components/Card.php";
             include_once "Components/Badges.php";
             include_once "Components/Spinners.php";
-
+            include_once "Components/Tree.php";
             include_once "Components/Tables.php";
             include_once "Components/Chart.php";
+            include_once "Components/Progress.php";
 
             echo "<h2>Utils</h2>";
 
