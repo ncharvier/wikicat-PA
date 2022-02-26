@@ -1,0 +1,26 @@
+.progress, .progress-bar {
+    border-radius: 55px;
+}
+
+.progress {
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    background-color: #222731;
+    border: 1px solid #3F4756;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
+@each $color-name, $color-set in $theme-colors {
+    .progress--#{$color-name} {
+        background-color: map-get($color-set, "800");
+    }
+    .progress--degradee-#{$color-name} {
+        background: linear-gradient(90deg, map-get($color-set, "300") 0%, map-get($color-set, "800") 100%);
+    }
+}
