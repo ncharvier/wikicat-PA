@@ -25,6 +25,7 @@
             include_once "Components/Spinners.php";
 
             include_once "Components/Tables.php";
+            include_once "Components/Chart.php";
 
             echo "<h2>Utils</h2>";
 
