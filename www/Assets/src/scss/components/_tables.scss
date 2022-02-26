@@ -1,0 +1,25 @@
+.table{
+  border-collapse: collapse;
+}
+
+.table--dark{
+  background-color: #222222;
+  color: white;
+}
+
+thead{
+  border-bottom: 0.1em solid white;
+}
+.table-row{
+  border-bottom: 1px solid #3F4756;
+}
+td,th {
+  padding: 0.4rem 1.2rem;
+}
+th{
+  font-size: 1.2rem;
+}
+
+tbody tr:hover {
+  background-color: rgba(50, 50, 50, 0.8);
+}

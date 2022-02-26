@@ -1,0 +1,6 @@
+@each $i in auto, hidden, visible, scroll{
+  .overflow-#{$i}{
+    overflow: #{$i} !important;
+  }
+}
+
