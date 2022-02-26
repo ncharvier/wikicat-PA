@@ -19,6 +19,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   @media screen and (min-width: $breakValue){
     .container-#{$breakName}{
       max-width: map-get($container-max-widths, $breakName);

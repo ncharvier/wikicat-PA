@@ -1,13 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Template de back</title>
-    <meta name="description" content="ceci est la description de ma page">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title><?=$pageTitle??"Administration"?></title>
+        <meta name="description" content="ceci est la description de ma page">
+        <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
+        <link rel="stylesheet" href="../Assets/dist/main.css">
+    </head>
+    <body id="body-back">
+        <header id="main-header" class="bg-primary">
+            <h1>Wikicat</h1>
+            <div class="user">
+                <span class="user-notification"><i class="fas fa-bell"></i></span>
+                <span class="user-name">Picon Daniel</span>
+                <img class="user-image" src="../Assets/Images/user.jpg" alt="user profil image">
+            </div>
+        </header>
+        <div class="row">
+            <nav id="main-nav" class="col-2 p-0">
+                <a href="#" class="main-nav-choice active">
+                    <span class="main-nav-icon"><i class="fas fa-chart-line"></i></span>
+                    <span class="main-nav-title">Dashboard</span>
+                </a>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-users"></i></span>
+                    <span class="main-nav-title">Utilisateurs</span>
+                </a>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-key"></i></span>
+                    <span class="main-nav-title">Rôles</span>
+                </a>
+                <div class="main-nav-choice" data-wc-target="main-nav-subchoice-page">
+                    <span class="main-nav-icon"><i class="fas fa-file"></i></span>
+                    <span class="main-nav-title">Pages</span>
+                    <i class="fas fa-chevron-down subchoice-indicator"></i>
+                </div>
+                <div class="main-nav-subchoices" id="main-nav-subchoice-page">
+                    <a href="#" class="main-nav-subchoice">Liste pages</a>
+                    <a href="#" class="main-nav-subchoice">Templates</a>
+                </div>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-comments"></i></span>
+                    <span class="main-nav-title">Commentaires</span>
+                </a>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-paint-roller"></i></span>
+                    <span class="main-nav-title">Apparence</span>
+                </a>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
+                    <span class="main-nav-title">Plugins</span>
+                </a>
+                <a href="#" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-cogs"></i></span>
+                    <span class="main-nav-title">Paramètres</span>
+                </a>
+            </nav>
+            <main class="col">
+                <?php include $this->view.".view.php";?>
+            </main>
+        </div>
+    </body>
 
-<?php include $this->view.".view.php";?>
-
-</body>
+    <script src="../Assets/Js/Jquery.js"></script>
+    <script src="../Assets/Js/Back-tpl-script.js"></script>
 </html>
