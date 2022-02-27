@@ -62,8 +62,8 @@
         </div>
     </body>
 
-    <script src="../Assets/Js/Jquery.js"></script>
-    <script src="../Assets/Js/Back-tpl-script.js"></script>
+    <script src="../Assets/js/Jquery.js"></script>
+    <script src="../Assets/js/Back-tpl-script.js"></script>
     <script src="../Assets/webpack/node_modules/chart.js/dist/chart.js"></script>
-    <script src="../Assets/Js/chartCanvas.js"></script>
+    <script src="../Assets/js/chartCanvas.js"></script>
 </html>

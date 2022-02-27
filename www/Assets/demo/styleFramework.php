@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
-        <script src="../js/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link href="../dist/main.css" rel="stylesheet">
+        <script src="../js/jquery.js" crossorigin="anonymous"></script>
         <script src="../js/tree.js"></script>
         <script src="../js/modal.js"></script>
-        <link href="../dist/main.css" rel="stylesheet">
     </head>
     <body>
         <?php
