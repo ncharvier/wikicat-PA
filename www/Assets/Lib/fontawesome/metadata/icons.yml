@@ -10682,7 +10682,7 @@ images:
     - '1'
     - 5.0.0
     - 5.10.1
-  label: Images
+  label: images
   search:
     terms:
       - album

@@ -1192,7 +1192,7 @@ images:
     - sliders-h
     - tint
     - unsplash
-  label: Images
+  label: images
 interfaces:
   icons:
     - award

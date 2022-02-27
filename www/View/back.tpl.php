@@ -13,7 +13,7 @@
             <div class="user">
                 <span class="user-notification"><i class="fas fa-bell"></i></span>
                 <span class="user-name">Picon Daniel</span>
-                <img class="user-image" src="../Assets/Images/user.jpg" alt="user profil image">
+                <img class="user-image" src="../Assets/images/user.jpg" alt="user profil image">
             </div>
         </header>
         <div class="row">
