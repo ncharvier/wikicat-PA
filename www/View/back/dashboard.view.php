@@ -4,17 +4,21 @@
             <section>
                 <h2>Statistique utilisateur :</h2>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 my-1">
                         <i class="fas fa-user-friends"></i>
+                        <div class="badge badge--pill badge--success ml-3"> + 159</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 my-1">
                         <i class="fas fa-user-plus"></i>
+                        <div class="badge badge--pill badge--success ml-3"> + 59</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 my-1">
                         <i class="fas fa-comment"></i>
+                        <div class="badge badge--pill badge--warning ml-3"> + 6</div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 my-1">
                         <i class="fas fa-comment-slash"></i>
+                        <div class="badge badge--pill badge--danger ml-3"> + 63</div>
                     </div>
                 </div>
             </section>
