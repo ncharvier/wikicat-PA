@@ -18,15 +18,15 @@
         </header>
         <div class="row">
             <nav id="main-nav" class="col-2 p-0">
-                <a href="#" class="main-nav-choice active">
+                <a href="/admin/dashboard" class="main-nav-choice active">
                     <span class="main-nav-icon"><i class="fas fa-chart-line"></i></span>
                     <span class="main-nav-title">Dashboard</span>
                 </a>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/user" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-users"></i></span>
                     <span class="main-nav-title">Utilisateurs</span>
                 </a>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/role" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-key"></i></span>
                     <span class="main-nav-title">Rôles</span>
                 </a>
@@ -36,22 +36,22 @@
                     <i class="fas fa-chevron-down subchoice-indicator"></i>
                 </div>
                 <div class="main-nav-subchoices" id="main-nav-subchoice-page">
-                    <a href="#" class="main-nav-subchoice">Liste pages</a>
-                    <a href="#" class="main-nav-subchoice">Templates</a>
+                    <a href="/admin/pageList" class="main-nav-subchoice">Liste pages</a>
+                    <a href="/admin/pageTemplate" class="main-nav-subchoice">Templates</a>
                 </div>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/comment" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-comments"></i></span>
                     <span class="main-nav-title">Commentaires</span>
                 </a>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/visualSetting" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-paint-roller"></i></span>
                     <span class="main-nav-title">Apparence</span>
                 </a>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/plugin" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-puzzle-piece"></i></span>
                     <span class="main-nav-title">Plugins</span>
                 </a>
-                <a href="#" class="main-nav-choice">
+                <a href="/admin/globalSetting" class="main-nav-choice">
                     <span class="main-nav-icon"><i class="fas fa-cogs"></i></span>
                     <span class="main-nav-title">Paramètres</span>
                 </a>
