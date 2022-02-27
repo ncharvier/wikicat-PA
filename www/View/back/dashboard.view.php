@@ -2,7 +2,7 @@
     <div class="col-6 p-0">
         <section class="main-section">
             <section>
-                <h2>Statistique utilisateur :</h2>
+                <h2>Statistiques utilisateur :</h2>
                 <div class="row">
                     <div class="col-6 my-1">
                         <i class="fas fa-user-friends"></i>
@@ -25,7 +25,7 @@
             <hr>
             <section>
                 <h2>Historique des visites :</h2>
-
+                <canvas id="dashboardChart" width="400" height="300"></canvas>
             </section>
         </section>
     </div>
@@ -52,6 +52,5 @@
         </section>
     </div>
 </div>
-
 
 
