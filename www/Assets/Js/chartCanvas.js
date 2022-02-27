@@ -18,14 +18,22 @@ const myChart = new Chart(ctx, {
     options: {
         plugins: {
             legend: {
+                color: "#FFF",
                 display:false
             },
         },
         scales: {
             y: {
-                beginAtZero: true
-                }
+                ticks: {
+                    color: "#FFF",
+                    beginAtZero: true
+                },
+            },
+            x: {
+                ticks: {
+                    color: "#FFF",
+                },
             }
-        }
+        },
     }
-);
+});
