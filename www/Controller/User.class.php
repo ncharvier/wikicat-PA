@@ -77,13 +77,12 @@ class User{
                 $user->setLogin($_POST["login"]);
                 $user->setEmail($_POST["email"]);
                 $user->setPassword($_POST["password"]);
-
-                $user->save();
+                $user->generateValidationToken();
 
                 $mailer = PHPMailerManager::getInstance();
-                echo $mailer->send('tshadow42@gmail.com', 'email de test', 'je suis un email de test');
+                echo $mailer->send('tshadow42@gmail.com', 'email de test', "je suis un email de test <a href='" . ROOT_URL . "/valideAccount?token='". $user->getValidationToken() ."></a>");
 
-
+                $user->save();
 
                 header('Location: /login');
             }
@@ -93,6 +92,12 @@ class User{
         $view = new View("register");
         $view->assign("user",$user);
     }
+
+    public function valideAccount()
+    {
+        print_r($_GET);
+    }
+
     public function accountUpdate()
     {
         if(AccessManager::isLogged()){
@@ -129,6 +134,5 @@ class User{
         }else{
             echo 'Error';
         }
-
     }
 }

@@ -15,3 +15,5 @@ define("MAILSECURE", "ssl");
 define("MAILUSERNAME", "wikicat.org@gmail.com");
 define("MAILPWD", ".?q@9I)+r&'?QA`ohX<,");
 define('MAILNAME', 'Wikicat Org');
+
+define("ROOT_URL", "localhost");

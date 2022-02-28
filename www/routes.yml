@@ -16,7 +16,11 @@
 
 /logout:
   controller: user
-  action : logout
+  action: logout
+
+/valideAccount:
+  controller: user
+  action: valideAccount
 
 /page404:
   controller: error

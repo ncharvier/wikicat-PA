@@ -11,7 +11,7 @@ class User extends BaseSQL
     protected $email;
     protected $password;
     protected $status = 0;
-    protected $token = null;
+    protected $connectionToken = null;
     protected $validationToken = null;
     protected $passwordForgetToken = null;
 
@@ -26,7 +26,7 @@ class User extends BaseSQL
         $_SESSION["connectedUser"]["id"] = $this->getId();
         $_SESSION["connectedUser"]["login"] = $this->getLogin();
         $_SESSION["connectedUser"]["email"] = $this->getEmail();
-        $_SESSION["connectedUser"]["token"] = $this->getToken();
+        $_SESSION["connectedUser"]["token"] = $this->getConnectionToken();
     }
 
     public function getByEmail($email): ?object{
@@ -106,24 +106,60 @@ class User extends BaseSQL
     }
 
     /**
-     * @return null
+     * @return string
      */
-    public function getToken(): ?string
+    public function getConnectionToken(): ?string
     {
-        return $this->token;
+        return $this->connectionToken;
     }
 
     /**
-     * @param null
+     * @return string
+     */
+    public function getValidationToken(): ?string
+    {
+        return $this->validationToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordForgetToken(): ?string
+    {
+        return $this->passwordForgetToken;
+    }
+
+    /**
+     * @param string
      * Token char 32
      */
-    public function generateToken(): void
+    private function generateToken(): string
     {
-        $this->token = str_shuffle(md5(uniqid()));
+        return str_shuffle(md5(uniqid()));
+    }
+
+    public function generateConnectionToken(): void{
+        $this->connectionToken = $this->generateToken();
+    }
+
+    public function generatePasswordForgetToken(): void{
+        $this->passwordForgetToken = $this->generateToken();
+    }
+
+    public function generateValidationToken(): void{
+        $this->validationToken = $this->generateToken();
+    }
+
+    public function clearConnectionToken(): void{
+        $this->connectionToken = null;
+    }
+
+    public function clearValidationToken(): void{
+        $this->validationToken = null;
     }
 
     public function clearToken(): void{
-        $this->token = null;
+        $this->connectionToken = null;
     }
 
     public function save()
