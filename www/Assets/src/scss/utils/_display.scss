@@ -1,0 +1,31 @@
+@each $i in none, inline, block, inline-block, flex, inline-flex, grid, table, table-cell, table-row{
+  .d-#{$i}{
+    display: #{$i} !important;
+  }
+}
+
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+@each $i in flex-start, flex-end, center, space-between, space-around, space-evenly{
+  .justify-content-#{$i}{
+    justify-content: $i;
+  }
+}
+
+@each $i in flex-start, flex-end, center, baseline, stretch{
+  .align-items-#{$i}{
+    align-items: $i;
+  }
+}
+
+@each $i in flex-start, flex-end, center, start, end, space-between, space-around, space-evenly{
+  .align-content-#{$i}{
+    align-content: $i;
+  }
+}

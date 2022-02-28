@@ -25,3 +25,39 @@
 /page500:
   controller: error
   action: page500
+
+/admin/dashboard:
+  controller: admin
+  action: dashboard
+
+/admin/user:
+  controller: admin
+  action: user
+
+/admin/role:
+  controller: admin
+  action: role
+
+/admin/pageList:
+  controller: admin
+  action: pageList
+
+/admin/pageTemplate:
+  controller: admin
+  action: pageTemplate
+
+/admin/comment:
+  controller: admin
+  action: comment
+
+/admin/visualSetting:
+  controller: admin
+  action: visualSetting
+
+/admin/plugin:
+  controller: admin
+  action: plugin
+
+/admin/globalSetting:
+  controller: admin
+  action: globalSetting

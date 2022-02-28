@@ -1,0 +1,35 @@
+.badge{
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  font-size: 75%;
+  text-align: center;
+  border-radius: 0.2em;
+}
+
+.badge--pill{
+  border-radius: 100px;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
+@each $color-name, $color-set in $theme-colors {
+  .badge--#{$color-name}{
+    border: solid map-get($color-set, "800") 2px;
+    background-color: map-get($color-set, "800");
+    &:hover{
+      background-color: map-get($color-set, "500");
+      border: solid map-get($color-set, "500") 2px;
+    }
+  }
+
+  .badge--outline-#{$color-name} {
+    border: solid map-get($color-set, "800") 2px;
+    background-color: transparent;
+    color: map-get($color-set, "800");
+
+    &:hover {
+      background-color: map-get($color-set, "800");
+      color: #fff;
+    }
+  }
+}
