@@ -80,7 +80,7 @@ class User{
                 $user->generateValidationToken();
 
                 $mailer = PHPMailerManager::getInstance();
-                echo $mailer->send('tshadow42@gmail.com', 'email de test', "je suis un email de test <a href='" . ROOT_URL . "/valideAccount?token='". $user->getValidationToken() ."></a>");
+                echo $mailer->send('tshadow42@gmail.com', 'email de test', "je suis un email de test <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() ."></a>");
 
                 $user->save();
 
@@ -95,7 +95,18 @@ class User{
 
     public function valideAccount()
     {
-        print_r($_GET);
+        if(!empty($_GET["token"]) && !empty($_GET["user"])){
+            $user = new UserModel();
+
+            $user = $user->setId($_GET["user"]);
+
+            if (!empty($user) && ($user->getValidationToken() == $_GET["token"])){
+                echo "lien ok";
+                $user->setStatus(1);
+                $user->clearValidationToken();
+                $user->save();
+            }
+        }
     }
 
     public function accountUpdate()
