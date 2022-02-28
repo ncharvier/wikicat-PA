@@ -21,9 +21,11 @@ echo $retour ? 'email envoyer' : 'erreur';
 
 class PHPMailerManager 
 {
+    private static $instance = null;
+
     private $mail;
 
-    public function __construct()
+    private function __construct()
     {
         $this->mail = new PHPMailer();
         $this->mail->IsSMTP();
@@ -37,6 +39,14 @@ class PHPMailerManager
             $this->mail->Username = MAILUSERNAME;
             $this->mail->Password = MAILPWD;
         }
+    }
+
+    public function getInstance(){
+        if(is_null(self::$instance)){
+            self::$instance = new PHPMailerManager();
+        }
+
+        return self::$instance;
     }
 
     /**
