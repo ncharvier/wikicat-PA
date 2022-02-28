@@ -12,6 +12,8 @@ class User extends BaseSQL
     protected $password;
     protected $status = 0;
     protected $token = null;
+    protected $validationToken = null;
+    protected $passwordForgetToken = null;
 
     public function __construct()
     {

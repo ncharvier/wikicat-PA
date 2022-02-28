@@ -41,7 +41,7 @@ class PHPMailerManager
         }
     }
 
-    public function getInstance(){
+    public static function getInstance(){
         if(is_null(self::$instance)){
             self::$instance = new PHPMailerManager();
         }

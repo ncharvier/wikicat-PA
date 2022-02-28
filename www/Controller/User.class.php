@@ -6,6 +6,7 @@ session_start();
 
 use App\Core\AccessManager;
 use App\Core\BaseSQL;
+use App\Core\PHPMailerManager;
 use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
@@ -78,6 +79,11 @@ class User{
                 $user->setPassword($_POST["password"]);
 
                 $user->save();
+
+                $mailer = PHPMailerManager::getInstance();
+                echo $mailer->send('tshadow42@gmail.com', 'email de test', 'je suis un email de test');
+
+
 
                 header('Location: /login');
             }
