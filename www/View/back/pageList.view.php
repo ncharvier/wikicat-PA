@@ -2,10 +2,12 @@
     <div class="col p-0">
         <section class="main-section">
             <div class="btn-group">
-                <button class="btn btn--light-primary">Mode arborescence</button>
+                <button class="btn btn--outline-primary">Mode arborescence</button>
                 <button class="btn btn--primary">Mode liste</button>
             </div>
-            <input type="text">
+            <div class="form-controller">
+                <input class="form-input-back" type="text" placeholder="Recherche">
+            </div>
             <table class="table table--hover table--dark">
                 <thead>
                 <tr>
