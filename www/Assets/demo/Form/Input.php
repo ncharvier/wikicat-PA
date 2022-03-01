@@ -57,6 +57,12 @@
         <input class="form-radio" type="radio" name="radio2" disabled="disabled">
     </div>
 
+    <div class="form-controller file-group">
+        <div class="input-file">Test</div>
+        <div class="input-file">Test</div>
+        <div class="input-file">Test</div>
+    </div>
+
 
 </div>
 
