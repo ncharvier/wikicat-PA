@@ -70,7 +70,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </section>
     </div>
 </div>
