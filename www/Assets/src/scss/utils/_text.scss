@@ -1,0 +1,11 @@
+@each $color-name, $color-set in $theme-colors {
+  .text-#{$color-name}{
+    color: map-get($color-set, "800");
+  }
+}
+
+@each $i in 100, 200, 300, 400, 500, 600, 700, 800, 900{
+  .text-font-#{$i}{
+    font-weight: $i;
+  }
+}
