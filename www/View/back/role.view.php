@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col p-0">
         <section class="main-section">
-            <input type="text">
+            <div class="form-controller">
+                <input class="form-input-back" type="text" placeholder="Recherche">
+            </div>
             <div class="btn btn--primary d-block">
                 Ajouter un rôle
             </div>
