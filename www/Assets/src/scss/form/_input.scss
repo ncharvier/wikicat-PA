@@ -187,14 +187,13 @@
   }
 
   .upload-icon{
-    background-image: url(../../images/upload-icon.png);
+    background-image: url("../images/upload-icon.png");
   }
 
   .input-file{
     all: unset;
     padding: 0.5em 1.8em;
     margin: 5px;
-    border-radius: 7px;
     color: #FFF;
     font-size: 0.9rem;
     display: inline-block;
@@ -203,23 +202,10 @@
     font-weight: 700;
   }
 
-  .file-group{
+  &.file-group{
     display: inline-flex;
-
-    .input-file{
-      &:not(:last-child) {
-        border-right-width: 1px;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-        margin-right: 0;
-
-      }
-      &:not(:first-child) {
-        border-left-width: 1px;
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-        margin-left: 0;
-      }
-    }
+    background-color: #222731;
+    border: solid 1px #3F4756;
+    width: auto;
   }
 }

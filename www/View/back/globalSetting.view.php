@@ -7,9 +7,12 @@
                 <input class="form-input-back" type="text" placeholder="Nom du site">
             </div>
 
-            <div>
-                <input type="file">
-                <input type="file">
+            <div class="form-controller file-group">
+                <div class="input-file">Logo du site</div>
+            </div>
+
+            <div class="form-controller file-group">
+                <div class="input-file">Favicon</div>
             </div>
 
             <h2 class="my-3">Navigation :</h2>
@@ -18,7 +21,7 @@
                 <label class="ml-1">Connexion non-requise</label>
             </div>
             <div class="form-controller d-flex">
-                <input class="form-radio" type="radio" name="radio2">
+                <input class="form-radio" type="radio" name="radio1">
                 <label class="ml-1">Connexion requise</label>
             </div>
             <h2 class="my-3">Fonctionnalitées</h2>

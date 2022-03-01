@@ -60,7 +60,7 @@
     <div class="form-controller file-group">
         <div class="input-file">Test</div>
         <div class="input-file">Test</div>
-        <div class="input-file">Test</div>
+        <div class="input-file upload-icon">Test</div>
     </div>
 
 
