@@ -7,9 +7,12 @@
                 <input class="form-input-back" type="text" placeholder="Nom du site">
             </div>
 
-            <div>
-                <input type="file">
-                <input type="file">
+            <div class="form-controller file-group">
+                <div class="input-file">Logo du site</div>
+            </div>
+
+            <div class="form-controller file-group">
+                <div class="input-file">Favicon</div>
             </div>
 
             <h2 class="my-3">Navigation :</h2>
