@@ -1,8 +1,8 @@
 <div class="col-12 p-0">
     <section class="main-section">
         <h2>Choix du thème</h2>
-        <div>
-            <select class="form-input">
+        <div class="form-controller">
+            <select class="form-input-back" >
                 <option>test</option>
             </select>
         </div>
@@ -31,8 +31,15 @@
         </div>
     </section>
     <section class="main-section">
-        <div class="">
-            <input type="text" class="">
+        <div class="row">
+            <div class="col-9">
+                <div class="form-controller">
+                    <input type="text" class="form-input-back" placeholder="Nom du thème">
+                </div>
+            </div>
+            <div class="col-3">
+                <button class="btn btn--success" style="width: 100%">Enregistrer</button>
+            </div>
         </div>
         <h3>Front end</h3>
         <hr/>
