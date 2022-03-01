@@ -5,7 +5,11 @@
 }
 
 @each $i in 100, 200, 300, 400, 500, 600, 700, 800, 900{
-  .text-font-#{$i}{
+  .text-weight-#{$i}{
     font-weight: $i;
   }
+}
+
+.text-italic{
+  font-style: italic;
 }

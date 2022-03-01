@@ -5,7 +5,9 @@
                 <button class="btn btn--primary">Commentaire Récent</button>
                 <button class="btn btn--outline-primary">Commentaire Signalé</button>
             </div>
-            <input type="text">
+            <div class="form-controller">
+                <input class="form-input-back" type="text" placeholder="Recherche">
+            </div>
             <table class="table table--hover table--dark">
                 <thead>
                 <tr>
@@ -21,7 +23,7 @@
                     <td style="text-decoration: underline">Jean Michel</td>
                     <td>17/02/2022 15:20</td>
                     <td style="text-decoration: underline">Grille salariale</td>
-                    <td> Oui </td>
+                    <td class="text-danger"> Oui </td>
                     <td>
                         <div class="comment-open-up" data-wc-target="1">
                             <i class="fas fa-chevron-right subchoice-indicator"></i>
@@ -74,7 +76,7 @@
                     <td style="text-decoration: underline">BeurreSalé</td>
                     <td>17/02/2022 15:20</td>
                     <td style="text-decoration: underline">Grille salariale</td>
-                    <td> Oui </td>
+                    <td class="text-danger"> Oui </td>
                     <td><button class="btn btn--primary">Supprimer</button></td>
                 </tr>
                 <tr class="table-row">
@@ -88,7 +90,7 @@
                     <td style="text-decoration: underline">Norman</td>
                     <td>17/02/2022 15:20</td>
                     <td style="text-decoration: underline">SI</td>
-                    <td> Oui </td>
+                    <td class="text-danger"> Oui </td>
                     <td><button class="btn btn--primary">Supprimer</button></td>
                 </tr>
                 </tbody>
