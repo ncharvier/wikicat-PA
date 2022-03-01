@@ -14,23 +14,23 @@
 
             <h2 class="my-3">Navigation :</h2>
             <div class="form-controller d-flex">
-                <input class="form-radio" type="radio" name="radio1" checked="checked">
-                <label class="ml-1">Connexion non-requise</label>
+                <input class="form-radio" type="radio" name="radio1" id="connectionNoNeeded" checked="checked">
+                <label class="ml-1" for="connectionNoNeeded">Connexion non-requise</label>
             </div>
             <div class="form-controller d-flex">
-                <input class="form-radio" type="radio" name="radio2">
-                <label class="ml-1">Connexion requise</label>
+                <input class="form-radio" type="radio" name="radio1" id="connectionNeeded">
+                <label class="ml-1" for="connectionNeeded">Connexion requise</label>
             </div>
             <h2 class="my-3">Fonctionnalitées</h2>
 
             <div class="form-controller d-flex">
-                <input class="form-checkbox" type="checkbox">
-                <label class="ml-1">Commentaires</label>
+                <input class="form-checkbox" type="checkbox" id="comment">
+                <label class="ml-1" for="comment">Commentaires</label>
             </div>
 
             <div class="form-controller d-flex">
-                <input class="form-checkbox" type="checkbox" checked="checked">
-                <label class="ml-1">Filtres</label>
+                <input class="form-checkbox" type="checkbox" id="filter" checked="checked">
+                <label class="ml-1" for="filter">Filtres</label>
             </div>
 
             <h2 class="mt-3 mb-1">Règle du filtre</h2>

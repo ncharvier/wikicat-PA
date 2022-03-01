@@ -115,4 +115,14 @@
       border-top-color: map-deep-get($theme-colors, "dark", "400");
     }
   }
+
+  .form-checkbox[type="checkbox"]{
+    background-color: map-deep-get($theme-colors, "dark", "600");;
+    border: 1px solid map-deep-get($theme-colors, "dark", "400");
+  }
+
+  .form-radio[type="radio"]{
+    background-color: map-deep-get($theme-colors, "dark", "600");;
+    border: 1px solid map-deep-get($theme-colors, "dark", "400");
+  }
 }
