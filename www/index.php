@@ -8,7 +8,6 @@ use App\Core\ErrorManager;
 function myAutoloader($class){
     $class = str_ireplace("App\\", "", $class);
     $class = str_ireplace("\\", "/", $class);
-    echo $class;
     if(file_exists($class.".class.php")){
         include $class.".class.php";
     }
