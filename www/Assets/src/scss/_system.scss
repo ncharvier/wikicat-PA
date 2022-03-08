@@ -1,0 +1,27 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+:root{
+  --backHeaderColor: #{map-deep-get($theme-colors, "primary", "800")};
+  --backBackground: #{map-deep-get($theme-colors, "dark", "800")};
+  --backMainNavBackground: #{map-deep-get($theme-colors, "dark", "700")};
+  --backMainNavBorder: #{map-deep-get($theme-colors, "dark", "500")};
+  --backMainNavhover: #{map-deep-get($theme-colors, "dark", "600")};;
+  --backMainNavActive: #{map-deep-get($theme-colors, "dark", "600")};
+  --backMainNavSubChoiceBackground: #{map-deep-get($theme-colors, "dark", "500")};
+  --backMainNavSubChoiceBorder: #{map-deep-get($theme-colors, "dark", "400")};
+  --backMainSectionBackground: #{map-deep-get($theme-colors, "dark", "700")};
+  --backMainSectionHr: #{map-deep-get($theme-colors, "dark", "400")};
+  --backCheckboxBackground: #{map-deep-get($theme-colors, "dark", "600")};
+  --backCheckboxBorder: #{map-deep-get($theme-colors, "dark", "400")};
+  --backRadioBackground: #{map-deep-get($theme-colors, "dark", "600")};
+  --backRadioBorder: #{map-deep-get($theme-colors, "dark", "400")};
+
+}

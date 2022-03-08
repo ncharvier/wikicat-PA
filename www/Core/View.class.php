@@ -15,11 +15,11 @@ class View
     }
 
     public function setView($view){
-        $this->view = strtolower($view);
+        $this->view = $view;
     }
 
     public function setTemplate($template){
-        $this->template = strtolower($template);
+        $this->template = $template;
     }
 
     public function assign($key, $value):void
