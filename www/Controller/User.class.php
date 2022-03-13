@@ -35,7 +35,7 @@ class User{
 
         $user = new UserModel();
 
-        $view = new View("login");
+        $view = new View("login", "auth");
 
         if( !empty($_POST)){
             $userToConnect = $user->getByEmail($_POST["email"]);
@@ -89,7 +89,7 @@ class User{
         }
 
 
-        $view = new View("register");
+        $view = new View("register", "auth");
         $view->assign("user",$user);
     }
 
