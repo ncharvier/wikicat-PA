@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+session_start();
+
 use App\Core\View;
+use App\Model\Theme;
 
 class Admin
 {
@@ -45,6 +48,18 @@ class Admin
 
     public function visualSetting()
     {
+        if (!empty($_POST['submitTheme'])) {
+            if (!empty($_POST['themeName'])) {
+                $themeName = $_POST['themeName'];
+                $userId = $_SESSION["connectedUser"]["id"];
+                $theme = new Theme();
+                $theme->setUserId($userId);
+                $theme->setName($themeName);
+                $theme->setPath("path");
+                $theme->save();
+            }
+        }
+
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
     }

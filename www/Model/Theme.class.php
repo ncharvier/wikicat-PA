@@ -3,8 +3,7 @@ namespace App\Model;
 
 use App\Core\BaseSQL;
 
-class ThemeModel extends BaseSQL
-{
+class Theme extends BaseSQL {
     protected $id = null;
     protected $userId = null;
     protected $themeName = "";
@@ -17,7 +16,7 @@ class ThemeModel extends BaseSQL
      * get theme id
      * @return int
      */
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
     
@@ -42,8 +41,8 @@ class ThemeModel extends BaseSQL
      * get the name of the theme
      * @return string
      */
-    public function getThemeName(): string {
-        return $this->themeName;
+    public function getName(): string {
+        return $this->name;
     }
     
     /**
@@ -51,12 +50,28 @@ class ThemeModel extends BaseSQL
      * @param string name
      * @return void
      */
-    public function setThemeName(string $name): void {
-        $this->themeName = trim($name);
+    public function setName(string $name): void {
+        $this->name = trim($name);
     }
+
+    /**
+     * get path of theme
+     * @return string
+     */
+    public function getPath(): string {
+        return $this->path;
+    }
+    
+    /**
+     * get path of theme
+     * @return void
+     */
+    public function setPath(string $path): void {
+        $this->path = $path;
+    }
+    
     
     public function save(): void {
         parent::save();
     }
-    
 }
