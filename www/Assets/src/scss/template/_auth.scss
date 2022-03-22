@@ -1,3 +1,15 @@
 #body-auth {
-  background-image: url("");
+  background-image: url("../images/authBackground.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+
+  main{
+    height: 100vh;
+  }
+
+  .auth-card{
+    background-color: var(--authBackgroundColor);
+  }
 }

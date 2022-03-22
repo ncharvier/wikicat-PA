@@ -8,8 +8,10 @@
         <link rel="stylesheet" href="../Assets/dist/main.css">
     </head>
     <body id="body-auth">
-        <main class="col">
-            <?php include $this->view.".view.php";?>
+        <main class="d-flex justify-content-center align-items-center">
+            <div class="col-6">
+                <?php include $this->view.".view.php";?>
+            </div>
         </main>
     </body>
 
