@@ -48,20 +48,28 @@ class Admin
 
     public function visualSetting()
     {
+        $userId = $_SESSION["connectedUser"]["id"];
+
         if (!empty($_POST['submitTheme'])) {
             if (!empty($_POST['themeName'])) {
                 $themeName = $_POST['themeName'];
-                $userId = $_SESSION["connectedUser"]["id"];
+                unset($_POST['themeName']);
+                unset($_POST['submitTheme']);
+
                 $theme = new Theme();
                 $theme->setUserId($userId);
                 $theme->setName($themeName);
-                $theme->setPath("path");
+                $theme->setContent(json_encode($_POST));
                 $theme->save();
             }
         }
 
+        $theme2 = new Theme();
+        $themeList = $theme2->getThemeListByUserId($userId);
+
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
+        $view->assign("themeList", $themeList);
     }
 
     public function plugin()

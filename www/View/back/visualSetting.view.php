@@ -3,7 +3,10 @@
         <h2>Choix du thème</h2>
         <div class="form-controller">
             <select class="form-input-back" >
-                <option>test</option>
+                <option>default</option>
+                <?php foreach ($themeList as $theme):?>
+                <option><?=$theme->name?></option>
+                <?php endforeach?>
             </select>
         </div>
         <div class="row">

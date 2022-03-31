@@ -6,7 +6,8 @@ use App\Core\BaseSQL;
 class Theme extends BaseSQL {
     protected $id = null;
     protected $userId = null;
-    protected $themeName = "";
+    protected $name = "";
+    protected $content = "";
 
     public function __construct() {
         parent::__construct();
@@ -19,7 +20,28 @@ class Theme extends BaseSQL {
     public function getId(): ?int {
         return $this->id;
     }
-    
+
+    /**
+     * return theme with user id
+     *
+     * @param int userid
+     * @return ?object
+     */
+    public function getThemeByUserId(int $userId): ?object {
+        return parent::getFromValue($userId, 'userId');
+    }
+
+    /**
+     * return all the theme of user
+     *
+     * @param int userId
+     * @return array
+     */
+    public function getThemeListByUserId(int $userId): array
+    {
+        return parent::getFromValue($userId, 'userId', true) ?? [];
+    }
+
     /**
      * get id of user who create the theme
      * @return int
@@ -55,22 +77,23 @@ class Theme extends BaseSQL {
     }
 
     /**
-     * get path of theme
+     * set the content
+     *
+     * @param string cotent
+     */
+    public function setContent(string $content) {
+        $this->content = $content;
+    }
+
+    /**
+     * return the content
+     *
      * @return string
      */
-    public function getPath(): string {
-        return $this->path;
+    public function getContent(): string {
+        return $this->content;
     }
-    
-    /**
-     * get path of theme
-     * @return void
-     */
-    public function setPath(string $path): void {
-        $this->path = $path;
-    }
-    
-    
+
     public function save(): void {
         parent::save();
     }

@@ -37,14 +37,14 @@ abstract class BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    protected function getFromValue($value, $valueName): ?object
+    protected function getFromValue($value, string $valueName, bool $all = false) 
     {
         $sql = "SELECT * FROM ".$this->table. " WHERE " . $valueName . "=:value ";
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( ["value"=>$value] );
 
-        $result = $queryPrepared->fetchObject(get_called_class());
+        $result = $all ? $queryPrepared->fetchAll(\PDO::FETCH_OBJ) : $queryPrepared->fetchObject(get_called_class());
         if ($result){
             return $result;
         }
