@@ -1,4 +1,9 @@
 <div class="col-12 p-0">
+    <?php if (!empty($error)):?>
+    <div class="alert alert--danger">
+    <?=$error?>
+    </div>
+    <?php endif?>
     <section class="main-section">
         <h2>Choix du thème</h2>
         <div class="form-controller">

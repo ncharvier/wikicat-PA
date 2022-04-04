@@ -49,6 +49,7 @@ class Admin
     public function visualSetting()
     {
         $userId = $_SESSION["connectedUser"]["id"];
+        $error = "";
 
         if (!empty($_POST['submitTheme'])) {
             if (!empty($_POST['themeName'])) {
@@ -62,6 +63,9 @@ class Admin
                 $theme->setContent(json_encode($_POST));
                 $theme->save();
             }
+            else {
+                $error = "You need to en enter a name";
+            }
         }
 
         $theme2 = new Theme();
@@ -70,6 +74,7 @@ class Admin
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
         $view->assign("themeList", $themeList);
+        $view->assign("error", $error);
     }
 
     public function plugin()
