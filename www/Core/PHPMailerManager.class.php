@@ -29,7 +29,7 @@ class PHPMailerManager
     {
         $this->mail = new PHPMailer();
         $this->mail->IsSMTP();
-        $this->mail->SMTPDebug = 1;
+        $this->mail->SMTPDebug = 0;
         $this->mail->Host = MAILHOST;
         $this->mail->Port = MAILPORT;
         $this->mail->SMTPAuth = MAILSMTPAUTH;

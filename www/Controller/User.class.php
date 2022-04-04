@@ -43,7 +43,7 @@ class User{
             if(!empty($userToConnect)){
                 $user = $userToConnect;
 
-                if(password_verify($_POST["password"],$user->getPassword()) || $user->getStatus() == 1){
+                if(password_verify($_POST["password"],$user->getPassword()) && $user->getStatus() == 1){
                     $user->updateUserSession();
 
                     header('Location: /');
@@ -144,6 +144,76 @@ class User{
             $view->assign("user",$user);
         }else{
             echo 'Error';
+        }
+    }
+
+    public function forgotPassword(){
+        $user = new UserModel();
+
+        if( !empty($_POST)){
+            $result = Validator::run($user->getForgotPassword(), $_POST);
+            if(empty($result)){
+                $user = $user->getByEmail($_POST["email"]);
+
+                $user->generatePasswordForgetToken();
+                $user->save();
+
+                $sender = PHPMailerManager::getInstance();
+                $sender->send($_POST["email"],
+                    'Récupération de mot de passe Wikicat',
+                    'Une demande de réinitialisation de mot de passe à été faite.
+                 Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer ce mail. 
+                 Dans le cas contraire, nous vous invitons à cliquer sur ce lien : ' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "");
+
+                echo "Un mail de récupération à été envoyé à l'adresse email en question";
+            }
+        }
+        $view = new View("forgotPassword");
+        $view->assign("user",$user);
+    }
+
+    public function acquireNewPassword(){
+
+        if(!empty($_GET["token"])){
+            $user = new UserModel();
+
+            $user = $user->setId($_GET["id"]);
+
+            if (!empty($user) && ($user->getPasswordForgetToken() == $_GET["token"])){
+                $_SESSION["forgotPasswordToken"] = $user->getPasswordForgetToken();
+                $_SESSION["idUser"] = $user->getId();
+
+                $user->save();
+            }
+            $view = new View("changePassword");
+            $view->assign("user",$user);
+        }else{
+            echo "Il semblerait que vous essayez d'accèder à un compte dont le mot de passe a déjà été réinitialiser";
+        }
+    }
+
+    public function changePassword(){
+
+        $user = new UserModel();
+
+        if(isset($_SESSION["idUser"])){
+            $user = $user->setId($_SESSION["idUser"]);
+
+            Validator::run($user->getChangePassword(), $_POST);
+
+            if(isset($_POST["password"]) && isset($_SESSION["forgotPasswordToken"])) {
+                $user->setPassword($_POST["password"]);
+                unset($_SESSION["forgotPasswordToken"]);
+                $user->clearPasswordForgetToken();
+
+                $user->save();
+
+                echo "Votre mail à bien été changé";
+            }else{
+                die("Erreur");
+            }
+        }else{
+            die("Erreur");
         }
     }
 }
