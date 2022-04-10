@@ -31,7 +31,8 @@ class Logger{
 
     // method which read message in log
     public function read_log($fileLog){
-        $recup = fopen($fileLog, 'r');
+        $recup = "SELECT id  FROM loggerLogin";
+        fopen($fileLog, 'r');
         return file_get_contents($fileLog);
 
     }

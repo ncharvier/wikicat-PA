@@ -87,6 +87,7 @@ class User extends BaseSQL
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
+    
     /**
      * @return null
      */
