@@ -23,7 +23,6 @@ class Theme extends BaseSQL {
 
     /**
      * return theme with user id
-     *
      * @param int userid
      * @return ?object
      */
@@ -32,14 +31,30 @@ class Theme extends BaseSQL {
     }
 
     /**
+     * return theme with name
+     * @param string name
+     * @return ?object
+     */
+    public function getByName(string $name): ?object {
+        return parent::getFromValue($name, 'name');
+    }
+
+    /**
      * return all the theme of user
-     *
      * @param int userId
      * @return array
      */
-    public function getThemeListByUserId(int $userId): array
-    {
+    public function getThemeListByUserId(int $userId): array {
         return parent::getFromValue($userId, 'userId', true) ?? [];
+    }
+
+    /**
+     * return true if name exist 
+     * @param string name
+     * @return bool
+     */
+    public function exist(string $name): bool {
+        return parent::getFromValue($name, 'name', true) !== null;
     }
 
     /**
@@ -78,7 +93,6 @@ class Theme extends BaseSQL {
 
     /**
      * set the content
-     *
      * @param string cotent
      */
     public function setContent(string $content) {
@@ -87,7 +101,6 @@ class Theme extends BaseSQL {
 
     /**
      * return the content
-     *
      * @return string
      */
     public function getContent(): string {

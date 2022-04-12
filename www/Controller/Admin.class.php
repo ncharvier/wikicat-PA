@@ -49,27 +49,43 @@ class Admin
     public function visualSetting()
     {
         $userId = $_SESSION["connectedUser"]["id"];
+        $theme = new Theme();
         $error = "";
 
         if (!empty($_POST['submitTheme'])) {
             if (!empty($_POST['themeName'])) {
-                $themeName = $_POST['themeName'];
+                $themeName = htmlspecialchars($_POST['themeName']);
                 unset($_POST['themeName']);
                 unset($_POST['submitTheme']);
+                unset($_POST['selectThemeName']);
 
-                $theme = new Theme();
-                $theme->setUserId($userId);
-                $theme->setName($themeName);
-                $theme->setContent(json_encode($_POST));
-                $theme->save();
+                if (!$theme->exist($themeName)) {
+                    $theme = new Theme();
+                    $theme->setUserId($userId);
+                    $theme->setName($themeName);
+                    $theme->setContent(json_encode($_POST));
+                    $theme->save();
+                }
+                else {
+                    $error = "Theme name already exist";
+                }
             }
             else {
                 $error = "You need to en enter a name";
             }
         }
+        else if (!empty($_POST['modify'])) {
+            $themeName = htmlspecialchars($_POST['selectThemeName']);
+            echo "theme name : $themeName";
+            $theme = new Theme();
+            $test = $theme->getByName($themeName);
+            echo '<code>'.var_dump($test).'</code>';
+            echo '<code>'.var_dump($theme).'</code>';
+            echo '<code>'.var_dump($theme->getContent()).'</code>';
+        }
 
-        $theme2 = new Theme();
-        $themeList = $theme2->getThemeListByUserId($userId);
+        /* $theme2 = new Theme(); */
+        $themeList = $theme->getThemeListByUserId($userId);
 
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");

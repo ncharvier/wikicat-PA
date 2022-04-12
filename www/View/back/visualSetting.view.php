@@ -1,45 +1,45 @@
-<div class="col-12 p-0">
-    <?php if (!empty($error)):?>
-    <div class="alert alert--danger">
-    <?=$error?>
-    </div>
-    <?php endif?>
-    <section class="main-section">
-        <h2>Choix du thème</h2>
-        <div class="form-controller">
-            <select class="form-input-back" >
-                <option>default</option>
-                <?php foreach ($themeList as $theme):?>
-                <option><?=$theme->name?></option>
-                <?php endforeach?>
-            </select>
+<form action="" method="POST">
+    <div class="col-12 p-0">
+        <?php if (!empty($error)):?>
+        <div class="alert alert--danger">
+        <?=$error?>
         </div>
-        <div class="row">
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Selectionner</button>
+        <?php endif?>
+        <section class="main-section">
+            <h2>Choix du thème</h2>
+            <div class="form-controller">
+                <select class="form-input-back" name="selectThemeName">
+                    <option value="default">default</option>
+                    <?php foreach ($themeList as $theme):?>
+                    <option value="<?=$theme->name?>"><?=$theme->name?></option>
+                    <?php endforeach?>
+                </select>
             </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Modifier</button>
+            <div class="row">
+                <div class="col">
+                    <button name="select" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Selectionner</button>
+                </div>
+                <div class="col">
+                    <input type="submit" name="modify" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Modifier">
+                </div>
+                <div class="col">
+                    <button name="delete" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Supprimer</button>
+                </div>
+                <div class="col">
+                    <button name="new" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Nouveau</button>
+                </div>
+                <div class="col">
+                    <button name="duplicate" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Dupliquer</button>
+                </div>
+                <div class="col">
+                    <button name="import" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Importer</button>
+                </div>
+                <div class="col">
+                    <button name="export" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Exporter</button>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Supprimer</button>
-            </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Nouveau</button>
-            </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Dupliquer</button>
-            </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Importer</button>
-            </div>
-            <div class="col">
-                <button class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Exporter</button>
-            </div>
-        </div>
-    </section>
-    <section class="main-section">
-        <form action="" method="POST">
+        </section>
+        <section class="main-section">
             <div class="row">
                 <div class="col-9">
                     <div class="form-controller">
@@ -178,6 +178,6 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </section>
-</div>
+        </section>
+    </div>
+</form>
