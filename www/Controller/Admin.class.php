@@ -5,7 +5,7 @@ namespace App\Controller;
 session_start();
 
 use App\Core\View;
-use App\Model\Theme;
+use App\Core\Theme;
 
 class Admin
 {
@@ -51,6 +51,7 @@ class Admin
         $userId = $_SESSION["connectedUser"]["id"];
         $theme = new Theme();
         $error = "";
+        /* echo 'test: '.$theme->getPath(); */
 
         if (!empty($_POST['submitTheme'])) {
             if (!empty($_POST['themeName'])) {
@@ -58,38 +59,38 @@ class Admin
                 unset($_POST['themeName']);
                 unset($_POST['submitTheme']);
                 unset($_POST['selectThemeName']);
+                unset($_POST['picture']);
 
-                if (!$theme->exist($themeName)) {
-                    $theme = new Theme();
-                    $theme->setUserId($userId);
-                    $theme->setName($themeName);
-                    $theme->setContent(json_encode($_POST));
-                    $theme->save();
-                }
-                else {
-                    $error = "Theme name already exist";
-                }
+                /* if (!$theme->exist($themeName)) { */
+                $theme = new Theme();
+                $theme->setName($themeName);
+                $theme->setContent(json_encode($_POST));
+                $theme->save();
+                /* } */
+                /* else { */
+                /*     $error = "Theme name already exist"; */
+                /* } */
             }
             else {
                 $error = "You need to en enter a name";
             }
         }
-        else if (!empty($_POST['modify'])) {
-            $themeName = htmlspecialchars($_POST['selectThemeName']);
-            echo "theme name : $themeName";
-            $theme = new Theme();
-            $test = $theme->getByName($themeName);
-            echo '<code>'.var_dump($test).'</code>';
-            echo '<code>'.var_dump($theme).'</code>';
-            echo '<code>'.var_dump($theme->getContent()).'</code>';
-        }
+        /* else if (!empty($_POST['modify'])) { */
+        /*     $themeName = htmlspecialchars($_POST['selectThemeName']); */
+        /*     echo "theme name : $themeName"; */
+        /*     $theme = new Theme(); */
+        /*     $test = $theme->getByName($themeName); */
+        /*     echo '<code>'.var_dump($test).'</code>'; */
+        /*     echo '<code>'.var_dump($theme).'</code>'; */
+        /*     echo '<code>'.var_dump($theme->getContent()).'</code>'; */
+        /* } */
 
         /* $theme2 = new Theme(); */
-        $themeList = $theme->getThemeListByUserId($userId);
+        /* $themeList = $theme->getThemeListByUserId($userId); */
 
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
-        $view->assign("themeList", $themeList);
+        /* $view->assign("themeList", $themeList); */
         $view->assign("error", $error);
     }
 
