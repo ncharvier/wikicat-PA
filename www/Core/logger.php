@@ -1,4 +1,4 @@
-    <?php
+<?php
 //singleton class is a class which is instance once time
 class Logger{
     private static $instance= null;
@@ -18,7 +18,7 @@ class Logger{
 
 
     // method which write message in log
-    public function write_log($fileLog, $message){
+    public static function write_log($fileLog, $message){
 
         if(!is_writable($fileLog))
         die('change your permissions'. $fileLog);
@@ -30,7 +30,7 @@ class Logger{
     }
 
     // method which read message in log
-    public function read_log($fileLog){
+    public static function read_log($fileLog){
         $recup = "SELECT id  FROM loggerLogin";
         fopen($fileLog, 'r');
         return file_get_contents($fileLog);
@@ -39,3 +39,7 @@ class Logger{
 
 }
 ?>
+
+
+
+

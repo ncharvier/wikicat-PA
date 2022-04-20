@@ -257,3 +257,4 @@ class User extends BaseSQL
         ];
     }
 }
+
