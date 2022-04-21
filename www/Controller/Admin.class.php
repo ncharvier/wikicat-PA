@@ -61,36 +61,31 @@ class Admin
                 unset($_POST['selectThemeName']);
                 unset($_POST['picture']);
 
-                /* if (!$theme->exist($themeName)) { */
-                $theme = new Theme();
-                $theme->setName($themeName);
-                $theme->setContent(json_encode($_POST));
-                $theme->save();
-                /* } */
-                /* else { */
-                /*     $error = "Theme name already exist"; */
-                /* } */
+                if (!$theme->exist($themeName)) {
+                    $theme->setName($themeName);
+                    $theme->setContent(json_encode($_POST));
+                    $theme->save();
+                }
+                else
+                    $error = "Theme name already exist";
             }
-            else {
+            else
                 $error = "You need to en enter a name";
-            }
         }
         /* else if (!empty($_POST['modify'])) { */
         /*     $themeName = htmlspecialchars($_POST['selectThemeName']); */
         /*     echo "theme name : $themeName"; */
-        /*     $theme = new Theme(); */
         /*     $test = $theme->getByName($themeName); */
         /*     echo '<code>'.var_dump($test).'</code>'; */
         /*     echo '<code>'.var_dump($theme).'</code>'; */
         /*     echo '<code>'.var_dump($theme->getContent()).'</code>'; */
         /* } */
 
-        /* $theme2 = new Theme(); */
-        /* $themeList = $theme->getThemeListByUserId($userId); */
+        $themeList = $theme->getThemeList();
 
         $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
-        /* $view->assign("themeList", $themeList); */
+        $view->assign("themeList", $themeList);
         $view->assign("error", $error);
     }
 

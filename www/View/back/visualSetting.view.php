@@ -9,12 +9,9 @@
             <h2>Choix du thème</h2>
             <div class="form-controller">
                 <select class="form-input-back" name="selectThemeName">
-                    <option value="default">default</option>
-                    <!--
-                    <?php // foreach ($themeList as $theme):?>
-                    <option value="<?php//$theme->name?>"><?php//$theme->name?></option>
-                    <?php // endforeach?>
-                    -->
+                    <?php foreach ($themeList as $theme):?>
+                    <option value="<?=$theme?>"><?=$theme?></option>
+                    <?php endforeach?>
                 </select>
             </div>
             <div class="row">

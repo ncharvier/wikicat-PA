@@ -12,12 +12,38 @@ class Theme {
     }
 
     /**
-     * return theme with name
+     * TODO : finir getByName
+     * get theme with name
      * @param string name
-     * @return ?object
+     * @return void
      */
-    public function getByName(string $name): ?object {
-        // TODO : faire fonction getByName
+    public function getByName(string $name): void {
+        /* $fullPath = $this->path.'/'.$name.'.css'; */
+        /* if (file_exists($fullPath)) { */
+        /*     $this->setName($name); */
+        /*     $this->setContent(); */
+        /* } */
+    }
+
+    /**
+     * return list of existing theme name
+     * @return string[] | bool
+     */
+    public function getThemeList() {
+        $dirName = [];
+        $name = "";
+        $nameId = 0;
+        $dir = scandir($this->path);
+        unset($dir[0]);
+        unset($dir[1]);
+
+        foreach ($dir as $k => $v) {
+            $name = explode('/', $v);
+            $nameId = count($name) - 1;
+            $dirName[] = explode('.', $name[$nameId])[0];
+        }
+
+        return $dirName;
     }
 
     /**
@@ -26,7 +52,8 @@ class Theme {
      * @return bool
      */
     public function exist(string $name): bool {
-        // TODO : faire fonction exist
+        $fullPath = $this->path.'/'.$name.'.css';
+        return file_exists($fullPath);
     }
 
     /**
@@ -91,8 +118,9 @@ class Theme {
      * format and save content in css file
      * @return void
      */
-    public function save()
-    {
-        echo '<code>'.$this->formatToCss().'</code>';
+    public function save() {
+        $fullPath = $this->path.'/'.$this->name.'.css';
+        $content = $this->formatToCss($this->content);
+        file_put_contents($fullPath, $content);
     }
 }
