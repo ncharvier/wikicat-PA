@@ -12,17 +12,18 @@ class Theme {
     }
 
     /**
-     * TODO : finir getByName
      * get theme with name
      * @param string name
      * @return void
      */
     public function getByName(string $name): void {
-        /* $fullPath = $this->path.'/'.$name.'.css'; */
-        /* if (file_exists($fullPath)) { */
-        /*     $this->setName($name); */
-        /*     $this->setContent(); */
-        /* } */
+        $fullPath = $this->path.'/'.$name.'.json';
+        $content = "";
+        if (file_exists($fullPath)) {
+            $content = json_encode(file_get_contents($fullPath));
+            $this->setName($name);
+            $this->setContent($content);
+        }
     }
 
     /**
@@ -34,13 +35,17 @@ class Theme {
         $name = "";
         $nameId = 0;
         $dir = scandir($this->path);
+        $tmp = [];
         unset($dir[0]);
         unset($dir[1]);
 
         foreach ($dir as $k => $v) {
             $name = explode('/', $v);
             $nameId = count($name) - 1;
-            $dirName[] = explode('.', $name[$nameId])[0];
+            $tmp = explode('.', $name[$nameId]);
+
+            if ($tmp[1] == "json")
+                $dirName[] = $tmp[0];
         }
 
         return $dirName;
@@ -52,7 +57,7 @@ class Theme {
      * @return bool
      */
     public function exist(string $name): bool {
-        $fullPath = $this->path.'/'.$name.'.css';
+        $fullPath = $this->path.'/'.$name.'.json';
         return file_exists($fullPath);
     }
 
@@ -119,8 +124,11 @@ class Theme {
      * @return void
      */
     public function save() {
-        $fullPath = $this->path.'/'.$this->name.'.css';
+        $fullPathCss = $this->path.'/'.$this->name.'.css';
+        $fullPathJson = $this->path.'/'.$this->name.'.json';
         $content = $this->formatToCss($this->content);
-        file_put_contents($fullPath, $content);
+
+        file_put_contents($fullPathCss, $content);
+        file_put_contents($fullPathJson, $this->content);
     }
 }

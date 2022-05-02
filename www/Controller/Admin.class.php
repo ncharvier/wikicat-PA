@@ -49,9 +49,9 @@ class Admin
     public function visualSetting()
     {
         $userId = $_SESSION["connectedUser"]["id"];
+        $view = new View("back/visualSetting", "back");
         $theme = new Theme();
         $error = "";
-        /* echo 'test: '.$theme->getPath(); */
 
         if (!empty($_POST['submitTheme'])) {
             if (!empty($_POST['themeName'])) {
@@ -72,20 +72,14 @@ class Admin
             else
                 $error = "You need to en enter a name";
         }
-        /* else if (!empty($_POST['modify'])) { */
-        /*     $themeName = htmlspecialchars($_POST['selectThemeName']); */
-        /*     echo "theme name : $themeName"; */
-        /*     $test = $theme->getByName($themeName); */
-        /*     echo '<code>'.var_dump($test).'</code>'; */
-        /*     echo '<code>'.var_dump($theme).'</code>'; */
-        /*     echo '<code>'.var_dump($theme->getContent()).'</code>'; */
-        /* } */
+        else if (!empty($_POST['select'])) {
+            $themeName = htmlspecialchars($_POST['selectThemeName']);
+            $theme->getByName($themeName);
+            $view->assign("content", json_decode(json_decode($theme->getContent()), true));
+        }
 
-        $themeList = $theme->getThemeList();
-
-        $view = new View("back/visualSetting", "back");
         $view->assign("activePage", "visualSetting");
-        $view->assign("themeList", $themeList);
+        $view->assign("themeList", $theme->getThemeList());
         $view->assign("error", $error);
     }
 

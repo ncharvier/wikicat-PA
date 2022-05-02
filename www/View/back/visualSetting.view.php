@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button name="select" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Selectionner</button>
+                    <input type="submit" name="select" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Selectionner">
                 </div>
                 <div class="col">
                     <input type="submit" name="modify" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Modifier">
@@ -55,28 +55,28 @@
                 <div class="col-12 col-lg-4 p-0">
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-back-page" id="color-back-page" class="color-picker-input" value="#ff0000">
+                        <input type="color" name="color-back-page" id="color-back-page" class="color-picker-input" value="<?=$content['color-back-page'] ?? '#ff0000'?>">
                             <label for="color-back-page" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Font de la page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-title-page" id="color-title-page" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-title-page" id="color-title-page" class="color-picker-input" value="<?=$content['color-title-page'] ?? '#ff0000'?>">
                             <label for="color-title-page" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Titre des page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link" id="color-text-link" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link" id="color-text-link" class="color-picker-input" value="<?=$content['color-text-link'] ?? '#ff0000'?>">
                             <label for="color-text-link" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link-bis" id="color-text-link-bis" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link-bis" id="color-text-link-bis" class="color-picker-input" value="<?=$content['color-text-link-bis'] ?? '#ff0000'?>">
                             <label for="color-text-link-bis" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
@@ -85,28 +85,28 @@
                 <div class="col-12 col-lg-4 p-0">
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-back-page1" id="color-back-page1" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-back-page1" id="color-back-page1" class="color-picker-input" value="<?=$content['color-back-page1'] ?? '#ff0000'?>">
                             <label for="color-back-page1" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Font de la page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-title-page1" id="color-title-page1" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-title-page1" id="color-title-page1" class="color-picker-input" value="<?=$content['color-title-page1'] ?? '#ff0000'?>">
                             <label for="color-title-page1" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Titre des page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link1" id="color-text-link1" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link1" id="color-text-link1" class="color-picker-input" value="<?=$content['color-text-link1'] ?? '#ff0000'?>">
                             <label for="color-text-link1" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link-bis1" id="color-text-link-bis1" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link-bis1" id="color-text-link-bis1" class="color-picker-input" value="<?=$content['color-text-link-bis1'] ?? '#ff0000'?>">
                             <label for="color-text-link-bis1" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
@@ -115,28 +115,28 @@
                 <div class="col-12 col-lg-4 p-0">
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-back-page2" id="color-back-page2" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-back-page2" id="color-back-page2" class="color-picker-input" value="<?=$content['color-back-page2'] ?? '#ff0000'?>">
                             <label for="color-back-page2" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Font de la page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-title-page2" id="color-title-page2" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-title-page2" id="color-title-page2" class="color-picker-input" value="<?=$content['color-title-page2'] ?? '#ff0000'?>">
                             <label for="color-title-page2" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Titre des page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link2" id="color-text-link2" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link2" id="color-text-link2" class="color-picker-input" value="<?=$content['color-text-link2'] ?? '#ff0000'?>">
                             <label for="color-text-link2" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link-bis2" id="color-text-link-bis2" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link-bis2" id="color-text-link-bis2" class="color-picker-input" value="<?=$content['color-text-link-bis2'] ?? '#ff0000'?>">
                             <label for="color-text-link-bis2" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
@@ -156,21 +156,21 @@
                     </label>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-title-page3" id="color-title-page3" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-title-page3" id="color-title-page3" class="color-picker-input" value="<?=$content['color-title-page3'] ?? '#ff0000'?>">
                             <label for="color-title-page3" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Titre des page</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-text-link3" id="color-text-link3" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-text-link3" id="color-text-link3" class="color-picker-input" value="<?=$content['color-text-link3'] ?? '#ff0000'?>">
                             <label for="color-text-link3" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Text liens</span>
                     </div>
                     <div class="color-picker-bg">
                         <div class="color-picker">
-                            <input type="color" name="color-back-separator" id="color-back-separator" class="color-picker-input" value="#ff0000">
+                            <input type="color" name="color-back-separator" id="color-back-separator" class="color-picker-input" value="<?=$content['color-back-separator'] ?? '#ff0000'?>">
                             <label for="color-back-separator" class="color-picker-info"></label>
                         </div>
                         <span class="color-picker-bg-text">Séparateur</span>
