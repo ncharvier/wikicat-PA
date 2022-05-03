@@ -10,7 +10,7 @@
             <div class="form-controller">
                 <select class="form-input-back" name="selectThemeName">
                     <?php foreach ($themeList as $theme):?>
-                    <option value="<?=$theme?>"><?=$theme?></option>
+                    <option value="<?=$theme?>" <?=$selectedTheme == $theme ? "selected" : ""?>><?=$theme?></option>
                     <?php endforeach?>
                 </select>
             </div>
@@ -22,7 +22,7 @@
                     <input type="submit" name="modify" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Modifier">
                 </div>
                 <div class="col">
-                    <button name="delete" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Supprimer</button>
+                    <input type="submit" name="delete" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Supprimer">
                 </div>
                 <div class="col">
                     <button name="new" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Nouveau</button>

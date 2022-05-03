@@ -77,7 +77,27 @@ class Admin
             $theme->getByName($themeName);
             $view->assign("content", json_decode(json_decode($theme->getContent()), true));
         }
+        else if (!empty($_POST['modify'])) {
+            if (!empty($_POST['selectThemeName'])) {
+                $themeName = htmlspecialchars($_POST['selectThemeName']);
+                unset($_POST['themeName']);
+                unset($_POST['submitTheme']);
+                unset($_POST['selectThemeName']);
+                unset($_POST['picture']);
 
+                if ($theme->exist($themeName)) {
+                    $theme->setName($themeName);
+                    $theme->setContent(json_encode($_POST));
+                    $theme->save();
+                }
+                else
+                    $error = "Theme name does not exist";
+            }
+            else
+                $error = "You need to en enter a name";
+        }
+
+        $view->assign("selectedTheme", $themeName ?? "default");
         $view->assign("activePage", "visualSetting");
         $view->assign("themeList", $theme->getThemeList());
         $view->assign("error", $error);
