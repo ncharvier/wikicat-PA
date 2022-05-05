@@ -81,6 +81,7 @@ class Admin
             if (!empty($_POST['selectThemeName'])) {
                 $themeName = htmlspecialchars($_POST['selectThemeName']);
                 unset($_POST['themeName']);
+                unset($_POST['modify']);
                 unset($_POST['submitTheme']);
                 unset($_POST['selectThemeName']);
                 unset($_POST['picture']);
@@ -92,6 +93,20 @@ class Admin
                 }
                 else
                     $error = "Theme name does not exist";
+            }
+            else
+                $error = "You need to en enter a name";
+        }
+        else if (!empty($_POST['delete'])) {
+            if (!empty($_POST['selectThemeName'])) {
+                $themeName = htmlspecialchars($_POST['selectThemeName']);
+                if ($themeName != "default")
+                    if ($theme->exist($themeName))
+                        $theme->delete($themeName);
+                    else
+                        $error = "Theme name does not exist";
+                else
+                    $error = "You can't delete default theme";
             }
             else
                 $error = "You need to en enter a name";

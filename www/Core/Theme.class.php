@@ -1,7 +1,6 @@
 <?php
 namespace App\Core;
 
-
 class Theme {
     protected $name = "";
     protected $content = "";
@@ -130,5 +129,16 @@ class Theme {
 
         file_put_contents($fullPathCss, $content);
         file_put_contents($fullPathJson, $this->content);
+    }
+
+    /**
+     * delete a theme
+     * @param string name
+     * @return void
+     */
+    public function delete(string $name) {
+        $fullPath = $this->path.'/'.$name.'.json';
+        if (file_exists($fullPath))
+            unlink($fullPath);
     }
 }
