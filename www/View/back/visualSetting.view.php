@@ -1,4 +1,4 @@
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="col-12 p-0">
         <?php if (!empty($error)):?>
         <div class="alert alert--danger">
@@ -24,17 +24,17 @@
                 <div class="col">
                     <input type="submit" name="delete" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Supprimer">
                 </div>
-                <div class="col">
+                <!--<div class="col">
                     <button name="new" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Nouveau</button>
-                </div>
+                </div>-->
                 <div class="col">
                     <button name="duplicate" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Dupliquer</button>
                 </div>
                 <div class="col">
-                    <button name="import" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Importer</button>
+                    <input type="button" class="btn btn--sm btn--outline-primary d-block modal-open" data-target="#modal-import" style="width: 100%" value="Importer">
                 </div>
                 <div class="col">
-                    <button name="export" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Exporter</button>
+                    <input type="button" class="btn btn--sm btn--outline-primary d-block modal-open" data-target="#modal-export" style="width: 100%" value="Exporter">
                 </div>
             </div>
         </section>
@@ -178,5 +178,37 @@
                 </div>
             </div>
         </section>
+    </div>
+    <div id="modal-import" class="modal" style="color:#000;">
+        <div class="modal-content modal-content--sm">
+            <div class="modal-header">
+                <span class="modal-close modal-close-cross">&times;</span>
+                <h2>Importer un theme</h2>
+            </div>
+            <div class="modal-body">
+                <p>Selectionner un theme à importer</p>
+                <input type="file" name="importTheme" id="importTheme">
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn--secondary modal-close" value="Fermer">
+                <input type="submit" name="import" class="btn btn--primary" value="Importer">
+            </div>
+        </div>
+    </div>
+    <div id="modal-export" class="modal" style="color:#000;">
+        <div class="modal-content modal-content--sm">
+            <div class="modal-header">
+                <span class="modal-close modal-close-cross">&times;</span>
+                <h2>Exporter un theme</h2>
+            </div>
+            <div class="modal-body">
+                <a href="<?=$cssFile?>"><?=$fileName?>.css</a>
+                <a href="<?=$jsonFile?>"><?=$fileName?>.json</a>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn--secondary modal-close" value="Fermer">
+                <input type="submit" name="export" class="btn btn--primary" value="Exporter">
+            </div>
+        </div>
     </div>
 </form>

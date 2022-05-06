@@ -19,7 +19,7 @@ class Theme {
         $fullPath = $this->path.'/'.$name.'.json';
         $content = "";
         if (file_exists($fullPath)) {
-            $content = json_encode(file_get_contents($fullPath));
+            $content = file_get_contents($fullPath);
             $this->setName($name);
             $this->setContent($content);
         }
@@ -67,7 +67,7 @@ class Theme {
     public function getName(): string {
         return $this->name;
     }
-    
+
     /**
      * set the name of the theme
      * @param string name

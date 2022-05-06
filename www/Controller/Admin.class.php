@@ -1,5 +1,7 @@
 <?php
 
+// TODO : faille %00
+
 namespace App\Controller;
 
 session_start();
@@ -48,74 +50,129 @@ class Admin
 
     public function visualSetting()
     {
-        $userId = $_SESSION["connectedUser"]["id"];
+        /* $userId = $_SESSION["connectedUser"]["id"]; */
+        $selectedTheme = htmlspecialchars($_POST['selectThemeName'] ?? "default");
         $view = new View("back/visualSetting", "back");
         $theme = new Theme();
         $error = "";
 
-        if (!empty($_POST['submitTheme'])) {
-            if (!empty($_POST['themeName'])) {
-                $themeName = htmlspecialchars($_POST['themeName']);
-                unset($_POST['themeName']);
-                unset($_POST['submitTheme']);
-                unset($_POST['selectThemeName']);
-                unset($_POST['picture']);
-
-                if (!$theme->exist($themeName)) {
-                    $theme->setName($themeName);
-                    $theme->setContent(json_encode($_POST));
-                    $theme->save();
-                }
-                else
-                    $error = "Theme name already exist";
-            }
-            else
-                $error = "You need to en enter a name";
-        }
+        if (!empty($_POST['submitTheme']))
+            $error = $this->createTheme();
         else if (!empty($_POST['select'])) {
-            $themeName = htmlspecialchars($_POST['selectThemeName']);
-            $theme->getByName($themeName);
-            $view->assign("content", json_decode(json_decode($theme->getContent()), true));
+            $theme->getByName($selectedTheme);
+            $view->assign("content", json_decode($theme->getContent(), true));
+            /* $view->assign("cssFile", $theme->getPath().'/'.$theme->getName().'.css'); */
+            /* $view->assign("jsonFile", $theme->getPath().'/'.$theme->getName().'.json'); */
+            /* $view->assign("fileName", $theme->getName()); */
         }
-        else if (!empty($_POST['modify'])) {
-            if (!empty($_POST['selectThemeName'])) {
-                $themeName = htmlspecialchars($_POST['selectThemeName']);
-                unset($_POST['themeName']);
-                unset($_POST['modify']);
-                unset($_POST['submitTheme']);
-                unset($_POST['selectThemeName']);
-                unset($_POST['picture']);
+        else if (!empty($_POST['modify']))
+            $error = $this->modifyTheme();
+        else if (!empty($_POST['delete']))
+            $error = $this->deleteTheme();
+        else if (!empty($_POST['import']))
+            $error = $this->importTheme();
 
-                if ($theme->exist($themeName)) {
-                    $theme->setName($themeName);
-                    $theme->setContent(json_encode($_POST));
-                    $theme->save();
-                }
-                else
-                    $error = "Theme name does not exist";
-            }
-            else
-                $error = "You need to en enter a name";
-        }
-        else if (!empty($_POST['delete'])) {
-            if (!empty($_POST['selectThemeName'])) {
-                $themeName = htmlspecialchars($_POST['selectThemeName']);
-                if ($themeName != "default")
-                    if ($theme->exist($themeName))
-                        $theme->delete($themeName);
-                    else
-                        $error = "Theme name does not exist";
-                else
-                    $error = "You can't delete default theme";
-            }
-            else
-                $error = "You need to en enter a name";
-        }
 
-        $view->assign("selectedTheme", $themeName ?? "default");
+        $view->assign("selectedTheme", $selectedTheme);
         $view->assign("activePage", "visualSetting");
         $view->assign("themeList", $theme->getThemeList());
         $view->assign("error", $error);
+    }
+
+    /**
+     * create a theme
+     * @return string
+     */
+    private function createTheme()
+    {
+        $theme = new Theme();
+        $error = "";
+
+        if (!empty($_POST['themeName'])) {
+            $themeName = htmlspecialchars($_POST['themeName']);
+            unset($_POST['themeName']);
+            unset($_POST['submitTheme']);
+            unset($_POST['selectThemeName']);
+            unset($_POST['picture']);
+
+            if (!$theme->exist($themeName)) {
+                $theme->setName($themeName);
+                $theme->setContent(json_encode($_POST));
+                $theme->save();
+            }
+            else
+                $error = "Theme name already exist";
+        }
+        else
+            $error = "You need to en enter a name";
+
+        return $error;
+    }
+
+    /**
+     * modify a theme
+     * @return string
+     */
+    private function modifyTheme()
+    {
+        $theme = new Theme();
+        $error = "";
+
+        if (!empty($_POST['selectThemeName'])) {
+            $themeName = htmlspecialchars($_POST['selectThemeName']);
+            unset($_POST['themeName']);
+            unset($_POST['modify']);
+            unset($_POST['submitTheme']);
+            unset($_POST['selectThemeName']);
+            unset($_POST['picture']);
+
+            if ($theme->exist($themeName)) {
+                $theme->setName($themeName);
+                $theme->setContent(json_encode($_POST));
+                $theme->save();
+            }
+            else
+                $error = "Theme name does not exist";
+        }
+        else
+            $error = "You need to en enter a name";
+
+        return $error;
+    }
+
+    /**
+     * delete a theme
+     * @return string
+     */
+    private function deleteTheme()
+    {
+        $theme = new Theme();
+        $error = "";
+
+        if (!empty($_POST['selectThemeName'])) {
+            $themeName = htmlspecialchars($_POST['selectThemeName']);
+            if ($themeName != "default")
+                if ($theme->exist($themeName))
+                    $theme->delete($themeName);
+                else
+                    $error = "Theme name does not exist";
+            else
+                $error = "You can't delete default theme";
+        }
+        else
+            $error = "You need to en enter a name";
+
+        return $error;
+    }
+
+    /**
+     * TODO : faire import theme
+     * import a theme
+     * @return string
+     */
+    private function importTheme()
+    {
+        return "merde";
     }
 
     public function plugin()
