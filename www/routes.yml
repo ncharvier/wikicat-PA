@@ -54,6 +54,10 @@
   controller: admin
   action: visualSetting
 
+/admin/exportTheme:
+  controller: admin
+  action: exportTheme
+
 /admin/plugin:
   controller: admin
   action: plugin

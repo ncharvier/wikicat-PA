@@ -202,8 +202,10 @@
                 <h2>Exporter un theme</h2>
             </div>
             <div class="modal-body">
-                <a href="<?=$cssFile?>"><?=$fileName?>.css</a>
-                <a href="<?=$jsonFile?>"><?=$fileName?>.json</a>
+                <!--<a href="<?php//$file?>.css"><?php//$fileName?>.css</a>
+                <a href="<?php//$file?>.json"><?php//$fileName?>.json</a>-->
+                <a target="_Blanck" href="<?=$exportRoute?>.css"><?=$fileName?>.css</a>
+                <a target="_Blanck" href="<?=$exportRoute?>.json"><?=$fileName?>.json</a>
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn--secondary modal-close" value="Fermer">

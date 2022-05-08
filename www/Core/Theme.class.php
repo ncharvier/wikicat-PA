@@ -4,11 +4,8 @@ namespace App\Core;
 class Theme {
     protected $name = "";
     protected $content = "";
-    private $path = "";
 
-    public function __construct() {
-        $this->path = dirname(__FILE__).'/../Assets/themes/';
-    }
+    public function __construct() {}
 
     /**
      * get theme with name
@@ -16,7 +13,7 @@ class Theme {
      * @return void
      */
     public function getByName(string $name): void {
-        $fullPath = $this->path.'/'.$name.'.json';
+        $fullPath = PATH.'/'.$name.'.json';
         $content = "";
         if (file_exists($fullPath)) {
             $content = file_get_contents($fullPath);
@@ -29,11 +26,11 @@ class Theme {
      * return list of existing theme name
      * @return string[] | bool
      */
-    public function getThemeList() {
+    public static function getThemeList() {
         $dirName = [];
         $name = "";
         $nameId = 0;
-        $dir = scandir($this->path);
+        $dir = scandir(PATH);
         $tmp = [];
         unset($dir[0]);
         unset($dir[1]);
@@ -51,12 +48,30 @@ class Theme {
     }
 
     /**
+     * create a zip archive
+     * @param string archiveName
+     * @return int error code (0 == good, 1 == error)
+     */
+    public function compressToZip(string $archiveName): int {
+        $zip = new \ZipArchive;
+        if(!$zip->open(PATHTMP.'/'.$archiveName.".zip"))
+            return 1;
+
+        $fullPath = PATH.'/'.$name;
+        $zip->addFile($fullPath.'.css');
+        $zip->addFile($fullPath.'.json');
+        $zip->close();
+
+        return 0;
+    }
+
+    /**
      * return true if name exist 
      * @param string name
      * @return bool
      */
-    public function exist(string $name): bool {
-        $fullPath = $this->path.'/'.$name.'.json';
+    public static function exist(string $name): bool {
+        $fullPath = PATH.'/'.$name.'.json';
         return file_exists($fullPath);
     }
 
@@ -94,14 +109,6 @@ class Theme {
     }
 
     /**
-     * get path of directory of themes
-     * @return string
-     */
-    public function getPath(): string {
-        return $this->path;
-    }
-
-    /**
      * format to css
      * @return string
      */
@@ -123,8 +130,8 @@ class Theme {
      * @return void
      */
     public function save() {
-        $fullPathCss = $this->path.'/'.$this->name.'.css';
-        $fullPathJson = $this->path.'/'.$this->name.'.json';
+        $fullPathCss = PATH.'/'.$this->name.'.css';
+        $fullPathJson = PATH.'/'.$this->name.'.json';
         $content = $this->formatToCss($this->content);
 
         file_put_contents($fullPathCss, $content);
@@ -136,8 +143,8 @@ class Theme {
      * @param string name
      * @return void
      */
-    public function delete(string $name) {
-        $fullPath = $this->path.'/'.$name.'.json';
+    public static function delete(string $name) {
+        $fullPath = PATH.'/'.$name.'.json';
         if (file_exists($fullPath))
             unlink($fullPath);
     }

@@ -8,6 +8,7 @@ session_start();
 
 use App\Core\View;
 use App\Core\Theme;
+use App\Core\ErrorManager as Error;
 
 class Admin
 {
@@ -50,21 +51,14 @@ class Admin
 
     public function visualSetting()
     {
-        /* $userId = $_SESSION["connectedUser"]["id"]; */
         $selectedTheme = htmlspecialchars($_POST['selectThemeName'] ?? "default");
         $view = new View("back/visualSetting", "back");
         $theme = new Theme();
         $error = "";
+        $path = preg_replace("%^.*(/Assets/themes/)$%", "$1", PATH);
 
         if (!empty($_POST['submitTheme']))
             $error = $this->createTheme();
-        else if (!empty($_POST['select'])) {
-            $theme->getByName($selectedTheme);
-            $view->assign("content", json_decode($theme->getContent(), true));
-            /* $view->assign("cssFile", $theme->getPath().'/'.$theme->getName().'.css'); */
-            /* $view->assign("jsonFile", $theme->getPath().'/'.$theme->getName().'.json'); */
-            /* $view->assign("fileName", $theme->getName()); */
-        }
         else if (!empty($_POST['modify']))
             $error = $this->modifyTheme();
         else if (!empty($_POST['delete']))
@@ -72,10 +66,15 @@ class Admin
         else if (!empty($_POST['import']))
             $error = $this->importTheme();
 
+        $theme->getByName($selectedTheme);
 
+        /* $view->assign("file", $path.$theme->getName()); */
+        $view->assign("fileName", $theme->getName());
+        $view->assign("exportRoute", "/admin/exportTheme/?theme=".$theme->getName());
+        $view->assign("content", json_decode($theme->getContent(), true));
         $view->assign("selectedTheme", $selectedTheme);
         $view->assign("activePage", "visualSetting");
-        $view->assign("themeList", $theme->getThemeList());
+        $view->assign("themeList", Theme::getThemeList());
         $view->assign("error", $error);
     }
 
@@ -95,7 +94,7 @@ class Admin
             unset($_POST['selectThemeName']);
             unset($_POST['picture']);
 
-            if (!$theme->exist($themeName)) {
+            if (!Theme::exist($themeName)) {
                 $theme->setName($themeName);
                 $theme->setContent(json_encode($_POST));
                 $theme->save();
@@ -126,7 +125,7 @@ class Admin
             unset($_POST['selectThemeName']);
             unset($_POST['picture']);
 
-            if ($theme->exist($themeName)) {
+            if (Theme::exist($themeName)) {
                 $theme->setName($themeName);
                 $theme->setContent(json_encode($_POST));
                 $theme->save();
@@ -152,8 +151,8 @@ class Admin
         if (!empty($_POST['selectThemeName'])) {
             $themeName = htmlspecialchars($_POST['selectThemeName']);
             if ($themeName != "default")
-                if ($theme->exist($themeName))
-                    $theme->delete($themeName);
+                if (Theme::exist($themeName))
+                    Theme::delete($themeName);
                 else
                     $error = "Theme name does not exist";
             else
@@ -173,6 +172,24 @@ class Admin
     private function importTheme()
     {
         return "merde";
+    }
+
+    /**
+     * TODO : finir export theme
+     * export a theme
+     * @return string
+     */
+    public function exportTheme()
+    {
+        $theme = new Theme();
+        $selectedTheme = htmlspecialchars($_GET['selectThemeName']);
+        if (empty($selectedTheme))
+            Error::error(404, "error");
+
+        $theme->getByName($selectedTheme);
+        $theme->compressToZip($selectedTheme.".zip");
+
+        header('location: /admin/visualSetting');
     }
 
     public function plugin()
