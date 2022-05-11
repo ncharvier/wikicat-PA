@@ -65,12 +65,15 @@ class Admin
             $error = $this->deleteTheme();
         else if (!empty($_POST['import']))
             $error = $this->importTheme();
+        else if (!empty($_POST['export']))
+            $error = $this->exportTheme();
+
 
         $theme->getByName($selectedTheme);
 
         /* $view->assign("file", $path.$theme->getName()); */
         $view->assign("fileName", $theme->getName());
-        $view->assign("exportRoute", "/admin/exportTheme/?theme=".$theme->getName());
+        /* $view->assign("exportRoute", "/admin/exportTheme/?theme=".$theme->getName()); */
         $view->assign("content", json_decode($theme->getContent(), true));
         $view->assign("selectedTheme", $selectedTheme);
         $view->assign("activePage", "visualSetting");
@@ -182,14 +185,21 @@ class Admin
     public function exportTheme()
     {
         $theme = new Theme();
-        $selectedTheme = htmlspecialchars($_GET['selectThemeName']);
-        if (empty($selectedTheme))
-            Error::error(404, "error");
+        $error = "";
+        $code = 0;
+        $selectedTheme = htmlspecialchars($_POST['selectThemeName']);
 
-        $theme->getByName($selectedTheme);
-        $theme->compressToZip($selectedTheme.".zip");
+        if (!empty($selectedTheme)) {
+            $theme->getByName($selectedTheme);
+            $code = $theme->compressToZip($selectedTheme.".zip");
+            if ($code !== 0)
+                $error = "Something wrong with compression : $code";
+        }
+        else
+            $error = "You need to en enter a name";
 
-        header('location: /admin/visualSetting');
+        /* header('location: /admin/visualSetting'); */
+        return $error;
     }
 
     public function plugin()

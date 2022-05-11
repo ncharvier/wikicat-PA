@@ -53,13 +53,16 @@ class Theme {
      * @return int error code (0 == good, 1 == error)
      */
     public function compressToZip(string $archiveName): int {
-        $zip = new \ZipArchive;
-        if(!$zip->open(PATHTMP.'/'.$archiveName.".zip"))
+        $fullPath = PATH.'/'.$this->name;
+        if (!file_exists($fullPath.'.css') || !file_exists($fullPath.'.json'))
             return 1;
 
-        $fullPath = PATH.'/'.$name;
-        $zip->addFile($fullPath.'.css');
-        $zip->addFile($fullPath.'.json');
+        $zip = new \ZipArchive;
+        if($zip->open(PATHTMP."/$archiveName", \ZipArchive::CREATE) !== TRUE)
+            return 2;
+
+        $zip->addFile($fullPath.'.css', $this->name.'.css');
+        $zip->addFile($fullPath.'.json', $this->name.'.json');
         $zip->close();
 
         return 0;
@@ -94,9 +97,9 @@ class Theme {
 
     /**
      * set the content
-     * @param string cotent
+     * @param string content
      */
-    public function setContent(string $content) {
+    public function setContent(string $content): void {
         $this->content = $content;
     }
 
@@ -129,7 +132,7 @@ class Theme {
      * format and save content in css file
      * @return void
      */
-    public function save() {
+    public function save(): void {
         $fullPathCss = PATH.'/'.$this->name.'.css';
         $fullPathJson = PATH.'/'.$this->name.'.json';
         $content = $this->formatToCss($this->content);
@@ -143,9 +146,12 @@ class Theme {
      * @param string name
      * @return void
      */
-    public static function delete(string $name) {
-        $fullPath = PATH.'/'.$name.'.json';
-        if (file_exists($fullPath))
-            unlink($fullPath);
+    public static function delete(string $name): void {
+        $fullPathCss = PATH."/$name.css";
+        $fullPathJson = PATH."/$name.json";
+        if (file_exists($fullPathCss) && file_exists($fullPathJson)) {
+            unlink($fullPathCss);
+            unlink($fullPathJson);
+        }
     }
 }

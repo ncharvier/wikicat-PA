@@ -204,8 +204,9 @@
             <div class="modal-body">
                 <!--<a href="<?php//$file?>.css"><?php//$fileName?>.css</a>
                 <a href="<?php//$file?>.json"><?php//$fileName?>.json</a>-->
-                <a target="_Blanck" href="<?=$exportRoute?>.css"><?=$fileName?>.css</a>
-                <a target="_Blanck" href="<?=$exportRoute?>.json"><?=$fileName?>.json</a>
+                <!--<a target="_Blanck" href="<?php//$exportRoute?>.css"><?php//$fileName?>.css</a>
+                <a target="_Blanck" href="<?php//$exportRoute?>.json"><?php//$fileName?>.json</a>-->
+                <!--<input type="hidden" name="fileName" value="<?php//$fileName?>">-->
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn--secondary modal-close" value="Fermer">
