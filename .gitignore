@@ -4,3 +4,6 @@ www/Assets/webpack
 www/Assets/dist/main.css
 tags
 tmp
+themes
+!themes/default.css
+!themes/default.json

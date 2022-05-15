@@ -68,7 +68,6 @@ class Admin
         else if (!empty($_POST['export']))
             $error = $this->exportTheme();
 
-
         $theme->getByName($selectedTheme);
 
         /* $view->assign("file", $path.$theme->getName()); */
@@ -88,58 +87,51 @@ class Admin
     private function createTheme()
     {
         $theme = new Theme();
-        $error = "";
 
-        if (!empty($_POST['themeName'])) {
-            $themeName = htmlspecialchars($_POST['themeName']);
-            unset($_POST['themeName']);
-            unset($_POST['submitTheme']);
-            unset($_POST['selectThemeName']);
-            unset($_POST['picture']);
+        if (empty($_POST['themeName']))
+            return "You need to en enter a name";
 
-            if (!Theme::exist($themeName)) {
-                $theme->setName($themeName);
-                $theme->setContent(json_encode($_POST));
-                $theme->save();
-            }
-            else
-                $error = "Theme name already exist";
-        }
-        else
-            $error = "You need to en enter a name";
+        $themeName = htmlspecialchars($_POST['themeName']);
+        unset($_POST['themeName']);
+        unset($_POST['submitTheme']);
+        unset($_POST['selectThemeName']);
+        unset($_POST['picture']);
 
-        return $error;
+        if (Theme::exist($themeName))
+            return "Theme name already exist";
+
+        $theme->setName($themeName);
+        $theme->setContent(json_encode($_POST));
+        $theme->save();
+
+        return "";
     }
 
     /**
      * modify a theme
      * @return string
      */
-    private function modifyTheme()
-    {
+    private function modifyTheme() {
         $theme = new Theme();
-        $error = "";
 
-        if (!empty($_POST['selectThemeName'])) {
-            $themeName = htmlspecialchars($_POST['selectThemeName']);
-            unset($_POST['themeName']);
-            unset($_POST['modify']);
-            unset($_POST['submitTheme']);
-            unset($_POST['selectThemeName']);
-            unset($_POST['picture']);
+        if (empty($_POST['selectThemeName']))
+            return "You need to en enter a name";
 
-            if (Theme::exist($themeName)) {
-                $theme->setName($themeName);
-                $theme->setContent(json_encode($_POST));
-                $theme->save();
-            }
-            else
-                $error = "Theme name does not exist";
-        }
-        else
-            $error = "You need to en enter a name";
+        $themeName = htmlspecialchars($_POST['selectThemeName']);
+        unset($_POST['themeName']);
+        unset($_POST['modify']);
+        unset($_POST['submitTheme']);
+        unset($_POST['selectThemeName']);
+        unset($_POST['picture']);
 
-        return $error;
+        if (!Theme::exist($themeName))
+            return "Theme name does not exist";
+
+        $theme->setName($themeName);
+        $theme->setContent(json_encode($_POST));
+        $theme->save();
+
+        return "";
     }
 
     /**
@@ -149,22 +141,21 @@ class Admin
     private function deleteTheme()
     {
         $theme = new Theme();
-        $error = "";
 
-        if (!empty($_POST['selectThemeName'])) {
-            $themeName = htmlspecialchars($_POST['selectThemeName']);
-            if ($themeName != "default")
-                if (Theme::exist($themeName))
-                    Theme::delete($themeName);
-                else
-                    $error = "Theme name does not exist";
-            else
-                $error = "You can't delete default theme";
-        }
-        else
-            $error = "You need to en enter a name";
+        if (empty($_POST['selectThemeName']))
+            return "You need to en enter a name";
 
-        return $error;
+        $themeName = htmlspecialchars($_POST['selectThemeName']);
+
+        if ($themeName == "default")
+            return "You can't delete default theme";
+
+        if (!Theme::exist($themeName))
+            return "Theme name does not exist";
+
+        Theme::delete($themeName);
+
+        return "";
     }
 
     /**
@@ -174,32 +165,62 @@ class Admin
      */
     private function importTheme()
     {
-        return "merde";
+        $theme = new Theme();
+        $name = basename($_FILES['fileTheme']['name']);
+        $nameWithoutExt = explode('.', $name)[0];
+        $tmpName = $_FILES['fileTheme']['tmp_name'];
+        $size = $_FILES['fileTheme']['size'];
+        $type = $_FILES['fileTheme']['type'];
+
+        if ($size <= 0 || $size > 20000)
+            return "File size too heavy";
+
+        if ($type !== "application/json")
+            return "File must be a json";
+
+        if (Theme::exist($nameWithoutExt))
+            return "Theme name already exist";
+
+        $theme->setName($nameWithoutExt);
+        $theme->setContent(file_get_contents($tmpName));
+        $theme->save();
+
+        return "";
     }
 
     /**
-     * TODO : finir export theme
      * export a theme
      * @return string
      */
     public function exportTheme()
     {
         $theme = new Theme();
-        $error = "";
-        $code = 0;
         $selectedTheme = htmlspecialchars($_POST['selectThemeName']);
 
-        if (!empty($selectedTheme)) {
-            $theme->getByName($selectedTheme);
-            $code = $theme->compressToZip($selectedTheme.".zip");
-            if ($code !== 0)
-                $error = "Something wrong with compression : $code";
-        }
-        else
-            $error = "You need to en enter a name";
+        if (empty($selectedTheme))
+            return "You need to en enter a name";
 
-        /* header('location: /admin/visualSetting'); */
-        return $error;
+        $fullPath = PATHTMP."/$selectedTheme.zip";
+
+        if (!Theme::exist($selectedTheme))
+            return "File does not exist";
+
+        $theme->getByName($selectedTheme);
+        $code = $theme->compressToZip($selectedTheme.".zip");
+
+        if ($code !== 0)
+            return "Something wrong with compression : $code";
+
+        header('Content-Description: Download theme');
+        /* header('Content-Type: application/octet-stream'); */
+        header('Content-Disposition: attachment; filename="'.$selectedTheme.'.zip"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($fullPath));
+        readfile($fullPath);
+
+        return "";
     }
 
     public function plugin()

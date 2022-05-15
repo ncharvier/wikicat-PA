@@ -25,11 +25,8 @@
                     <input type="submit" name="delete" class="btn btn--sm btn--outline-primary d-block" style="width: 100%" value="Supprimer">
                 </div>
                 <!--<div class="col">
-                    <button name="new" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Nouveau</button>
-                </div>-->
-                <div class="col">
                     <button name="duplicate" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Dupliquer</button>
-                </div>
+                </div>-->
                 <div class="col">
                     <input type="button" class="btn btn--sm btn--outline-primary d-block modal-open" data-target="#modal-import" style="width: 100%" value="Importer">
                 </div>
@@ -186,8 +183,8 @@
                 <h2>Importer un theme</h2>
             </div>
             <div class="modal-body">
-                <p>Selectionner un theme à importer</p>
-                <input type="file" name="importTheme" id="importTheme">
+                <p>Selectionner un theme à importer (fichier json)</p>
+                <input type="file" name="fileTheme" id="importTheme">
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn--secondary modal-close" value="Fermer">
@@ -200,13 +197,6 @@
             <div class="modal-header">
                 <span class="modal-close modal-close-cross">&times;</span>
                 <h2>Exporter un theme</h2>
-            </div>
-            <div class="modal-body">
-                <!--<a href="<?php//$file?>.css"><?php//$fileName?>.css</a>
-                <a href="<?php//$file?>.json"><?php//$fileName?>.json</a>-->
-                <!--<a target="_Blanck" href="<?php//$exportRoute?>.css"><?php//$fileName?>.css</a>
-                <a target="_Blanck" href="<?php//$exportRoute?>.json"><?php//$fileName?>.json</a>-->
-                <!--<input type="hidden" name="fileName" value="<?php//$fileName?>">-->
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn--secondary modal-close" value="Fermer">

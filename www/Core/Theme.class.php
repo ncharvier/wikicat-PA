@@ -5,7 +5,11 @@ class Theme {
     protected $name = "";
     protected $content = "";
 
-    public function __construct() {}
+    public function __construct() {
+        // temporaire le temps de faire l'installeur
+        if (!file_exists(PATHTMP))
+            mkdir(PATHTMP);
+    }
 
     /**
      * get theme with name
@@ -50,7 +54,7 @@ class Theme {
     /**
      * create a zip archive
      * @param string archiveName
-     * @return int error code (0 == good, 1 == error)
+     * @return int error code (0 == good, 1 == file doesn't exist, 2 == can't open file)
      */
     public function compressToZip(string $archiveName): int {
         $fullPath = PATH.'/'.$this->name;
