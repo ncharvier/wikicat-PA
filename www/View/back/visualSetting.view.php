@@ -28,6 +28,9 @@
                     <button name="duplicate" class="btn btn--sm btn--outline-primary d-block" style="width: 100%">Dupliquer</button>
                 </div>-->
                 <div class="col">
+                    <input type="button" class="btn btn--sm btn--outline-primary d-block modal-open" data-target="#modal-rename" style="width: 100%" value="Renommer">
+                </div>
+                <div class="col">
                     <input type="button" class="btn btn--sm btn--outline-primary d-block modal-open" data-target="#modal-import" style="width: 100%" value="Importer">
                 </div>
                 <div class="col">
@@ -201,6 +204,21 @@
             <div class="modal-footer">
                 <input type="button" class="btn btn--secondary modal-close" value="Fermer">
                 <input type="submit" name="export" class="btn btn--primary" value="Exporter">
+            </div>
+        </div>
+    </div>
+    <div id="modal-rename" class="modal" style="color:#000;">
+        <div class="modal-content modal-content--sm">
+            <div class="modal-header">
+                <span class="modal-close modal-close-cross">&times;</span>
+                <h2>Renommer un theme</h2>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="renameTheme" class="" value="<?=$selectedTheme ?? ''?>">
+            </div
+            <div class="modal-footer">
+                <input type="button" class="btn btn--secondary modal-close" value="Fermer">
+                <input type="submit" name="rename" class="btn btn--primary" value="Renommer">
             </div>
         </div>
     </div>
