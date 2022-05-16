@@ -8,7 +8,6 @@ use App\Core\ErrorManager;
 function myAutoloader($class){
     $class = str_ireplace("App\\", "", $class);
     $class = str_ireplace("\\", "/", $class);
-    echo $class;
     if(file_exists($class.".class.php")){
         include $class.".class.php";
     }
@@ -17,7 +16,11 @@ function myAutoloader($class){
 spl_autoload_register("App\myAutoloader");
 
 
-$uri = $_SERVER["REQUEST_URI"];
+$uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], "?"));
+
+if(empty($uri)){
+    $uri = $_SERVER["REQUEST_URI"];
+}
 
 $routeFile = "routes.yml";
 if(!file_exists($routeFile)){

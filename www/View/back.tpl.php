@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="../Assets/dist/main.css">
     </head>
     <body id="body-back">
-        <header id="main-header" class="bg-primary">
+        <header id="main-header">
             <h1>Wikicat</h1>
             <div class="user">
                 <span class="user-notification"><i class="fas fa-bell"></i></span>

@@ -18,3 +18,5 @@ define('MAILNAME', 'Wikicat Org');
 // Theme
 define('PATH', '/var/www/html/Core/../Assets/themes/');
 define('PATHTMP', '/var/www/html/Core/../Assets/tmp/');
+
+define("ROOT_URL", "localhost");
