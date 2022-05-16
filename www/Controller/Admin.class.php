@@ -154,7 +154,6 @@ class Admin
     }
 
     /**
-     * TODO : faire import theme
      * import a theme
      * @return array
      */
