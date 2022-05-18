@@ -1,14 +1,28 @@
 <?php
 namespace App\Core;
 
+use App\Model\Log;
+
+/*
+
+Usage example :
+use App\Core\LogManager as Log;
+
+$log = Log::getInstance();
+$log->writeLog('type', 'salut tout le monde');
+$log->readLog(1);
+
+*/
+
 class LogManager {
     public static $instance = null;
+    public $log;
 
     /**
      * constructor
      */
     private function __construct() {
-        // TODO : faire connection avec la db
+        $this->log = new Log;
     }
 
     /**
@@ -29,8 +43,9 @@ class LogManager {
      * @return void
      */
     public function writeLog(string $type, string $msg) {
-        // TODO : faire writeLog
-        return;
+        $this->log->setType($type);
+        $this->log->setMessage($msg);
+        $this->log->save();
     }
 
     /**
@@ -39,9 +54,8 @@ class LogManager {
      * @return string
      */
     public function readLog(int $id): string {
-        // TODO : faire readLog
-        return "";
+        $this->log = $this->log->setId($id);
+        return $this->log->getMessage();
     }
 }
-
 ?>
