@@ -1,6 +1,7 @@
 <form method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
 
     <?php foreach ($config["inputs"] as $name=>$input):?>
+        <div class="form-controller">
         <?php if ($input["type"] == "file"): ?>
             <input name="<?=$name?>"
                    type="<?=$input["type"]?>"
@@ -52,8 +53,8 @@
                 <?= (!empty($input["required"]))?'required="required"':'' ?>
             >
         <?php endif;?>
-        <br>
+        </div>
     <?php endforeach;?>
 
-    <input type="submit" value="<?= $config["config"]["submit"]??"Valider" ?>">
+    <input class="<?=$config["config"]["submit-class"]??""?>" type="submit" value="<?= $config["config"]["submit"]??"Valider" ?>">
 </form>
