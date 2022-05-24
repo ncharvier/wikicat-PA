@@ -43,7 +43,7 @@ class User{
             if(!empty($userToConnect)){
                 $user = $userToConnect;
 
-                if(password_verify($_POST["password"],$user->getPassword()) || $user->getStatus() == 1){
+                if(password_verify($_POST["password"],$user->getPassword()) && $user->getStatus() == 1){
                     $user->updateUserSession();
 
                     header('Location: /');
