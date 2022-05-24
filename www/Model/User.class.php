@@ -233,6 +233,8 @@ class User extends BaseSQL
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
                     "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ],
                 "password"=>[
@@ -240,6 +242,8 @@ class User extends BaseSQL
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
                     "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ]
             ]

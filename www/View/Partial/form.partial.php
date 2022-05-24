@@ -1,9 +1,6 @@
 <form method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
     <?php foreach ($config["inputs"] as $name=>$input):?>
         <div class="form-controller">
-        <?php if (!empty($input["label"])):?>
-            <label for="<?=$input["id"]?>" class="<?=$input["labelClass"]?>"><?=$input["label"]?></label>
-        <?php endif;?>
         <?php if ($input["type"] == "file"): ?>
             <input name="<?=$name?>"
                    type="<?=$input["type"]?>"
@@ -54,6 +51,9 @@
                    placeholder="<?=$input["placeholder"]?>"
                 <?= (!empty($input["required"]))?'required="required"':'' ?>
             >
+        <?php endif;?>
+        <?php if (!empty($input["label"])):?>
+            <label for="<?=$input["id"]?>" class="<?=$input["labelClass"]?>"><?=$input["label"]?></label>
         <?php endif;?>
         </div>
     <?php endforeach;?>
