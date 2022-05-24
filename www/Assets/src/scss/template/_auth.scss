@@ -11,5 +11,18 @@
 
   .auth-card{
     background-color: var(--authBackgroundColor);
+    color: var(--authColor);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .auth-subtitle{
+    font-weight: 600;
+    text-align: center;
+    margin: 0.5em 0 1.5em 0;
+    font-size: 1.2rem;
   }
 }

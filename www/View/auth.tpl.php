@@ -9,8 +9,18 @@
     </head>
     <body id="body-auth">
         <main class="d-flex justify-content-center align-items-center">
-            <div class="col-6">
-                <?php include $this->view.".view.php";?>
+            <div class="col-5 auth-card">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-5">
+                        <h1 class="text-center m-0">
+                            <span class="text-weight-800">Wiki</span>
+                            <span class="text-secondary text-weight-400">cat</span>
+                        </h1>
+                        <?php include $this->view.".view.php";?>
+                    </div>
+                    <div class="col"></div>
+                </div>
             </div>
         </main>
     </body>
