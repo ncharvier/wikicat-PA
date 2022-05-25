@@ -22,7 +22,8 @@ class General{
 
         echo "Welcome";
 
-        ErrorManager::error(404, "page not found");
+        /* ErrorManager::error(404, "page not found"); */
+        /* ErrorManager::error(500, "server error"); */
     }
 
     public function contact()

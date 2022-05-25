@@ -12,10 +12,10 @@ class ErrorManager
 
         switch ($httpCode) {
             case 404:
-                header("location: page404");
+                header("location: page404?msg=".$message);
                 break;
             case 500:
-                header("location: page500");
+                header("location: page500?msg=".$message);
                 break;
         }
     }
