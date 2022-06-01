@@ -13,9 +13,9 @@ class Error
         $view->assign("errorCode", 404);
         $view->assign("titleSeo", "Error : 404");
         $view->assign("message", $message);
-        
+
         http_response_code(404);
-        /* die("404"); */
+        die();
     }
 
     public function page500(){
@@ -27,6 +27,6 @@ class Error
         $view->assign("message", $message);
 
         http_response_code(500);
-        /* die("500"); */
+        die();
     }
 }

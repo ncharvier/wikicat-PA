@@ -5,7 +5,7 @@ session_start();
 
 use App\Core\View;
 use App\Core\Theme;
-use App\Core\ErrorManager as Error;
+use App\Core\ErrorManager;
 
 class Admin
 {
@@ -48,7 +48,6 @@ class Admin
 
     public function visualSetting() {
         $selected = htmlspecialchars($_POST['selectThemeName'] ?? "default");
-        $view = new View("back/visualSetting", "back");
         $theme = new Theme();
         $errorAndTheme = ['error'=>"", 'theme'=>$selected];
         $path = preg_replace("%^.*(/Assets/themes/)$%", "$1", PATH);
@@ -70,6 +69,7 @@ class Admin
         $error = $errorAndTheme['error'];
         $theme->getByName($selectedTheme);
 
+        $view = new View("back/visualSetting", "back");
         $view->assign("content", json_decode($theme->getContent(), true));
         $view->assign("selectedTheme", $selectedTheme);
         $view->assign("activePage", "visualSetting");
