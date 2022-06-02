@@ -12,41 +12,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($userList as $user):?>
                 <tr class="table-row">
-                    <td>Picon Daniel</td>
+                    <td><?=$user->login?></td>
                     <td><span style="color: #D22D3D;">Admin</span>, <span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-success">Actif</td>
-                    <td>daniel.picon@gmail.com</td>
+                    <td class="text-success"><?=$user->status?></td>
+                    <td><?=$user->email?></td>
                     <td><button class="btn btn--primary">Editer</button></td>
                 </tr>
-                <tr class="table-row">
-                    <td>Picon Damien</td>
-                    <td><span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-danger">Banni</td>
-                    <td>picon.damien@gmail.com</td>
-                    <td><button class="btn btn--primary">Editer</button></td>
-                </tr>
-                <tr class="table-row">
-                    <td>Lebreton Dany</td>
-                    <td><span style="color: #2E8B77;">Editeur</span>, <span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-warning">Non vérifier</td>
-                    <td>dany.lebreton@gmail.com</td>
-                    <td><button class="btn btn--primary">Editer</button></td>
-                </tr>
-                <tr class="table-row">
-                    <td>Orty Deny</td>
-                    <td><span style="color: #FA8654;">Modo</span>, <span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-success">Actif</td>
-                    <td>orty.deny@gmail.com</td>
-                    <td><button class="btn btn--primary">Editer</button></td>
-                </tr>
-                <tr class="table-row">
-                    <td>Dupon Dorian</td>
-                    <td><span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-success">Actif</td>
-                    <td>dupon.dorian@gmail.com</td>
-                    <td><button class="btn btn--primary">Editer</button></td>
-                </tr>
+                <?php endforeach?>
                 </tbody>
             </table>
         </section>

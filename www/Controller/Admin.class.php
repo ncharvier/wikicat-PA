@@ -6,6 +6,7 @@ session_start();
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
+use App\Model\User;
 
 class Admin
 {
@@ -18,7 +19,9 @@ class Admin
 
     public function user()
     {
+        $user = new User();
         $view = new View("back/user", "back");
+        $view->assign("userList", $user->getAll());
         $view->assign("activePage", "user");
     }
 
