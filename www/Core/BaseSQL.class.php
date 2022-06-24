@@ -8,7 +8,6 @@ abstract class BaseSQL
     private $pdo;
     private $table;
 
-
     public function __construct()
     {
         //Faudra intégrer le singleton
