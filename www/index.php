@@ -3,7 +3,6 @@ namespace App;
 
 require "conf.inc.php";
 
-use App\Controller\WikiPage;
 use App\Core\ErrorManager;
 
 function myAutoloader($class){
@@ -16,27 +15,14 @@ function myAutoloader($class){
 
 spl_autoload_register("App\myAutoloader");
 
-
 $uri = substr($_SERVER["REQUEST_URI"], 0, strpos($_SERVER["REQUEST_URI"], "?"));
 
 if(empty($uri)){
     $uri = $_SERVER["REQUEST_URI"];
 }
 
-if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
-    $wikiPage = new WikiPage();
-
-    $uri = trim(str_replace('/w/','',$uri));
-
-    $wikiPage->show(strtolower($uri));
-
-} else if (preg_match("#^\/w\/edit\/((?!\/).)*$#", $uri)){
-    $wikiPage = new WikiPage();
-
-    $uri = trim(str_replace('/w/edit/','',$uri));
-
-    $wikiPage->edit(strtolower($uri));
-
+if (preg_match("#^\/w\/#", $uri)){
+    echo "page";
 } else {
     $routeFile = "routes.yml";
     if(!file_exists($routeFile)){
@@ -72,5 +58,4 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
     }
 
     $objectController->$action();
-
 }

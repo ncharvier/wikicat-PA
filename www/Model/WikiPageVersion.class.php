@@ -13,17 +13,10 @@ class WikiPageVersion extends BaseSQL
     protected $content;
     protected $author;
     protected $createdAt;
-    protected $updateAt;
+    protected $updatedAt;
 
     public function __construct()
     {
         parent::__construct();
-    }
-
-
-
-    public function save()
-    {
-        parent::save();
     }
 }
