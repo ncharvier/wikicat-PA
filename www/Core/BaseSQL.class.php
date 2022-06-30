@@ -8,7 +8,6 @@ abstract class BaseSQL
     private $pdo;
     private $table;
 
-
     public function __construct()
     {
         //Faudra intégrer le singleton
@@ -89,15 +88,15 @@ abstract class BaseSQL
         //$columns = array_filter($columns);
 
 
-       if( !is_null($this->getId()) ){
-           foreach ($columns as $key=>$value){
-                $setUpdate[]=$key."=:".$key;
-           }
-           $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
-       }else{
+        if( !is_null($this->getId()) ){
+            foreach ($columns as $key=>$value){
+                 $setUpdate[]=$key."=:".$key;
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
+        }else{
             $sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).")
             VALUES (:".implode(",:", array_keys($columns)).")";
-       }
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );

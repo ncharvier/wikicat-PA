@@ -4,12 +4,14 @@ namespace App\Model;
 
 use App\Core\BaseSQL;
 
-class WikiPage extends BaseSQL
+class WikiPageVersion extends BaseSQL
 {
-
-    protected $id = null;
-    protected $title;
-    protected $parentPageId;
+    protected $id;
+    protected $versionNumber;
+    protected $versionOf;
+    protected $isCurrentVersion;
+    protected $content;
+    protected $author;
     protected $createdAt;
     protected $updateAt;
 
@@ -18,10 +20,7 @@ class WikiPage extends BaseSQL
         parent::__construct();
     }
 
-    public function foundByTitle($title): ?object
-    {
-        return parent::getFromValue(strtolower(trim($title)), "title");
-    }
+
 
     public function save()
     {
