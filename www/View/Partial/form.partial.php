@@ -1,4 +1,4 @@
-<form method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
+<form id="<?= $config["config"]["form-id"]?>" method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
     <?php foreach ($config["inputs"] as $name=>$input):?>
         <div class="form-controller">
         <?php if ($input["type"] == "file"): ?>
@@ -43,7 +43,46 @@
                     </option>
                 <?php endforeach;?>
             </select>
-        <?php else:;?>
+        <?php elseif($input["type"] == "quill"):?>
+            <input id="<?=$input["id"]?>" name="<?=$name?>" type="hidden">
+
+            <div id="<?=$input["id"]?>Quill"></div>
+
+            <script>
+                const toolbarOptions = [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
+
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'direction': 'rtl' }],
+
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'font': [] }],
+                    [{ 'align': [] }],
+
+                    ['clean']
+                ];
+
+                const quill = new Quill('#<?=$input["id"]?>Quill', {
+                    modules: {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+
+                <?php if(empty($input["defaultValue"])):?>
+                quill.setContents("""<?=$input["defaultValue"]?>""");
+                <?php endif;?>
+
+                $("#<?=$config["config"]["form-id"]?>").on("submit", function() {
+                    $("#<?=$input["id"]?>").val(JSON.stringify(quill.getContents()));
+                });
+            </script>
+        <?php else:?>
             <input name="<?=$name?>"
                    id="<?=$input["id"]?>"
                    type="<?=$input["type"]?>"

@@ -4,6 +4,7 @@ namespace App;
 require "conf.inc.php";
 
 use App\Core\ErrorManager;
+use App\Controller\WikiPage;
 
 function myAutoloader($class){
     $class = str_ireplace("App\\", "", $class);
@@ -21,8 +22,20 @@ if(empty($uri)){
     $uri = $_SERVER["REQUEST_URI"];
 }
 
-if (preg_match("#^\/w\/#", $uri)){
-    echo "page";
+if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
+    $wikiPage = new WikiPage();
+
+    $uri = trim(str_replace('/w/','',$uri));
+
+    $wikiPage->show(strtolower($uri));
+
+} else if (preg_match("#^\/w\/edit\/((?!\/).)*$#", $uri)){
+    $wikiPage = new WikiPage();
+
+    $uri = trim(str_replace('/w/edit/','',$uri));
+
+    $wikiPage->edit(strtolower($uri));
+
 } else {
     $routeFile = "routes.yml";
     if(!file_exists($routeFile)){

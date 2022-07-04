@@ -36,7 +36,7 @@ abstract class BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    protected function getFromValue($value, string $valueName) 
+    protected function getFromValue($value, string $valueName): ?object
     {
         $sql = "SELECT * FROM ".$this->table. " WHERE " . $valueName . "=:value ";
 
@@ -44,7 +44,7 @@ abstract class BaseSQL
         $queryPrepared->execute( ["value"=>$value] );
 
         $result = $queryPrepared->fetchObject(get_called_class());
-        return $result ?? null;
+        return $result!=false?$result:null;
     }
 
     /**
@@ -81,7 +81,6 @@ abstract class BaseSQL
 
     protected function save()
     {
-
         $columns  = get_object_vars($this);
         $varsToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varsToExclude);
@@ -100,7 +99,5 @@ abstract class BaseSQL
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
     }
-
 }
