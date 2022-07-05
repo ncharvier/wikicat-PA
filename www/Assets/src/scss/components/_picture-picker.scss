@@ -1,0 +1,20 @@
+.picture-picker {
+    background-color: #151C22;
+    padding: 3px;
+    margin: 5px;
+    display: flex;
+
+    .picture-picker-img {
+        width: 5rem;
+        height: 5rem;
+    }
+    .picture-picker-input {
+        display: none;
+    }
+    .picture-picker-info {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 10px;
+        color: #fff;
+    }
+}

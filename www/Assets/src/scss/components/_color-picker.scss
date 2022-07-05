@@ -1,0 +1,33 @@
+.color-picker {
+    background-color: #222731;
+    border: 1px solid #3F4756; 
+    width: 6rem;
+    display: flex;
+
+    .color-picker-input {
+        background-color: #222731;
+        border: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0;
+        margin: 0;
+    }
+    .color-picker-info {
+        color: #fff;
+        margin: auto;
+    }
+}
+
+.color-picker-bg {
+    background-color: #151C22;
+    padding: 3px;
+    margin: 5px;
+    display: flex;
+
+    .color-picker-bg-text {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 10px;
+        color: #fff;
+    }
+}

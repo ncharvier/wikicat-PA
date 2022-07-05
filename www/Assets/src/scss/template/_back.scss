@@ -1,8 +1,9 @@
 #body-back{
-  background-color: map-deep-get($theme-colors, "dark", "800");
+  background-color: var(--backBackground);
   color: #fff;
 
   #main-header{
+    background-color: var(--backHeaderColor);
     height: 56px;
     display: flex;
     align-items: center;
@@ -32,13 +33,13 @@
   }
 
   #main-nav{
-    background-color: map-deep-get($theme-colors, "dark", "700");
+    background-color: var(--backMainNavBackground);
     height: calc(100vh - 56px);
-    border-right: solid 1px map-deep-get($theme-colors, "dark", "500");
+    border-right: solid 1px var(--backMainNavBorder);
 
     .main-nav-choice{
       cursor: pointer;
-      background-color: map-deep-get($theme-colors, "dark", "700");
+      background-color: var(--backMainNavBackground);
       height: 60px;
       width: 100%;
       display: flex;
@@ -52,16 +53,16 @@
       border-left-color: map-deep-get($theme-colors, "dark", "700");
 
       &:not(:last-child){
-        border-bottom: 1px solid map-deep-get($theme-colors, "dark", "500");
+        border-bottom: 1px solid var(--backMainNavBorder);
       }
 
       &:hover{
-        background-color: map-deep-get($theme-colors, "dark", "600");
-        border-left-color: map-deep-get($theme-colors, "dark", "600");
+        background-color: var(--backMainNavhover);
+        border-left-color: var(--backMainNavhover);
       }
 
       &.active{
-        background-color: map-deep-get($theme-colors, "dark", "600");
+        background-color: var(--backMainNavActive);
         border-left: solid 5px map-deep-get($theme-colors, "primary", "800");
         border-image: linear-gradient(to right, map-deep-get($theme-colors, "secondary", "800"), map-deep-get($theme-colors, "primary", "800")) 1 100%;
       }
@@ -82,7 +83,7 @@
       display: none;
       .main-nav-subchoice{
         cursor: pointer;
-        background-color: map-deep-get($theme-colors, "dark", "500");
+        background-color: var(--backMainNavSubChoiceBackground);
         height: 32px;
         width: 100%;
         display: flex;
@@ -91,13 +92,13 @@
         text-decoration: none;
         padding: 0.2rem 2rem;
         transition: background-color .3s, border-color .3s;
-        border-bottom: 1px solid map-deep-get($theme-colors, "dark", "400");
+        border-bottom: 1px solid var(--backMainNavSubChoiceBorder);
       }
     }
   }
 
   .main-section{
-    background-color: map-deep-get($theme-colors, "dark", "700");
+    background-color: var(--backMainSectionBackground);
     border-radius: 5px;
     padding: 15px;
     margin: 15px;
@@ -105,13 +106,24 @@
 
     h1, h2, h3, h4, h5, h6{
       margin: 0;
+      font-weight: normal;
     }
 
     hr{
       border-width: 0;
       border-top-width: 1px;
       border-style: solid;
-      border-top-color: map-deep-get($theme-colors, "dark", "400");
+      border-top-color: var(--backMainSectionHr);
     }
+  }
+
+  .form-checkbox[type="checkbox"]{
+    background-color: var(--backCheckboxBackground);;
+    border: 1px solid var(--backCheckboxBorder);
+  }
+
+  .form-radio[type="radio"]{
+    background-color: var(--backRadioBackground);;
+    border: 1px solid var(--backRadioBorder);
   }
 }
