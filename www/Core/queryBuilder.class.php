@@ -93,7 +93,7 @@ class queryBuilder
 
     public function target(string $table): self
     {
-        $this->target[] = DBPREFIXE.$table;
+        $this->target[] = DBPREFIXE.strtolower($table);
         return $this;
     }
 

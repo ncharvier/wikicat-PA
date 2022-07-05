@@ -1,7 +1,13 @@
-<h1><?=Ucfirst($title)?></h1>
+<h1><?=Ucfirst($page->GetTitle())?></h1>
+
+<?php if (!$exist):?>
+    <div class="alert alert--danger mx-0">
+        <h4>Cette page n'existe pas </h4>
+        <hr>
+        vous pouvez la créé :
+    </div>
+<?php endif;?>
 
 <?php
-
-print_r($_POST);
 
 $this->includePartial("form", $page->getPageEditForm($pageContent??null)) ?>

@@ -6,7 +6,6 @@ use App\Core\BaseSQL;
 
 class WikiPage extends BaseSQL
 {
-
     protected $id = null;
     protected $title;
     protected $parentPageId;
@@ -26,7 +25,7 @@ class WikiPage extends BaseSQL
     /**
      * @return null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -34,7 +33,7 @@ class WikiPage extends BaseSQL
     /**
      * @return mixed
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -42,15 +41,15 @@ class WikiPage extends BaseSQL
     /**
      * @param mixed $title
      */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
-        $this->title = $title;
+        $this->title = trim(strtolower($title));
     }
 
     /**
      * @return mixed
      */
-    public function getParentPageId()
+    public function getParentPageId(): ?int
     {
         return $this->parentPageId;
     }
@@ -58,7 +57,7 @@ class WikiPage extends BaseSQL
     /**
      * @param mixed $parentPageId
      */
-    public function setParentPageId($parentPageId): void
+    public function setParentPageId(int $parentPageId): void
     {
         $this->parentPageId = $parentPageId;
     }
@@ -95,7 +94,12 @@ class WikiPage extends BaseSQL
                 "submit-class"=>"btn btn--success"
             ],
             "inputs"=>[
-                "pageEditor"=>[
+                "pageId"=>[
+                    "type"=>"hidden",
+                    "id"=>"pageId",
+                    "value"=>$this->getId()??""
+                ],
+                "newPageContent"=>[
                     "type"=>"quill",
                     "id"=>"newPageContent",
                     "default-value"=>$pageContent??""

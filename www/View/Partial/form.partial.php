@@ -3,7 +3,7 @@
         <div class="form-controller">
         <?php if ($input["type"] == "file"): ?>
             <input name="<?=$name?>"
-                   type="<?=$input["type"]?>"
+                   type="file"
                    id="<?=$input["id"]?>"
                    accept="<?=$input["accept"]?>"
                    size="<?=$input["size"]?>"
@@ -14,8 +14,8 @@
             <?php foreach ($input["options"]as $option):?>
                 <input type="radio"
                        name="<?=$name?>"
-                       id="<?=$option["id"]?>"
-                       value="<?=$option["value"]?>">
+                       id="<?=$option["id"]??""?>"
+                       value="<?=$option["value"]??""?>">
             <?php endforeach?>
         <?php elseif ($input["type"] == "checkbox"): ?>
             <input type="hidden" value="null" name="<?=$name?>">
@@ -74,9 +74,7 @@
                     theme: 'snow'
                 });
 
-                <?php if(empty($input["defaultValue"])):?>
-                quill.setContents("""<?=$input["defaultValue"]?>""");
-                <?php endif;?>
+                quill.setContents(JSON.parse("<?=addslashes($input["default-value"]!=""?$input["default-value"]:"{}")?>"));
 
                 $("#<?=$config["config"]["form-id"]?>").on("submit", function() {
                     $("#<?=$input["id"]?>").val(JSON.stringify(quill.getContents()));
@@ -84,10 +82,11 @@
             </script>
         <?php else:?>
             <input name="<?=$name?>"
-                   id="<?=$input["id"]?>"
+                   id="<?=$input["id"]??""?>"
                    type="<?=$input["type"]?>"
-                   class="<?=$input["class"]?>"
-                   placeholder="<?=$input["placeholder"]?>"
+                   class="<?=$input["class"]??""?>"
+                   placeholder="<?=$input["placeholder"]??""?>"
+                   value="<?=$input["value"]??""?>"
                 <?= (!empty($input["required"]))?'required="required"':'' ?>
             >
         <?php endif;?>

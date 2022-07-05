@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title><?= $titleSeo??"template du front" ?></title>
+        <title><?= $titleSeo??"Wikicat" ?></title>
         <meta name="description" content="ceci est la description de ma page">
 
         <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">

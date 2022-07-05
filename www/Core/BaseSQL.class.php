@@ -25,6 +25,10 @@ abstract class BaseSQL
 
     }
 
+    protected function getPdoSession(){
+        return $this->pdo;
+    }
+
     /**
      * @param mixed $id
      */
@@ -86,10 +90,16 @@ abstract class BaseSQL
         $columns = array_diff_key($columns, $varsToExclude);
         //$columns = array_filter($columns);
 
+        unset($columns["updatedAt"]);
+        unset($columns["createdAt"]);
+        unset($columns["id"]);
 
         if( !is_null($this->getId()) ){
             foreach ($columns as $key=>$value){
-                 $setUpdate[]=$key."=:".$key;
+                if (is_bool($value)){
+                    $columns[$key] = intval($value);
+                }
+                $setUpdate[]=$key."=:".$key;
             }
             $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
         }else{
