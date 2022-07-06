@@ -32,7 +32,7 @@ switch ($user->status) {
 ?>
                     </td>
                     <td><?=$user->email?></td>
-                    <td><button class="btn btn--primary">Editer</button></td>
+                    <td><button class="btn btn--primary modal-open" data-target="#modal-edit">Editer</button></td>
                 </tr>
                 <?php endforeach?>
                 </tbody>
@@ -40,4 +40,17 @@ switch ($user->status) {
         </section>
     </div>
 </div>
-
+<div id="modal-edit" class="modal" style="color:#000;">
+    <div class="modal-content modal-content--sm">
+        <div class="modal-header">
+            <span class="modal-close modal-close-cross">&times;</span>
+            <h2>modal de test</h2>
+        </div>
+        <div class="modal-body">
+            TODO : ban, reset, force confirm email, delete
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn--secondary modal-close" value="Fermer">
+        </div>
+    </div>
+</div>
