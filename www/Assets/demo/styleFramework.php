@@ -7,6 +7,7 @@
         <script src="../js/jquery.js" crossorigin="anonymous"></script>
         <script src="../js/tree.js"></script>
         <script src="../js/modal.js"></script>
+        <script src="../js/color-picker.js"></script>
     </head>
     <body>
         <?php
@@ -32,6 +33,8 @@
             include_once "Components/Chart.php";
             include_once "Components/Progress.php";
             include_once "Components/Modal.php";
+            include_once "Components/ColorPicker.php";
+            include_once "Components/PicturePicker.php";
 
             echo "<h2>Utils</h2>";
 

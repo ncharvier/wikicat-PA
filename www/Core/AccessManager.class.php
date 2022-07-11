@@ -13,7 +13,7 @@ class AccessManager
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
-            if ($user->getToken() == $_SESSION["connectedUser"]["token"]){
+            if ($user->getConnectionToken() == $_SESSION["connectedUser"]["token"]){
                 $user->updateUserSession();
 
                 return true;

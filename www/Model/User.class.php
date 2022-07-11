@@ -11,7 +11,9 @@ class User extends BaseSQL
     protected $email;
     protected $password;
     protected $status = 0;
-    protected $token = null;
+    protected $connectionToken = null;
+    protected $validationToken = null;
+    protected $passwordForgetToken = null;
 
     public function __construct()
     {
@@ -24,7 +26,7 @@ class User extends BaseSQL
         $_SESSION["connectedUser"]["id"] = $this->getId();
         $_SESSION["connectedUser"]["login"] = $this->getLogin();
         $_SESSION["connectedUser"]["email"] = $this->getEmail();
-        $_SESSION["connectedUser"]["token"] = $this->getToken();
+        $_SESSION["connectedUser"]["token"] = $this->getConnectionToken();
     }
 
     public function getByEmail($email): ?object{
@@ -104,24 +106,60 @@ class User extends BaseSQL
     }
 
     /**
-     * @return null
+     * @return string
      */
-    public function getToken(): ?string
+    public function getConnectionToken(): ?string
     {
-        return $this->token;
+        return $this->connectionToken;
     }
 
     /**
-     * @param null
+     * @return string
+     */
+    public function getValidationToken(): ?string
+    {
+        return $this->validationToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordForgetToken(): ?string
+    {
+        return $this->passwordForgetToken;
+    }
+
+    /**
+     * @param string
      * Token char 32
      */
-    public function generateToken(): void
+    private function generateToken(): string
     {
-        $this->token = str_shuffle(md5(uniqid()));
+        return str_shuffle(md5(uniqid()));
+    }
+
+    public function generateConnectionToken(): void{
+        $this->connectionToken = $this->generateToken();
+    }
+
+    public function generatePasswordForgetToken(): void{
+        $this->passwordForgetToken = $this->generateToken();
+    }
+
+    public function generateValidationToken(): void{
+        $this->validationToken = $this->generateToken();
+    }
+
+    public function clearConnectionToken(): void{
+        $this->connectionToken = null;
+    }
+
+    public function clearValidationToken(): void{
+        $this->validationToken = null;
     }
 
     public function clearToken(): void{
-        $this->token = null;
+        $this->connectionToken = null;
     }
 
     public function save()
@@ -131,18 +169,25 @@ class User extends BaseSQL
 
     public function getFormRegister(): array
     {
+        $className = explode("\\",get_called_class());
+        $className = end($className);
+
         return [
             "config"=>[
                 "method"=>"POST",
                 "action"=>"",
-                "submit"=>"S'inscrire"
+                "className"=>$className,
+                "submit"=>"S'inscrire",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "login"=>[
                     "type"=>"text",
                     "placeholder"=>"Pseudonyme",
                     "id"=>"loginRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Pseudonyme",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Pseudonyme invalide"
                 ],
@@ -150,17 +195,21 @@ class User extends BaseSQL
                     "type"=>"email",
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Email incorrect",
                     "unicity"=>true,
-                    "errorUnicity"=>"Email existe déjà en bdd"
+                    "errorUnicity"=>"Un compte existe déjà sur cette adresse email"
                 ],
                 "password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
@@ -175,21 +224,26 @@ class User extends BaseSQL
             "config"=>[
                 "method"=>"POST",
                 "action"=>"",
-                "submit"=>"Se connecter"
+                "submit"=>"Se connecter",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "email"=>[
                     "type"=>"email",
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ],
                 "password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ]
             ]
@@ -249,6 +303,45 @@ class User extends BaseSQL
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
                     "class"=>"inputRegister",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
+        ];
+    }
+
+    public function getForgotPassword(): array {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mot de passe oublié ?"
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"email linked to the account",
+                    "id"=>"recoveryEmail",
+                    "class"=>"inputEmail",
+                    "required"=>true,
+                ],
+            ]
+        ];
+    }
+
+    public function getChangePassword(): array{
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"changePassword",
+                "submit"=>"Changer votre mot passe"
+            ],
+            "inputs"=>[
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre nouveau mot de passe",
+                    "id"=>"pwdChangePassword",
+                    "class"=>"inputChangePassword",
                     "required"=>true,
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],

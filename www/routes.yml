@@ -16,7 +16,23 @@
 
 /logout:
   controller: user
-  action : logout
+  action: logout
+
+/valideAccount:
+  controller: user
+  action: valideAccount
+
+/forgotPassword:
+  controller: user
+  action: forgotPassword
+
+/acquireNewPassword:
+  controller: user
+  action: acquireNewPassword
+
+/changePassword:
+  controller: user
+  action: changePassword
 
 /page404:
   controller: error
@@ -54,6 +70,10 @@
   controller: admin
   action: visualSetting
 
+/admin/exportTheme:
+  controller: admin
+  action: exportTheme
+
 /admin/plugin:
   controller: admin
   action: plugin
@@ -61,3 +81,6 @@
 /admin/globalSetting:
   controller: admin
   action: globalSetting
+
+
+
