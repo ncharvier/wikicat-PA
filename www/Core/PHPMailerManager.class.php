@@ -25,8 +25,7 @@ class PHPMailerManager
 
     private $mail;
 
-    private function __construct()
-    {
+    private function __construct() {
         $this->mail = new PHPMailer();
         $this->mail->IsSMTP();
         $this->mail->SMTPDebug = 0;
@@ -35,14 +34,13 @@ class PHPMailerManager
         $this->mail->SMTPAuth = MAILSMTPAUTH;
 
         if ($this->mail->SMTPAuth) {
-            $this->mail->SMTPSecure = MAILSECURE;
             $this->mail->Username = MAILUSERNAME;
             $this->mail->Password = MAILPWD;
         }
     }
 
-    public static function getInstance(){
-        if(is_null(self::$instance)){
+    public static function getInstance() {
+        if (is_null(self::$instance)) {
             self::$instance = new PHPMailerManager();
         }
 
@@ -57,8 +55,7 @@ class PHPMailerManager
      * @param String body : content of email
      * @return bool : false on error
      */
-    public function send(string $to, string $subject, string $body): bool
-    {
+    public function send(string $to, string $subject, string $body): bool {
         $this->mail->SetFrom(MAILUSERNAME, MAILNAME);
         $this->mail->Subject = $subject;
         $this->mail->Body = $body;
