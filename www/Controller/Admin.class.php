@@ -20,9 +20,56 @@ class Admin
     public function user()
     {
         $user = new User();
+        $error = "";
+
+        if (!empty($_POST['activeUser']))
+            $error = $this->changeStatus(1);
+        else if (!empty($_POST['banUser']))
+            $error = $this->changeStatus(2);
+        else if (!empty($_POST['resetPassword']))
+            $error = $this->changePassword();
+
         $view = new View("back/user", "back");
         $view->assign("userList", $user->getAll());
         $view->assign("activePage", "user");
+    }
+
+    /**
+     * change status to active (=1) or ban (=2)
+     * @param int status - active (=1) or ban (=2)
+     * @return string
+     */
+    private function changeStatus(int $status): string {
+        $user = new User();
+
+        if (empty($_POST['userId']))
+            return "User id is missing";
+
+        $user = $user->setId($_POST['userId']);
+        $user->setStatus($status);
+        $user->save();
+
+        return "";
+    }
+
+    /**
+     * change password
+     * @return string
+     */
+    private function changePassword(): string {
+        $user = new User();
+
+        if (empty($_POST['userId']))
+            return "User id is missing";
+
+        if (empty($_POST['newPassword']))
+            return "Password is missing";
+
+        $user = $user->setId($_POST['userId']);
+        $user->setPassword($_POST['newPassword']);
+        $user->save();
+
+        return "";
     }
 
     public function role()
