@@ -37,7 +37,7 @@ abstract class BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    protected function getFromValue($value, $valueName): ?object
+    protected function getFromValue($value, string $valueName) 
     {
         $sql = "SELECT * FROM ".$this->table. " WHERE " . $valueName . "=:value ";
 
@@ -45,10 +45,39 @@ abstract class BaseSQL
         $queryPrepared->execute( ["value"=>$value] );
 
         $result = $queryPrepared->fetchObject(get_called_class());
-        if ($result){
-            return $result;
-        }
-        return null;
+        return $result ?? null;
+    }
+
+    /**
+     * get list
+     * @return array
+     */
+    public function getAll()
+    {
+        $sql = "SELECT * FROM ".$this->table;
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        return $result ?? null;
+    }
+
+    /**
+     * get list
+     * @param mixed value
+     * @param string valueName
+     * @return array
+     */
+    public function getAllFromValue($value, string $valueName)
+    {
+        $sql = "SELECT * FROM ".$this->table." WHERE ".$valueName."=:value ";
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( ["value"=>$value] );
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        return $result ?? null;
     }
 
     protected function save()

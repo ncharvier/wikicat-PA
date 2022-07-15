@@ -67,4 +67,5 @@
     <script src="../Assets/webpack/node_modules/chart.js/dist/chart.js"></script>
     <script src="../Assets/js/chartCanvas.js"></script>
     <script src="../Assets/js/color-picker.js"></script>
+    <script src="../Assets/js/modal.js"></script>
 </html>

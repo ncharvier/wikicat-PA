@@ -297,4 +297,43 @@ class User extends BaseSQL
             ]
         ];
     }
+
+    public function getForgotPassword(): array {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Mot de passe oublié ?"
+            ],
+            "inputs"=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"email linked to the account",
+                    "id"=>"recoveryEmail",
+                    "class"=>"inputEmail",
+                    "required"=>true,
+                ],
+            ]
+        ];
+    }
+
+    public function getChangePassword(): array{
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"changePassword",
+                "submit"=>"Changer votre mot passe"
+            ],
+            "inputs"=>[
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre nouveau mot de passe",
+                    "id"=>"pwdChangePassword",
+                    "class"=>"inputChangePassword",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
+        ];
+    }
 }
