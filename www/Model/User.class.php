@@ -185,14 +185,17 @@ class User extends BaseSQL
                 "method"=>"POST",
                 "action"=>"",
                 "className"=>$className,
-                "submit"=>"S'inscrire"
+                "submit"=>"S'inscrire",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "login"=>[
                     "type"=>"text",
                     "placeholder"=>"Pseudonyme",
                     "id"=>"loginRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Pseudonyme",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Pseudonyme invalide"
                 ],
@@ -200,7 +203,9 @@ class User extends BaseSQL
                     "type"=>"email",
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Email incorrect",
                     "unicity"=>true,
@@ -210,7 +215,9 @@ class User extends BaseSQL
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
@@ -225,21 +232,26 @@ class User extends BaseSQL
             "config"=>[
                 "method"=>"POST",
                 "action"=>"",
-                "submit"=>"Se connecter"
+                "submit"=>"Se connecter",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "email"=>[
                     "type"=>"email",
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ],
                 "password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ]
             ]
