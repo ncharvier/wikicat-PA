@@ -14,5 +14,4 @@
 $this->includePartial("quillReader", $pageContent)
 ?>
 
-
 <a class="btn btn--sm btn--primary" href="/w/edit/<?=$page->GetTitle()?>">Modifier</a>
