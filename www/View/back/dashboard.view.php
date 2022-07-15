@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-6 my-1 d-flex align-items-center">
                         <i class="fas fa-user-friends fa-2x"></i>
-                        <div class="badge badge--pill badge--success ml-3"> + 159</div>
+                        <div class="badge badge--pill badge--success ml-3"> + <?=$nbUser?></div>
                     </div>
                     <div class="col-6 my-1 d-flex align-items-center">
                         <i class="fas fa-user-plus fa-2x"></i>

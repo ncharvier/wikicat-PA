@@ -32,6 +32,14 @@ class User extends BaseSQL
     public function getByEmail($email): ?object{
         return parent::getFromValue(strtolower(trim($email)), "email");
     }
+    /**
+     * get number of user un database
+     * @return int
+     */
+    /* public function count(): int */
+    /* { */
+    /*     return parent::count(); */
+    /* } */
 
     /**
      * @return mixed

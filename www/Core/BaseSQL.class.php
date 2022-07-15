@@ -80,6 +80,20 @@ abstract class BaseSQL
         return $result ?? null;
     }
 
+    /**
+     * count number of element in database
+     * @return int
+     */
+    public function count(): int {
+        $sql = "SELECT COUNT(*) as count FROM ".$this->table;
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+
+        $result = $queryPrepared->fetch(\PDO::FETCH_OBJ);
+        return $result->count;
+    }
+
     protected function save()
     {
 

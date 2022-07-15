@@ -6,14 +6,16 @@ session_start();
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
+use App\Model\User;
 
 class Admin
 {
     public function dashboard()
     {
+        $user = new User();
         $view = new View("back/dashboard", "back");
         $view->assign("activePage", "dashboard");
-
+        $view->assign("nbUser", $user->count());
     }
 
     public function user()
