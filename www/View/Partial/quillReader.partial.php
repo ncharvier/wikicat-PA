@@ -1,9 +1,12 @@
-<div id="pageContent">
+<div id="pageContent" style="height: auto">
 
 </div>
 
 <script>
-    let tempCont = document.createElement("div");
-    (new Quill(tempCont)).setContents(<?=$config?>);
-    $("#pageContent").html(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
+    var quill = new Quill('#pageContent', {
+        modules: { toolbar: false }
+    });
+
+    quill.setContents(JSON.parse("<?=addslashes($config!=""?$config:"{}")?>"));
+    quill.disable();
 </script>

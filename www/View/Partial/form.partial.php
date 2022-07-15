@@ -50,7 +50,7 @@
 
             <script>
                 const toolbarOptions = [
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'header': [2, 3, 4, 5, 6, false] }],
                     ['bold', 'italic', 'underline', 'strike'],
                     ['blockquote', 'code-block'],
                     [{ 'size': ['small', false, 'large', 'huge'] }],
