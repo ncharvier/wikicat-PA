@@ -24,4 +24,6 @@ body{
   --backRadioBackground: #{map-deep-get($theme-colors, "dark", "600")};
   --backRadioBorder: #{map-deep-get($theme-colors, "dark", "400")};
 
+  --authBackgroundColor: #{map-deep-get($theme-colors, "dark", "700")};
+  --authColor: #FFFFFF;
 }

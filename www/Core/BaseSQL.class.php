@@ -8,7 +8,6 @@ abstract class BaseSQL
     private $pdo;
     private $table;
 
-
     public function __construct()
     {
         //Faudra intégrer le singleton
@@ -26,6 +25,10 @@ abstract class BaseSQL
 
     }
 
+    protected function getPdoSession(){
+        return $this->pdo;
+    }
+
     /**
      * @param mixed $id
      */
@@ -37,7 +40,7 @@ abstract class BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    protected function getFromValue($value, string $valueName) 
+    protected function getFromValue($value, string $valueName): ?object
     {
         $sql = "SELECT * FROM ".$this->table. " WHERE " . $valueName . "=:value ";
 
@@ -45,7 +48,7 @@ abstract class BaseSQL
         $queryPrepared->execute( ["value"=>$value] );
 
         $result = $queryPrepared->fetchObject(get_called_class());
-        return $result ?? null;
+        return $result!=false?$result:null;
     }
 
     /**
@@ -82,26 +85,29 @@ abstract class BaseSQL
 
     protected function save()
     {
-
         $columns  = get_object_vars($this);
         $varsToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varsToExclude);
         //$columns = array_filter($columns);
 
+        unset($columns["updatedAt"]);
+        unset($columns["createdAt"]);
+        unset($columns["id"]);
 
-       if( !is_null($this->getId()) ){
-           foreach ($columns as $key=>$value){
+        if( !is_null($this->getId()) ){
+            foreach ($columns as $key=>$value){
+                if (is_bool($value)){
+                    $columns[$key] = intval($value);
+                }
                 $setUpdate[]=$key."=:".$key;
-           }
-           $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
-       }else{
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
+        }else{
             $sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).")
             VALUES (:".implode(",:", array_keys($columns)).")";
-       }
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
     }
-
 }
