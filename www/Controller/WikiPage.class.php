@@ -12,13 +12,21 @@ class WikiPage
     public function show(string $pageTitle)
     {
         $page = new Page();
+        $pageVersion = new PageVersion();
         $page = $page->foundByTitle($pageTitle);
 
         if ($page == null){
             header('Location: /w/edit/'.$pageTitle);
         }
 
-        echo $pageTitle;
+        $pageVersion = $pageVersion->getCurrentVersion($page->getId());
+
+        $view = new View("front/pageShow", "front");
+
+        $view->assign("innerTree", $page->getInnerTree());
+        $view->assign("titleSeo", $page->getTitle());
+        $view->assign("pageContent", $pageVersion->getContent());
+        $view->assign("page", $page);
     }
 
     public function edit(string $pageTitle)
@@ -28,6 +36,7 @@ class WikiPage
 
         $view = new View("front/pageEdit", "front");
         $view->assign("exist", true);
+        $view->assign("innerTree", null);
 
         if (isset($_POST["newPageContent"]) && !empty($_POST["pageId"])){
             $page = $page->setId($_POST["pageId"]);
@@ -44,6 +53,7 @@ class WikiPage
 
             $oldVersion->save();
 
+            $view->assign("innerTree", $page->getInnerTree());
             $view->assign("titleSeo", "Modifier {$pageTitle}");
             $view->assign("pageContent", $_POST["newPageContent"]);
 
@@ -61,6 +71,7 @@ class WikiPage
 
             $pageVersion->save();
 
+            $view->assign("innerTree", $page->getInnerTree());
             $view->assign("titleSeo", "Modifier {$pageTitle}");
             $view->assign("pageContent", $_POST["newPageContent"]);
         } else {
@@ -75,6 +86,7 @@ class WikiPage
             } else {
                 $pageVersion = $pageVersion->getCurrentVersion($page->getId());
 
+                $view->assign("innerTree", $page->getInnerTree());
                 $view->assign("titleSeo", "Modifier {$pageTitle}");
                 $view->assign("pageContent", $pageVersion->getContent());
             }

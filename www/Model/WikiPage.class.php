@@ -22,6 +22,24 @@ class WikiPage extends BaseSQL
         return parent::getFromValue(strtolower(trim($title)), "title");
     }
 
+    public function getParentPage(): ?object
+    {
+        return $this->setId($this->parentPageId);
+    }
+
+    public function getInnerTree(): ?array
+    {
+        $tree[] = $this;
+        $lastPage = $this;
+
+        while ($lastPage->parentPageId != null){
+            $lastPage = $lastPage->getParentPage();
+            $tree[] = $lastPage;
+        }
+
+        return $tree;
+    }
+
     /**
      * @return null
      */
