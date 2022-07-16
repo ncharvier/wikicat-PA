@@ -7,15 +7,20 @@ use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
 use App\Model\User;
+use App\Model\WikiPage as Page;
 
 class Admin
 {
     public function dashboard()
     {
         $user = new User();
+        $page = new Page();
         $view = new View("back/dashboard", "back");
         $view->assign("activePage", "dashboard");
         $view->assign("nbUser", $user->count());
+        $view->assign("nbCreatedUser", $user->countFrom(7));
+        $view->assign("nbPage", $page->count());
+        $view->assign("nbCreatedPage", $page->countFrom(7));
     }
 
     public function user()

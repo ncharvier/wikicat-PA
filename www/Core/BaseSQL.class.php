@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-
 abstract class BaseSQL
 {
     private $pdo;
@@ -92,6 +91,25 @@ abstract class BaseSQL
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
+
+        $result = $queryPrepared->fetch(\PDO::FETCH_OBJ);
+        return $result->count;
+    }
+
+    /**
+     * count number of element in database since number of day
+     * @param int $numberOfDay
+     * @return int
+     */
+    public function countFrom(int $numberOfDay): int {
+        $timeDay = $numberOfDay * 24 * 3600;
+        $timeLimit = time() - $timeDay;
+        $datetime = date('Y-m-d H:i', $timeLimit);
+
+        $sql = "SELECT COUNT(*) as count FROM ".$this->table." WHERE createdAt >= :date";
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute([":date" => $datetime]);
 
         $result = $queryPrepared->fetch(\PDO::FETCH_OBJ);
         return $result->count;
