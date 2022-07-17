@@ -18,9 +18,9 @@ class Admin
         $view = new View("back/dashboard", "back");
         $view->assign("activePage", "dashboard");
         $view->assign("nbUser", $user->count());
-        $view->assign("nbCreatedUser", $user->countFrom(7));
+        $view->assign("nbCreatedUser", $user->count(7));
         $view->assign("nbPage", $page->count());
-        $view->assign("nbCreatedPage", $page->countFrom(7));
+        $view->assign("nbCreatedPage", $page->count(7));
     }
 
     public function user()

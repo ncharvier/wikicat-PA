@@ -84,34 +84,56 @@ abstract class BaseSQL
 
     /**
      * count number of element in database
+     * @param int $numberOfDay - count since number of day
      * @return int
      */
-    public function count(): int {
-        $sql = "SELECT COUNT(*) as count FROM ".$this->table;
+    public function count(int $numberOfDay = 0): int {
+        $exec = [];
+
+        if ($numberOfDay > 0) {
+            $timeDay = $numberOfDay * 24 * 3600;
+            $timeLimit = time() - $timeDay;
+            $datetime = date('Y-m-d H:i', $timeLimit);
+
+            $sql = "SELECT COUNT(*) as count FROM ".$this->table." WHERE createdAt >= :date";
+            /* $exec = ["date" => $datetime]; */
+            $exec["date"] = $datetime;
+        }
+        else
+            $sql = "SELECT COUNT(*) as count FROM ".$this->table;
 
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute();
-
+        $queryPrepared->execute($exec);
         $result = $queryPrepared->fetch(\PDO::FETCH_OBJ);
+
         return $result->count;
     }
 
     /**
-     * count number of element in database since number of day
-     * @param int $numberOfDay
+     * count number of element in database
+     * @param mixed $value - attribute value
+     * @param string $valueName - attribute name
+     * @param int $numberOfDay (optional) - count since number of day
      * @return int
      */
-    public function countFrom(int $numberOfDay): int {
-        $timeDay = $numberOfDay * 24 * 3600;
-        $timeLimit = time() - $timeDay;
-        $datetime = date('Y-m-d H:i', $timeLimit);
+    public function countFromValue($value, string $valueName, int $numberOfDay = 0): int {
+        $exec = ["value" => $value];
 
-        $sql = "SELECT COUNT(*) as count FROM ".$this->table." WHERE createdAt >= :date";
+        if ($numberOfDay > 0) {
+            $timeDay = $numberOfDay * 24 * 3600;
+            $timeLimit = time() - $timeDay;
+            $datetime = date('Y-m-d H:i', $timeLimit);
+
+            $sql = "SELECT COUNT(*) as count FROM ".$this->table." WHERE  ".$valueName."=:value createdAt >= :date";
+            $exec["date"] = $datetime;
+        }
+        else
+            $sql = "SELECT COUNT(*) as count FROM ".$this->table." WHERE  ".$valueName;
 
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute([":date" => $datetime]);
-
+        $queryPrepared->execute($exec);
         $result = $queryPrepared->fetch(\PDO::FETCH_OBJ);
+
         return $result->count;
     }
 
