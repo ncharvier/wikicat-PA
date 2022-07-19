@@ -336,4 +336,21 @@ class User extends BaseSQL
             ]
         ];
     }
+
+    public function adminEditUser($param) {
+        return [
+            "config" => [
+                "method"=>"POST",
+                "action"=>"editUser",
+                /* "submit"=>"Changer votre mot passe" */
+            ],
+            "inputs" => [
+                "userId"=>[
+                    "type"=>"hidden",
+                    "id"=>"userId",
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ],
+        ];
+    }
 }

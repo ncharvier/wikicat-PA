@@ -50,6 +50,10 @@
   controller: admin
   action: user
 
+/editUser:
+  controller: admin
+  action: editUser
+
 /admin/role:
   controller: admin
   action: role

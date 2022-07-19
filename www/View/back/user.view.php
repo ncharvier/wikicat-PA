@@ -41,7 +41,7 @@
                             <h2>Editer un utilisateur</h2>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="">
+                            <form method="POST" action="/admin/editUser">
                                 <input type="hidden" name="userId" value="<?=$user->id?>">
                                 <input type="submit" name="activeUser" class="btn btn--primary d-block" style="width: 100%" value="Activer">
                                 <input type="submit" name="banUser" class="btn btn--primary d-block" style="width: 100%" value="Bannir">
