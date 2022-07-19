@@ -337,19 +337,51 @@ class User extends BaseSQL
         ];
     }
 
-    public function adminEditUser($param) {
+    public function adminEditUser(): array {
+        echo "je suis un test";
         return [
             "config" => [
-                "method"=>"POST",
-                "action"=>"editUser",
-                /* "submit"=>"Changer votre mot passe" */
+                "method" => "POST",
+                "action" => "/editUser",
+                "submit"=>"Changer votre mot passe"
             ],
             "inputs" => [
-                "userId"=>[
-                    "type"=>"hidden",
-                    "id"=>"userId",
-                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
                 ],
+                "activeUser" => [
+                    "type" => "submit",
+                    "id" => "activeUser",
+                    "class" => "btn btn--primary d-block",
+                    "value" => "Activer"
+                ],
+                "banUser" => [
+                    "type" => "submit",
+                    "id" => "banUser",
+                    "class" => "btn btn--primary d-block",
+                    "value" => "Bannir"
+                ],
+                /* "password"=>[ */
+                /*     "type"=>"password", */
+                /*     "placeholder"=>"Votre nouveau mot de passe", */
+                /*     "id"=>"password", */
+                /*     "class"=>"form-input-back", */
+                /*     "error"=>"test", */
+                /* ], */
+                /* "resetPassword" => [ */
+                /*     "type" => "submit", */
+                /*     "id" => "resetPassword", */
+                /*     "class" => "btn btn--primary d-block", */
+                /*     "value" => "Réinitialiser" */
+                /* ], */
+                /* "deleteUser" => [ */
+                /*     "type" => "submit", */
+                /*     "id" => "deleteUser", */
+                /*     "class" => "btn btn--primary d-block", */
+                /*     "value" => "Supprimer" */
+                /* ], */
             ],
         ];
     }

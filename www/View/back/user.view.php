@@ -41,7 +41,8 @@
                             <h2>Editer un utilisateur</h2>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="/admin/editUser">
+                            <?php //$this->includePartial("form", $user->adminEditUser()) ?>
+                            <!--<form method="POST" action="/editUser">
                                 <input type="hidden" name="userId" value="<?=$user->id?>">
                                 <input type="submit" name="activeUser" class="btn btn--primary d-block" style="width: 100%" value="Activer">
                                 <input type="submit" name="banUser" class="btn btn--primary d-block" style="width: 100%" value="Bannir">
@@ -56,10 +57,11 @@
                                     </div>
                                 </div>
                                 <input type="submit" name="deleteUser" class="btn btn--primary d-block" style="width: 100%" value="Supprimer">
-                            </form>
+                            </form>-->
                         </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn--secondary modal-close" value="Fermer">
+                            <!--<input type="button" class="btn btn--secondary modal-close" value="Fermer">-->
+                            <button class="btn btn--secondary modal-close">Fermer</button>
                         </div>
                     </div>
                 </div>

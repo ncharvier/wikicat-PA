@@ -43,6 +43,19 @@
                     </option>
                 <?php endforeach;?>
             </select>
+        <?php elseif($input["type"] == "submit" || $input["type"] == "button"):?>
+            <input name="<?=$name?>"
+                id="<?=$input["id"]?>"
+                type="<?=$input["type"]?>"
+                class="<?=$input["class"]?>"
+                value="<?=$input["value"]?>"
+                style="<?=$input["style"]?>"
+            >
+        <?php elseif($input["type"] == "hidden"):?>
+            <input name="<?=$name?>"
+                type="<?=$input['type']?>"
+                value="<?=$input['value']?>"
+            >
         <?php else:;?>
             <input name="<?=$name?>"
                    id="<?=$input["id"]?>"
