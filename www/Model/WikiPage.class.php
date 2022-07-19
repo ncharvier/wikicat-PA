@@ -106,7 +106,9 @@ class WikiPage extends BaseSQL
         $parentPageList = [];
 
         foreach(WikiPage::getAll() as $pageInDb) {
-            $parentPageList += ["value"=>$pageInDb->getId(), "text"=>$pageInDb->getTitle()];
+            if ($pageInDb->getId() != $this->getId()) {
+                $parentPageList[] = ["value" => $pageInDb->getId(), "text" => $pageInDb->getTitle()];
+            }
         }
 
         return [
@@ -121,13 +123,13 @@ class WikiPage extends BaseSQL
                 "pageId"=>[
                     "type"=>"hidden",
                     "id"=>"pageId",
-                    "value"=>$this->getId()??""
+                    "value"=>$this->getId()??"-1"
                 ],
                 "parentPage"=>[
                     "type"=>"select",
                     "id"=>"parentPage",
                     "label"=>"Page parent",
-                    "option"=>$parentPageList
+                    "options"=>$parentPageList
                 ],
                 "newPageContent"=>[
                     "type"=>"quill",
