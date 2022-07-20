@@ -1,13 +1,12 @@
 <?php
 namespace App\Controller;
 
-session_start();
-
+use App\Core\baseController;
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
 
-class Admin
+class Admin extends baseController
 {
     public function dashboard()
     {

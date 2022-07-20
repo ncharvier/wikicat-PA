@@ -4,8 +4,6 @@ namespace App\Core;
 
 use App\Model\User as UserModel;
 
-session_start();
-
 class AccessManager
 {
     public static function isLogged(): bool{

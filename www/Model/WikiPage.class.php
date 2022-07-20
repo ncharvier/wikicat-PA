@@ -121,7 +121,7 @@ class WikiPage extends BaseSQL
             "config"=>[
                 "form-id"=>"pageEditForm",
                 "method"=>"POST",
-                "action"=>"/w/edit/{$this->getTitle()}",
+                "action"=>"/w/update/{$this->getTitle()}",
                 "submit"=>"Enregistrer",
                 "submit-class"=>"btn btn--success"
             ],

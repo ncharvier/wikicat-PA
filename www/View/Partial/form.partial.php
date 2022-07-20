@@ -1,8 +1,3 @@
-<?php
-echo "<pre>";
-print_r($config);
-echo "</pre>"; ?>
-
 <form id="<?= $config["config"]["form-id"]?>" method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
     <?php foreach ($config["inputs"] as $name=>$input):?>
         <div class="form-controller">
@@ -39,7 +34,7 @@ echo "</pre>"; ?>
         <?php elseif($input["type"] == "select"):?>
             <select name="<?=$name?>"
                     id="<?=$input["id"]?>"
-                    class="<?=$input["class"]?>">
+                    class="<?=$input["class"]??""?>">
                 <?= (!empty($input["noSelection"]))?("<option value='null'>".$input["noSelection"]."</option>"):'' ?>
 
                 <?php foreach ($input["options"] as $option):?>

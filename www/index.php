@@ -1,6 +1,6 @@
 <?php
 namespace App;
-
+session_start();
 require "conf.inc.php";
 
 use App\Core\ErrorManager;
@@ -35,6 +35,13 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
     $uri = trim(str_replace('/w/edit/','',$uri));
 
     $wikiPage->edit(strtolower($uri));
+
+} else if (preg_match("#^\/w\/update\/((?!\/).)*$#", $uri)){
+    $wikiPage = new WikiPage();
+
+    $uri = trim(str_replace('/w/update/','',$uri));
+
+    $wikiPage->updatePage(strtolower($uri));
 
 } else {
     $routeFile = "routes.yml";
