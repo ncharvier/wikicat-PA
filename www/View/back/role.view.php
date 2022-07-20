@@ -11,12 +11,21 @@
                 <thead>
                 <tr>
                     <th>Nom</th>
-                    <th>Niveau de droits</th>
-                    <th>Membres</th>
-                    <th>  </th>
+                    <th>Couleur</th>
+                    <th>Ajout de page</th>
+                    <th>Modification de page</th>
+                    <th>Suppression de page</th>
+                    <th>Ajout de commentaires</th>
+                    <th>Droits Admin</th>
+                    <!--<th>Membres</th>-->
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($roleList as $role): ?>
+                    <tr class="table-row">
+                        <td><?php var_dump($role);  ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 <tr class="table-row">
                     <td style="color: #D22D3D;">Admin</td>
                     <td class="text-danger text-weight-700">3</td>

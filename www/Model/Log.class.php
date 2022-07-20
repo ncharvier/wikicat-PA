@@ -8,6 +8,7 @@ class Log extends BaseSQL {
     protected $type = "";
     protected $message = "";
     /**
+     *
      * constructor
      */
     public function __construct() {

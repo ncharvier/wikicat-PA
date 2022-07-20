@@ -106,6 +106,22 @@ class User extends BaseSQL
     }
 
     /**
+     * @return mixed
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void
+    {
+        $this->email = strtolower(trim($role));
+    }
+
+    /**
      * @return string
      */
     public function getConnectionToken(): ?string

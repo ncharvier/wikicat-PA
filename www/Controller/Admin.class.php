@@ -3,9 +3,12 @@ namespace App\Controller;
 
 session_start();
 
+use App\Core\AccessManager;
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
+use App\Model\Role;
+use App\Model\User as RoleModel;
 
 class Admin
 {
@@ -24,8 +27,15 @@ class Admin
 
     public function role()
     {
+        $role = new RoleModel();
+
+        $roleList = $role->getAll();
+
         $view = new View("back/role", "back");
         $view->assign("activePage", "role");
+        $view->assign("titleSeo", "Rôles");
+        $view->assign("roleList", $roleList);
+
     }
 
     public function pageList()
@@ -239,6 +249,42 @@ class Admin
         Theme::delete($selectedTheme);
 
         return ['error'=>"", 'theme'=>$renameTheme];
+    }
+
+    /**
+     * Creates a role
+     */
+    public static function createRole()
+    {
+        $role = new RoleModel();
+
+        $role->setColour($_POST["colour"]);
+        $role->setCreatePage($_POST["createPage"] == 1);
+        $role->setModifyPage($_POST["modifyPage"] == 1);
+        $role->setDeletePage($_POST["deletePage"] == 1);
+        $role->setAddComment($_POST["addComment"] == 1);
+        $role->setAdminRights($_POST["adminRights"] == 1);
+
+        $role->save();
+
+    }
+
+    /**
+     * Updates a role
+     */
+    public static function updateRole()
+    {
+        $role = new RoleModel();
+        $role = $role->setId($_POST["id"]);
+
+        $role->setColour($_POST["colour"]);
+        $role->setCreatePage($_POST["createPage"]);
+        $role->setModifyPage($_POST["modifyPage"]);
+        $role->setDeletePage($_POST["deletePage"]);
+        $role->setAddComment($_POST["addComment"]);
+        $role->setAdminRights($_POST["adminRights"]);
+
+        $role->save();
     }
 
     public function plugin()
