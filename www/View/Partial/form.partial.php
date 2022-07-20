@@ -1,3 +1,8 @@
+<?php
+echo "<pre>";
+print_r($config);
+echo "</pre>"; ?>
+
 <form id="<?= $config["config"]["form-id"]?>" method="<?= $config["config"]["method"]??"POST" ?>" action="<?= $config["config"]["action"]??"" ?>">
     <?php foreach ($config["inputs"] as $name=>$input):?>
         <div class="form-controller">
