@@ -6,6 +6,8 @@ session_start();
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
+use App\Model\WikiPage as Page;
+use App\Model\WikiPageVersion as PageVersion;
 
 class Admin
 {
@@ -30,7 +32,9 @@ class Admin
 
     public function pageList()
     {
+        $page = new Page();
         $view = new View("back/pageList", "back");
+        $view->assign("pageList", $page->getAll());
         $view->assign("activePage", "page");
     }
 

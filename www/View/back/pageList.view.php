@@ -19,55 +19,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php foreach($pageList as $page): ?>
                     <tr class="table-row">
-                        <td style="text-decoration: underline">Accueil</td>
+                        <td style="text-decoration: underline"><?=$page->getTitle();?></td>
                         <td>8064</td>
                         <td class="text-italic text-weight-200">3.6</td>
                         <td> - </td>
                         <td><button class="btn btn--primary">Editer</button></td>
                     </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">RH</td>
-                        <td>213</td>
-                        <td class="text-italic text-weight-200">2.1</td>
-                        <td style="text-decoration: underline"> Accueil </td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">Grilles de salaires</td>
-                        <td>861</td>
-                        <td class="text-italic text-weight-200">7.6</td>
-                        <td style="text-decoration: underline"> RH </td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">Postes disponibles</td>
-                        <td>106</td>
-                        <td class="text-italic text-weight-200">9.6</td>
-                        <td style="text-decoration: underline"> RH </td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">SI</td>
-                        <td>46</td>
-                        <td class="text-italic text-weight-200">1.2</td>
-                        <td style="text-decoration: underline">Accueil</td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">Adressage IP</td>
-                        <td>93</td>
-                        <td class="text-italic text-weight-200">19.6</td>
-                        <td style="text-decoration: underline">SI</td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td style="text-decoration: underline">Process Install PC</td>
-                        <td>56</td>
-                        <td class="text-italic text-weight-200">6.9</td>
-                        <td style="text-decoration: underline">SI</td>
-                        <td><button class="btn btn--primary">Editer</button></td>
-                    </tr>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </section>
