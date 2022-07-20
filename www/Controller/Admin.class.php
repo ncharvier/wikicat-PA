@@ -34,7 +34,7 @@ class Admin
     {
         $page = new Page();
         $view = new View("back/pageList", "back");
-        $view->assign("pageList", $page->getAll());
+        $view->assign("pageList", $page->getAllPageAndVersion());
         $view->assign("activePage", "page");
     }
 

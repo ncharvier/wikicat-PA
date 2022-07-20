@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Core\BaseSQL;
+use App\Core\queryBuilder;
 
 class WikiPage extends BaseSQL
 {
@@ -38,6 +39,21 @@ class WikiPage extends BaseSQL
         }
 
         return $tree;
+    }
+
+    public function getAllPageAndVersion() {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("WikiPage", "WikiPageVersion")
+            ->on("t1.id = t2.versionOf")
+            ->where("t2.isCurrentVersion = true");
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute();
+
+        /* $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ); */
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result;
     }
 
     /**
