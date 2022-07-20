@@ -349,13 +349,13 @@ class User extends BaseSQL
         ];
     }
 
-    public function adminEditUser(): array {
-        echo "je suis un test";
+    public function formAdminActiveUser(): array {
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "/editUser",
-                "submit"=>"Changer votre mot passe"
+                "action" => "/adminActiveUser",
+                "submit"=>"Activer",
+                "submit-class"=>"btn btn--primary d-block w-100"
             ],
             "inputs" => [
                 "userId" => [
@@ -363,38 +363,68 @@ class User extends BaseSQL
                     "id" => "userId",
                     "value" => $this->getId()
                 ],
-                "activeUser" => [
-                    "type" => "submit",
-                    "id" => "activeUser",
-                    "class" => "btn btn--primary d-block",
-                    "value" => "Activer"
-                ],
-                "banUser" => [
-                    "type" => "submit",
-                    "id" => "banUser",
-                    "class" => "btn btn--primary d-block",
-                    "value" => "Bannir"
-                ],
-                /* "password"=>[ */
-                /*     "type"=>"password", */
-                /*     "placeholder"=>"Votre nouveau mot de passe", */
-                /*     "id"=>"password", */
-                /*     "class"=>"form-input-back", */
-                /*     "error"=>"test", */
-                /* ], */
-                /* "resetPassword" => [ */
-                /*     "type" => "submit", */
-                /*     "id" => "resetPassword", */
-                /*     "class" => "btn btn--primary d-block", */
-                /*     "value" => "Réinitialiser" */
-                /* ], */
-                /* "deleteUser" => [ */
-                /*     "type" => "submit", */
-                /*     "id" => "deleteUser", */
-                /*     "class" => "btn btn--primary d-block", */
-                /*     "value" => "Supprimer" */
-                /* ], */
+            ]
+        ];
+    }
+
+    public function formAdminBanUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminBanUser",
+                "submit"=>"Bannir",
+                "submit-class"=>"btn btn--primary d-block w-100"
             ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+            ]
+        ];
+    }
+
+    public function formAdminDeleteUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminBanUser",
+                "submit"=>"Supprimer",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+            ]
+        ];
+    }
+
+    public function formAdminResetPasswordUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminResetPasswordUser",
+                "submit"=>"Changer mot de passe",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Changer le mot de passe",
+                    "id"=>"password",
+                    "class"=>"form-input-back",
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
         ];
     }
 }

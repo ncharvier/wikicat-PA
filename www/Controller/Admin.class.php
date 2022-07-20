@@ -20,32 +20,57 @@ class Admin
     public function user()
     {
         $user = new User();
-        $error = "";
 
         $view = new View("back/user", "back");
         $view->assign("userList", $user->getAll());
         $view->assign("activePage", "user");
     }
 
-    public function editUser() {
+    public function adminActiveUser() {
         $user = new User();
 
-        if (empty($_POST['userId']))
-            header("location: /admin/user");
-
-        $user = $user->setId($_POST['userId']);
-
-        if (!empty($_POST['activeUser']))
+        if (!empty($_POST['userId'])) {
+            $user = $user->setId($_POST['userId']);
             $user->setStatus(1);
-        else if (!empty($_POST['banUser']))
-            $user->setStatus(2);
-        else if (!empty($_POST['resetPassword'])) {
-            if (empty($_POST['newPassword']))
-                header("location: /admin/user");
-            $user->setPassword($_POST['newPassword']);
+            $user->save();
         }
 
-        $user->save();
+        header("location: /admin/user");
+    }
+
+    public function adminBanUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId'])) {
+            $user = $user->setId($_POST['userId']);
+            $user->setStatus(2);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminResetPasswordUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId']) || !empty($_POST['resetPassword'])) {
+            $user = $user->setId($_POST['userId']);
+            $user->setPassword($_POST['resetPassword']);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminDeleteUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId'])) {
+            // TODO : delete user
+            /* $user = $user->setId($_POST['userId']); */
+            /* $user->setStatus(2); */
+            /* $user->save(); */
+        }
 
         header("location: /admin/user");
     }

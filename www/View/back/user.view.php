@@ -14,53 +14,37 @@
                 <tbody>
                 <?php foreach($userList as $user):?>
                 <tr class="table-row">
-                    <td><?=$user->login?></td>
+                    <td><?=$user->getLogin()?></td>
                     <td><span style="color: #D22D3D;">Admin</span>, <span style="color: #625BC1;">Defaut</span></td>
-                    <td class="text-success">
                     <?php
-                    switch ($user->status) {
+                    switch ($user->getStatus()) {
                         case 0:
-                            echo "non activer";
+                            echo '<td class="text-warning">non activer</td>';
                             break;
                         case 1:
-                            echo "activer";
+                            echo '<td class="text-success">activer</td>';
                             break;
                         case 2:
-                            echo "banni";
+                            echo '<td class="text-danger">banni</td>';
                             break;
                     }
                     ?>
-                    </td>
-                    <td><?=$user->email?></td>
-                    <td><button class="btn btn--primary modal-open" data-target="#modal-edit-<?=$user->id?>">Editer</button></td>
+                    <td><?=$user->getEmail()?></td>
+                    <td><button class="btn btn--primary modal-open" data-target="#modal-edit-<?=$user->getId()?>">Editer</button></td>
                 </tr>
-                <div id="modal-edit-<?=$user->id?>" class="modal" style="color:#000;">
-                    <div class="modal-content modal-content--sm">
-                        <div class="modal-header">
+                <div id="modal-edit-<?=$user->getId()?>" class="modal">
+                    <div class="modal-content modal-content--sm modal-content-dark">
+                        <div class="modal-header modal-header-dark">
                             <span class="modal-close modal-close-cross">&times;</span>
                             <h2>Editer un utilisateur</h2>
                         </div>
-                        <div class="modal-body">
-                            <?php //$this->includePartial("form", $user->adminEditUser()) ?>
-                            <!--<form method="POST" action="/editUser">
-                                <input type="hidden" name="userId" value="<?=$user->id?>">
-                                <input type="submit" name="activeUser" class="btn btn--primary d-block" style="width: 100%" value="Activer">
-                                <input type="submit" name="banUser" class="btn btn--primary d-block" style="width: 100%" value="Bannir">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-controller">
-                                            <input type="password" placeholder="mot de passe" name="newPassword" id="newPassword" class="form-input-back">
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <input type="submit" name="resetPassword" class="btn btn--primary d-block" value="Réinitialiser">
-                                    </div>
-                                </div>
-                                <input type="submit" name="deleteUser" class="btn btn--primary d-block" style="width: 100%" value="Supprimer">
-                            </form>-->
+                        <div class="modal-body modal-body-dark">
+                            <?php $this->includePartial("form", $user->formAdminActiveUser()) ?>
+                            <?php $this->includePartial("form", $user->formAdminBanUser()) ?>
+                            <?php $this->includePartial("form", $user->formAdminResetPasswordUser()) ?>
+                            <?php $this->includePartial("form", $user->formAdminDeleteUser()) ?>
                         </div>
-                        <div class="modal-footer">
-                            <!--<input type="button" class="btn btn--secondary modal-close" value="Fermer">-->
+                        <div class="modal-footer modal-footer-dark">
                             <button class="btn btn--secondary modal-close">Fermer</button>
                         </div>
                     </div>
