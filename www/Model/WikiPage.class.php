@@ -111,7 +111,7 @@ class WikiPage extends BaseSQL
             }
         }
 
-        return [
+        $config = [
             "config"=>[
                 "form-id"=>"pageEditForm",
                 "method"=>"POST",
@@ -138,5 +138,11 @@ class WikiPage extends BaseSQL
                 ]
             ]
         ];
+
+        if ($this->getId() == 1){
+            unset($config["inputs"]["parentPage"]);
+        }
+
+        return $config;
     }
 }
