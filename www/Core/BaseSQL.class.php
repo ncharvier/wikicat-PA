@@ -55,14 +55,14 @@ abstract class BaseSQL
      * get list
      * @return array
      */
-    public function getAll()
+    public function getAll(): ?array
     {
         $sql = "SELECT * FROM ".$this->table;
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute();
 
-        $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
         return $result ?? null;
     }
 

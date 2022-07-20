@@ -103,6 +103,12 @@ class WikiPage extends BaseSQL
 
     public function getPageEditForm(?string $pageContent): array
     {
+        $parentPageList = [];
+
+        foreach(WikiPage::getAll() as $pageInDb) {
+            $parentPageList += ["value"=>$pageInDb->getId(), "text"=>$pageInDb->getTitle()];
+        }
+
         return [
             "config"=>[
                 "form-id"=>"pageEditForm",
@@ -116,6 +122,12 @@ class WikiPage extends BaseSQL
                     "type"=>"hidden",
                     "id"=>"pageId",
                     "value"=>$this->getId()??""
+                ],
+                "parentPage"=>[
+                    "type"=>"select",
+                    "id"=>"parentPage",
+                    "label"=>"Page parent",
+                    "option"=>$parentPageList
                 ],
                 "newPageContent"=>[
                     "type"=>"quill",
