@@ -21,6 +21,9 @@
                     <span class="text-weight-800">Wiki</span><span class="text-secondary text-weight-400">cat</span>
                 </h1>
             </div>
+            <div>
+                <?php $this->includePartial("form", $page->searchPageForm()) ?>
+            </div>
         </nav>
         <div class="row">
             <div class="col-2 bg-grey">

@@ -45,13 +45,13 @@ class WikiPage extends BaseSQL
         $pdo = parent::getPdoSession();
         $query = (new queryBuilder)->select("*")
             ->join("WikiPage", "WikiPageVersion")
-            ->on("t1.id = t2.versionOf")
-            ->where("t2.isCurrentVersion = true");
+            ->alias("page", "pageVersion")
+            ->on("page.id = pageVersion.versionOf")
+            ->where("pageVersion.isCurrentVersion = true");
 
         $queryPrepared = $pdo->prepare($query);
         $queryPrepared->execute();
 
-        /* $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ); */
         $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
         return $result;
     }
@@ -153,4 +153,29 @@ class WikiPage extends BaseSQL
             ]
         ];
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function searchPageForm(): array {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"rechercher",
+                "submit-class"=>"btn btn--success"
+            ],
+            "inputs"=>[
+                "searchPage"=>[
+                    "type"=>"text",
+                    "id"=>"searchPage",
+                    "class"=>"form-input",
+                    "placeholder"=>"rechercher une page"
+                ],
+            ]
+        ];
+    }
+    
 }

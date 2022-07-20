@@ -23,8 +23,14 @@
                     <tr class="table-row">
                         <td style="text-decoration: underline"><?=$page->getTitle();?></td>
                         <td>8064</td>
-                        <td class="text-italic text-weight-200">3.6</td>
-                        <td> - </td>
+                        <td class="text-italic text-weight-200"><?=$page->versionNumber?></td>
+                        <td> 
+                        <?php if ($page->getParentPageId()): ?>
+                            <?=$page->getParentPage()->getTitle()?>
+                        <?php else:?>
+                            -
+                        <?php endif?>
+                        </td>
                         <td><button class="btn btn--primary">Editer</button></td>
                     </tr>
                 <?php endforeach ?>

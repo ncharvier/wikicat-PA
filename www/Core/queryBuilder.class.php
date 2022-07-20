@@ -16,6 +16,8 @@ class queryBuilder
     {
         $where = $this->conditions === [] ? '' : ' WHERE ' . implode(' AND ', $this->conditions);
         $on = !empty($this->join["condition"]) ? ' ON ' . $this->join['condition'] : '';
+        $alias1 = !empty($this->join["aliasTable1"]) ? " as " . $this->join["aliasTable1"] : " as t1";
+        $alias2 = !empty($this->join["aliasTable2"]) ? " as " . $this->join["aliasTable2"] : " as t2";
 
         if (!empty($this->target) || !empty($this->join)){
             switch ($this->mode){
@@ -27,8 +29,8 @@ class queryBuilder
                     }
                     else {
                         $query = 'SELECT ' . implode(', ', $this->columns)
-                            . ' FROM ' . $this->join['table1'] . ' as t1'
-                            . ' ' . $this->join['type'] . ' JOIN  ' . $this->join['table2'] . ' as t2'
+                            . ' FROM ' . $this->join['table1'] . $alias1
+                            . ' ' . $this->join['type'] . ' JOIN  ' . $this->join['table2'] . $alias2
                             . $on . $where . ";";
 
                     }
@@ -124,14 +126,22 @@ class queryBuilder
      * @param string $type (optional) - type of join (INNER, LEFT, RIGHT, FULL)
      * @return self
      */
-    public function join(
-        string $table1,
-        string $table2,
-        string $type = ""
-    ): self {
+    public function join(string $table1, string $table2, string $type = ""): self {
         $this->join["table1"] = DBPREFIXE.strtolower($table1); 
         $this->join["table2"] = DBPREFIXE.strtolower($table2);
         $this->join["type"] = $type;
+        return $this;
+    }
+
+    /**
+     * add alias to table after join
+     * @param string $aliasTable1
+     * @param string $aliasTable2
+     * @return self
+     */
+    public function alias(string $aliasTable1, string $aliasTable2): self {
+        $this->join["aliasTable1"] = $aliasTable1;
+        $this->join["aliasTable2"] = $aliasTable2;
         return $this;
     }
     
@@ -144,6 +154,4 @@ class queryBuilder
         $this->join["condition"] = $condition;
         return $this;
     }
-    
-
 }
