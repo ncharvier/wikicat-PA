@@ -42,6 +42,8 @@ class WikiPage
             $page = $page->setId($_POST["pageId"]);
             $oldVersion = $pageVersion->getCurrentVersion($page->getId());
 
+            $page->setParentPageId($_POST["parentPage"]);
+
             $pageVersion->setContent($_POST["newPageContent"]);
             $pageVersion->setIsCurrentVersion(true);
             $pageVersion->setVersionNumber($oldVersion->getVersionNumber() + 1.0);
@@ -59,7 +61,8 @@ class WikiPage
 
         } else if (isset($_POST["newPageContent"])){
             $page->setTitle($pageTitle);
-            $page->setParentPageId(0);
+            $page->setParentPageId($_POST["parentPage"]);
+
             $page->save();
             $page = $page->foundByTitle($pageTitle);
 

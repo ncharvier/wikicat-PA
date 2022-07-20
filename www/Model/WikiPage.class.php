@@ -77,7 +77,11 @@ class WikiPage extends BaseSQL
      */
     public function setParentPageId(int $parentPageId): void
     {
-        $this->parentPageId = $parentPageId;
+        if($this->getId() != 1 && $this->getId() != $parentPageId){
+            $this->parentPageId = $parentPageId;
+        }else if ($this->getId() != 1){
+            $this->parentPageId = 1;
+        }
     }
 
     /**
@@ -107,7 +111,9 @@ class WikiPage extends BaseSQL
 
         foreach(WikiPage::getAll() as $pageInDb) {
             if ($pageInDb->getId() != $this->getId()) {
-                $parentPageList[] = ["value" => $pageInDb->getId(), "text" => $pageInDb->getTitle()];
+                $parentPageList[] = ["value" => $pageInDb->getId(),
+                                    "text" => $pageInDb->getTitle(),
+                                    "selected"=>($pageInDb->getId() == $this->getParentPageId() && $this->getParentPageId() != null)];
             }
         }
 
@@ -123,7 +129,7 @@ class WikiPage extends BaseSQL
                 "pageId"=>[
                     "type"=>"hidden",
                     "id"=>"pageId",
-                    "value"=>$this->getId()??"-1"
+                    "value"=>$this->getId()??""
                 ],
                 "parentPage"=>[
                     "type"=>"select",
