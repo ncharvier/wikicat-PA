@@ -16,11 +16,14 @@
         <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
     </head>
     <body>
-        <nav class="main-front-nav bg-grey">
-            <div class="col-12">
+        <nav class="main-front-nav bg-grey row">
+            <div class="col-2">
                 <h1 class="m-0">
                     <span class="text-weight-800">Wiki</span><span class="text-secondary text-weight-400">cat</span>
                 </h1>
+            </div>
+            <div class="col">
+                <?php $this->includePartial("form", $page->searchPageForm()) ?>
             </div>
         </nav>
         <div class="row">

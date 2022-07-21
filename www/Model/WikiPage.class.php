@@ -41,6 +41,37 @@ class WikiPage extends BaseSQL
         return $tree;
     }
 
+    public function getAllPageAndVersion() {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("WikiPage", "WikiPageVersion")
+            ->alias("page", "pageVersion")
+            ->on("page.id = pageVersion.versionOf")
+            ->where("pageVersion.isCurrentVersion = true");
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute();
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result;
+    }
+
+    public function getAllPageAndVersionWithLike(string $search) {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("WikiPage", "WikiPageVersion")
+            ->alias("page", "pageVersion")
+            ->on("page.id = pageVersion.versionOf")
+            ->where("pageVersion.isCurrentVersion = true")
+            ->like("page.title", "search");
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute(["search" => "%$search%"]);
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result;
+    }
+
     /**
      * @return null
      */
@@ -161,5 +192,31 @@ class WikiPage extends BaseSQL
         }
 
         return $config;
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function searchPageForm(): array {
+        return [
+            "config"=>[
+                "form-id"=>"searchPageFrom",
+                "method"=>"GET",
+                "action"=>"/searchPage",
+                "submit"=>"rechercher",
+                "submit-class"=>"d-none"
+                /* "submit-class"=>"btn btn--success" */
+            ],
+            "inputs"=>[
+                "searchPage"=>[
+                    "type"=>"text",
+                    "id"=>"searchPage",
+                    "class"=>"form-input",
+                    "placeholder"=>"rechercher une page"
+                ],
+            ]
+        ];
     }
 }

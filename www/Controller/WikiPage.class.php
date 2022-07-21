@@ -30,6 +30,21 @@ class WikiPage extends baseController
         $view->assign("page", $page);
     }
 
+    public function searchPage() {
+        $page = new Page();
+        $pageName = "accueil";
+        $resultPage = null;
+
+        if (!empty($_GET['searchPage'])) {
+            $pageName = htmlspecialchars($_GET['searchPage']);
+            $resultPage = $page->getAllPageAndVersionWithLike($pageName);
+            if (!empty($resultPage))
+                $pageName = $resultPage[0]->getTitle();
+        }
+
+        header("Location: /w/".$pageName);
+    }
+
     public function edit(string $pageTitle)
     {
         if(!AccessManager::isLogged()){
