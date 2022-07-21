@@ -110,4 +110,14 @@ abstract class BaseSQL
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
     }
+
+    protected function delete()
+    {
+        if(!is_null($this->getId())){
+            $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
+        }
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+    }
 }

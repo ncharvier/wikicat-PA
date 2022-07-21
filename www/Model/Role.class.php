@@ -5,6 +5,7 @@ use App\Core\BaseSQL;
 
 class Role extends BaseSQL {
     protected $id = null;
+    protected $name;
     protected $colour;
     protected $create_page;
     protected $modify_page;
@@ -21,6 +22,22 @@ class Role extends BaseSQL {
 
     public function getId(): ?int {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 
     /**
@@ -140,16 +157,29 @@ class Role extends BaseSQL {
         parent::save();
     }
 
+    public function delete() {
+        parent::delete();
+    }
+
     public function getFormCreateRole(): array
     {
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
+                "action"=>"/admin/roleCreate",
                 "submit"=>"Ajouter le rôle",
                 "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
+                "name"=>[
+                    "type"=>"text",
+                    "id"=>"nameInput",
+                    "class"=>"form-input",
+                    "label"=>"Nom du rôle",
+                    "labelCLass"=>"form-label",
+                    "required"=>true,
+                    "error"=>"Nom Invalide",
+                ],
                 "colour"=>[
                     "type"=>"text",
                     "id"=>"colourInput",
@@ -212,7 +242,7 @@ class Role extends BaseSQL {
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
+                "action"=>"/admin/roleUpdate",
                 "submit"=>"Modifier le rôle",
                 "submit-class"=>"btn btn--primary"
             ],
@@ -223,6 +253,16 @@ class Role extends BaseSQL {
                     "required"=>true,
                     "value"=>$this->getId()
                 ],
+                "name"=>[
+                    "type"=>"text",
+                    "id"=>"nameInput",
+                    "class"=>"form-input",
+                    "label"=>"Nom du rôle",
+                    "labelCLass"=>"form-label",
+                    "required"=>true,
+                    "error"=>"Nom Invalide",
+                    "value"=>$this->getName()
+                ],
                 "colour"=>[
                     "type"=>"text",
                     "id"=>"colourInput",
@@ -230,7 +270,9 @@ class Role extends BaseSQL {
                     "label"=>"Couleur du rôle",
                     "labelCLass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Hexadecimal invalide"
+                    "error"=>"Hexadecimal invalide",
+                    "value"=>$this->getColour()
+
                 ],
                 "createPage"=>[
                     "type"=>"checkbox",
@@ -239,7 +281,8 @@ class Role extends BaseSQL {
                     "label"=>"Droit de creation de page",
                     "labelClass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>$this->getCreatePage()
                 ],
                 "modifyPage"=>[
                     "type"=>"checkbox",
@@ -248,7 +291,8 @@ class Role extends BaseSQL {
                     "label"=>"Droit de modification de page",
                     "labelClass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>$this->getModifyPage()
                 ],
                 "deletePage"=>[
                     "type"=>"checkbox",
@@ -257,7 +301,8 @@ class Role extends BaseSQL {
                     "label"=>"Droit de suppression de page",
                     "labelClass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>$this->getDeletePage()
                 ],
                 "addComment"=>[
                     "type"=>"checkbox",
@@ -266,7 +311,8 @@ class Role extends BaseSQL {
                     "label"=>"Droit d'ajout de commentaires",
                     "labelClass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>$this->getAddComment()
                 ],
                 "adminRights"=>[
                     "type"=>"checkbox",
@@ -275,20 +321,29 @@ class Role extends BaseSQL {
                     "label"=>"Droits d'administration",
                     "labelClass"=>"form-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>$this->getAdminRights()
                 ],
             ]
         ];
     }
 
-    public function deleteRole(): array{
+    public function getDeleteRole(): array{
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
+                "action"=>"/admin/roleDelete",
                 "submit"=>"Supprimer le rôle",
                 "submit-class"=>"btn btn--primary"
             ],
+            "inputs"=>[
+                "id"=>[
+                    "type"=>"hidden",
+                    "id"=>"idDeleteRole",
+                    "required"=>true,
+                    "value"=>$this->getId()
+                ],
+            ]
         ];
     }
 }

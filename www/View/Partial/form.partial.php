@@ -18,11 +18,12 @@
                        value="<?=$option["value"]??""?>">
             <?php endforeach?>
         <?php elseif ($input["type"] == "checkbox"): ?>
-            <input type="hidden" value="null" name="<?=$name?>">
+            <input type="hidden" value="0" name="<?=$name?>">
             <input name="<?=$name?>"
                    type="<?=$input["type"]?>"
                    id="<?=$input["id"]?>"
-                   value="<?=$input["value"]?>"
+                   value=1
+                   <?=$input["checked"] == true ? "checked=" . $input["checked"]:false?>"
             >
         <?php elseif($input["type"] == "textarea"): ?>
             <textarea name="<?=$name?>"

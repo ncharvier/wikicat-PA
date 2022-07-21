@@ -54,6 +54,18 @@
   controller: admin
   action: role
 
+/admin/roleCreate:
+  controller: admin
+  action: createRole
+
+/admin/roleUpdate:
+  controller: admin
+  action: updateRole
+
+/admin/roleDelete:
+  controller: admin
+  action: deleteRole
+
 /admin/pageList:
   controller: admin
   action: pageList

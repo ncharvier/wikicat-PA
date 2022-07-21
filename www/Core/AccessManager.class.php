@@ -25,7 +25,7 @@ class AccessManager
     }
 
     public static function isSuperUser(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
@@ -40,7 +40,7 @@ class AccessManager
     }
 
     public static function isAdmin(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
@@ -55,7 +55,7 @@ class AccessManager
     }
 
     public static function canDeletePage(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
@@ -70,7 +70,7 @@ class AccessManager
     }
 
     public static function canPostComments(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
@@ -85,7 +85,7 @@ class AccessManager
     }
 
     public static function canModifyPage(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 
@@ -100,7 +100,7 @@ class AccessManager
     }
 
     public static function canCreatePage(): bool{
-        if(!empty($_SESSION["connectedUser"]["id"])){
+        if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION["connectedUser"]["id"]);
 

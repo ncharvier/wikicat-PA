@@ -8,7 +8,7 @@ use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
 use App\Model\Role;
-use App\Model\User as RoleModel;
+use App\Model\Role as RoleModel;
 
 class Admin
 {
@@ -28,10 +28,11 @@ class Admin
     public function role()
     {
         $role = new RoleModel();
-
         $roleList = $role->getAll();
+        unset($roleList[0]); // Remove the superuser from the list
 
         $view = new View("back/role", "back");
+        $view->assign("role", $role);
         $view->assign("activePage", "role");
         $view->assign("titleSeo", "Rôles");
         $view->assign("roleList", $roleList);
@@ -258,15 +259,21 @@ class Admin
     {
         $role = new RoleModel();
 
+        var_dump($_POST);
+
+        $role->setName($_POST["name"]);
         $role->setColour($_POST["colour"]);
-        $role->setCreatePage($_POST["createPage"] == 1);
-        $role->setModifyPage($_POST["modifyPage"] == 1);
-        $role->setDeletePage($_POST["deletePage"] == 1);
-        $role->setAddComment($_POST["addComment"] == 1);
-        $role->setAdminRights($_POST["adminRights"] == 1);
+        $role->setCreatePage($_POST["createPage"]);
+        $role->setModifyPage($_POST["modifyPage"]);
+        $role->setDeletePage($_POST["deletePage"]);
+        $role->setAddComment($_POST["addComment"]);
+        $role->setAdminRights($_POST["adminRights"]);
+        $role->setIsSuperUser(0);
+
+        unset($_POST);
 
         $role->save();
-
+        header('Location: /admin/role');
     }
 
     /**
@@ -277,7 +284,8 @@ class Admin
         $role = new RoleModel();
         $role = $role->setId($_POST["id"]);
 
-        $role->setColour($_POST["colour"]);
+        $role->setName(ucfirst(strtolower($_POST["name"])));
+        $role->setColour(strtoupper($_POST["colour"]));
         $role->setCreatePage($_POST["createPage"]);
         $role->setModifyPage($_POST["modifyPage"]);
         $role->setDeletePage($_POST["deletePage"]);
@@ -285,7 +293,19 @@ class Admin
         $role->setAdminRights($_POST["adminRights"]);
 
         $role->save();
+        header('Location: /admin/role');
     }
+
+    public static function deleteRole()
+    {
+        $role = new RoleModel();
+        $role = $role->setId($_POST["id"]);
+
+        $role->delete();
+        header('Location: /admin/role');
+    }
+
+
 
     public function plugin()
     {
