@@ -24,7 +24,7 @@ class User extends baseController{
 
         session_destroy();
 
-        echo "déconnecté";
+        header('Location: /');
     }
 
     public function login()

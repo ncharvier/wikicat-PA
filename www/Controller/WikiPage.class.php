@@ -83,6 +83,7 @@ class WikiPage extends baseController
         $pageVersion = new PageVersion();
 
         if (isset($_POST["newPageContent"]) && !empty($_POST["pageId"])){
+            AccessManager::accessIfCanModifyPage();
             $page = $page->setId($_POST["pageId"]);
             $oldVersion = $pageVersion->getCurrentVersion($page->getId());
 
@@ -103,6 +104,7 @@ class WikiPage extends baseController
             $oldVersion->save();
 
         } else if (isset($_POST["newPageContent"])){
+            AccessManager::accessIfCanModifyPage();
             $page->setTitle($pageTitle);
 
             if ($page->getId() != 1) {

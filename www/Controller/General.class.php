@@ -13,13 +13,7 @@ class General extends baseController{
 
     public function home()
     {
-        $isLogged = AccessManager::isLogged();
-
-        if($isLogged){
-            header('Location: /w/accueil');
-        } else {
-            header('Location: /login');
-        }
+        header('Location: /w/accueil');
     }
 }
 
