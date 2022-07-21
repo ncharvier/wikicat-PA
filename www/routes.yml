@@ -114,3 +114,6 @@
   controller: WikiPage
   action: searchPage
 
+/tree/getPageTree:
+  controller: WikiPage
+  action: getPageTree
