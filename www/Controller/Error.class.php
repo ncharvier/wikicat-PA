@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Core\baseController;
 use App\Core\View;
 
-class Error
+class Error extends baseController
 {
     public function page404(){
         $view = new View("error");

@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-session_start();
-
 use App\Core\AccessManager;
-use App\Core\BaseSQL;
+use App\Core\baseController;
 use App\Core\PHPMailerManager;
 use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User{
+class User extends baseController{
     public function logout(){
 
         if(!empty($_SESSION["connectedUser"]["id"])){

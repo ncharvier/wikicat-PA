@@ -35,12 +35,12 @@
         <?php elseif($input["type"] == "select"):?>
             <select name="<?=$name?>"
                     id="<?=$input["id"]?>"
-                    class="<?=$input["class"]?>">
+                    class="<?=$input["class"]??""?>">
                 <?= (!empty($input["noSelection"]))?("<option value='null'>".$input["noSelection"]."</option>"):'' ?>
 
                 <?php foreach ($input["options"] as $option):?>
                     <option value="<?=$option["value"]??$option["text"]?>" <?=(!empty($option["selected"]) && $option["selected"])?'selected="selected"':''?>>
-                        <?=$option["text"]?>
+                        <?=$option["text"]??$option["value"]?>
                     </option>
                 <?php endforeach;?>
             </select>

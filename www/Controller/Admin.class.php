@@ -1,16 +1,14 @@
 <?php
 namespace App\Controller;
 
-session_start();
-
-use App\Core\AccessManager;
+use App\Core\baseController;
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
 use App\Model\Role;
 use App\Model\Role as RoleModel;
 
-class Admin
+class Admin extends baseController
 {
     public function dashboard()
     {

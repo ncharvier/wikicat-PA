@@ -5,7 +5,7 @@
     css-attr: #ff0000;
 }
 .color-text-link {
-    css-attr: #ff0000;
+    css-attr: #66ff00;
 }
 .color-text-link-bis {
     css-attr: #ff0000;
@@ -14,7 +14,7 @@
     css-attr: #ff0000;
 }
 .color-title-page1 {
-    css-attr: #ff0000;
+    css-attr: #000000;
 }
 .color-text-link1 {
     css-attr: #ff0000;
@@ -42,4 +42,7 @@
 }
 .color-back-separator {
     css-attr: #ff0000;
+}
+.renameTheme {
+    css-attr: default;
 }

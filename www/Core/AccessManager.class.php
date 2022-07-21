@@ -6,8 +6,6 @@ use App\Model\Role;
 use App\Model\User as UserModel;
 use App\Model\User as RoleModel;
 
-session_start();
-
 class AccessManager
 {
     public static function isLogged(): bool{

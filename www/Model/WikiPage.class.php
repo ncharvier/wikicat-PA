@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Core\BaseSQL;
+use App\Core\queryBuilder;
 
 class WikiPage extends BaseSQL
 {
@@ -77,7 +78,15 @@ class WikiPage extends BaseSQL
      */
     public function setParentPageId(int $parentPageId): void
     {
-        $this->parentPageId = $parentPageId;
+        if($this->getId() != 1 && $this->getId() != $parentPageId){
+            $this->parentPageId = $parentPageId;
+        }else if ($this->getId() != 1){
+            $this->parentPageId = 1;
+        }
+    }
+
+    public function getAllChild(): ?array{
+        return $this->getAllFromValue($this->getId(),"parentPageId");
     }
 
     /**
@@ -106,14 +115,24 @@ class WikiPage extends BaseSQL
         $parentPageList = [];
 
         foreach(WikiPage::getAll() as $pageInDb) {
-            $parentPageList += ["value"=>$pageInDb->getId(), "text"=>$pageInDb->getTitle()];
+            if ($pageInDb->getId() != $this->getId()) {
+                $parentPageList[] = ["value" => $pageInDb->getId(),
+                                    "text" => $pageInDb->getTitle(),
+                                    "selected"=>($pageInDb->getId() == $this->getParentPageId() && $this->getParentPageId() != null)];
+            }
         }
 
-        return [
+        $comp = function ($a, $b) {
+            return strcmp($a["text"], $b["text"]);
+        };
+
+        usort($parentPageList, $comp);
+
+        $config = [
             "config"=>[
                 "form-id"=>"pageEditForm",
                 "method"=>"POST",
-                "action"=>"/w/edit/{$this->getTitle()}",
+                "action"=>"/w/update/{$this->getTitle()}",
                 "submit"=>"Enregistrer",
                 "submit-class"=>"btn btn--success"
             ],
@@ -127,7 +146,7 @@ class WikiPage extends BaseSQL
                     "type"=>"select",
                     "id"=>"parentPage",
                     "label"=>"Page parent",
-                    "option"=>$parentPageList
+                    "options"=>$parentPageList
                 ],
                 "newPageContent"=>[
                     "type"=>"quill",
@@ -136,5 +155,11 @@ class WikiPage extends BaseSQL
                 ]
             ]
         ];
+
+        if ($this->getId() == 1){
+            unset($config["inputs"]["parentPage"]);
+        }
+
+        return $config;
     }
 }
