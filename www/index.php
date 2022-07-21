@@ -49,7 +49,8 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
         die("La route est introuvable");
     }
 
-    $controller = ucfirst(strtolower($routes[$uri]["controller"]));
+    /* $controller = ucfirst(strtolower($routes[$uri]["controller"])); */
+    $controller = $routes[$uri]["controller"];
     $action = strtolower($routes[$uri]["action"]);
 
     $controllerFile = "Controller/".$controller.".class.php";

@@ -1,57 +1,57 @@
 /:
-  controller: general
+  controller: General
   action: home
 
 /login:
-  controller: user
+  controller: User
   action: login
 
 /register:
-  controller: user
+  controller: User
   action: register
 
 /accountUpdate:
-  controller: user
+  controller: User
   action: accountUpdate
 
 /logout:
-  controller: user
+  controller: User
   action: logout
 
 /valideAccount:
-  controller: user
+  controller: User
   action: valideAccount
 
 /forgotPassword:
-  controller: user
+  controller: User
   action: forgotPassword
 
 /acquireNewPassword:
-  controller: user
+  controller: User
   action: acquireNewPassword
 
 /changePassword:
-  controller: user
+  controller: User
   action: changePassword
 
 /page404:
-  controller: error
+  controller: Error
   action: page404
 
 /page500:
-  controller: error
+  controller: Error
   action: page500
 
 /admin/dashboard:
-  controller: admin
+  controller: Admin
   action: dashboard
 
 /admin/user:
-  controller: admin
+  controller: Admin
   action: user
 
 /admin/role:
-  controller: admin
+  controller: Admin
   action: role
 
 /admin/roleCreate:
@@ -67,32 +67,34 @@
   action: deleteRole
 
 /admin/pageList:
-  controller: admin
+  controller: Admin
   action: pageList
 
 /admin/pageTemplate:
-  controller: admin
+  controller: Admin
   action: pageTemplate
 
 /admin/comment:
-  controller: admin
+  controller: Admin
   action: comment
 
 /admin/visualSetting:
-  controller: admin
+  controller: Admin
   action: visualSetting
 
 /admin/exportTheme:
-  controller: admin
+  controller: Admin
   action: exportTheme
 
 /admin/plugin:
-  controller: admin
+  controller: Admin
   action: plugin
 
 /admin/globalSetting:
-  controller: admin
+  controller: Admin
   action: globalSetting
 
-
+/searchPage:
+  controller: WikiPage
+  action: searchPage
 
