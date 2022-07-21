@@ -73,7 +73,9 @@ class WikiPage extends baseController
 
             if ($page->getId() != 1) {
                 $page->setParentPageId($_POST["parentPage"]);
+                $page->save();
             }
+
             $pageVersion->setContent($_POST["newPageContent"]);
             $pageVersion->setIsCurrentVersion(true);
             $pageVersion->setVersionNumber($oldVersion->getVersionNumber() + 1.0);
@@ -87,7 +89,10 @@ class WikiPage extends baseController
 
         } else if (isset($_POST["newPageContent"])){
             $page->setTitle($pageTitle);
-            $page->setParentPageId($_POST["parentPage"]);
+
+            if ($page->getId() != 1) {
+                $page->setParentPageId($_POST["parentPage"]);
+            }
 
             $page->save();
             $page = $page->foundByTitle($pageTitle);
@@ -102,5 +107,31 @@ class WikiPage extends baseController
         }
 
         header('Location: /w/edit/'.$pageTitle);
+    }
+
+    public function getPageTree(){
+        $page = new Page();
+        echo "<ul class=\"tree\">" . $this->treeFiller($page->setId(1)) . "</ul>";
+    }
+
+
+    private function treeFiller($parent) {
+        $childs = $parent->getAllChild();
+        $comp = function ($a, $b) {
+            return strcmp($a->getTitle(), $b->getTitle());
+        };
+        usort($childs, $comp);
+
+        if ($childs == null){
+            return "<li><a href='/w/{$parent->getTitle()}'>{$parent->getTitle()}</a></li>";
+        }else{
+            $html = "<li>
+                        <span class=\"tree-title\"><span class=\"tree-arrow\"></span><a href='/w/{$parent->getTitle()}'>{$parent->getTitle()}</a></span>
+                        <ul class=\"tree-nested\">";
+            foreach ($childs as $child){
+                $html .= $this->treeFiller($child);
+            }
+            return $html."</ul></li>";
+        }
     }
 }

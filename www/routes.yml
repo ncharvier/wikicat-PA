@@ -82,5 +82,6 @@
   controller: admin
   action: globalSetting
 
-
-
+/tree/getPageTree:
+  controller: wikiPage
+  action: getPageTree

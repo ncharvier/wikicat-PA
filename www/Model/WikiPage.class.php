@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Core\BaseSQL;
+use App\Core\queryBuilder;
 
 class WikiPage extends BaseSQL
 {
@@ -84,6 +85,10 @@ class WikiPage extends BaseSQL
         }
     }
 
+    public function getAllChild(): ?array{
+        return $this->getAllFromValue($this->getId(),"parentPageId");
+    }
+
     /**
      * @return mixed
      */
@@ -116,6 +121,12 @@ class WikiPage extends BaseSQL
                                     "selected"=>($pageInDb->getId() == $this->getParentPageId() && $this->getParentPageId() != null)];
             }
         }
+
+        $comp = function ($a, $b) {
+            return strcmp($a["text"], $b["text"]);
+        };
+
+        usort($parentPageList, $comp);
 
         $config = [
             "config"=>[

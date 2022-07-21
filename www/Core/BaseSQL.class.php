@@ -79,7 +79,7 @@ abstract class BaseSQL
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( ["value"=>$value] );
 
-        $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
         return $result ?? null;
     }
 
