@@ -27,7 +27,6 @@ class Validator
             }else if($input["type"]=="email"  && !self::checkEmail($data[$name])){
                 $result[] = $input["error"];
             }
-
         }
         return $result;
     }
@@ -42,6 +41,20 @@ class Validator
     public static function checkEmail($email): bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    /**
+     * Checks if color is a 6 lenght with hexadecimal value
+     */
+    public static function checkColor($color): bool
+    {
+        $color = htmlspecialchars($color);
+        return (ctype_xdigit($color) && strlen($color) == 6);
+    }
+
+    public static function checkRoleName($name): bool
+    {
+        return strlen(htmlspecialchars($name)) <= 30;
     }
 
 }

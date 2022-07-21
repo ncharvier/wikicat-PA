@@ -5,25 +5,20 @@ namespace App\Controller;
 use App\Core\View;
 use App\Core\AccessManager as AccessManager;
 use App\Core\PHPMailerManager;
+use App\Model\User;
+use App\Core\ErrorManager;
 
 class General{
 
     public function home()
     {
-        $test = AccessManager::isLogged();
+        $isLogged = AccessManager::isLogged();
 
-        if($test){
-            echo "connecter";
+        if($isLogged){
+            header('Location: /w/accueil');
         } else {
-            echo"non connecter - <a href='/login'>se connecter</a>";
+            header('Location: /login');
         }
-
-        echo "Welcome";
-    }
-
-    public function contact()
-    {
-        $view = new View("contact");
     }
 }
 

@@ -8,7 +8,6 @@ abstract class BaseSQL
     private $pdo;
     private $table;
 
-
     public function __construct()
     {
         //Faudra intégrer le singleton
@@ -26,6 +25,10 @@ abstract class BaseSQL
 
     }
 
+    protected function getPdoSession(){
+        return $this->pdo;
+    }
+
     /**
      * @param mixed $id
      */
@@ -37,7 +40,7 @@ abstract class BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
-    protected function getFromValue($value, $valueName): ?object
+    protected function getFromValue($value, string $valueName): ?object
     {
         $sql = "SELECT * FROM ".$this->table. " WHERE " . $valueName . "=:value ";
 
@@ -45,34 +48,76 @@ abstract class BaseSQL
         $queryPrepared->execute( ["value"=>$value] );
 
         $result = $queryPrepared->fetchObject(get_called_class());
-        if ($result){
-            return $result;
-        }
-        return null;
+        return $result!=false?$result:null;
+    }
+
+    /**
+     * get list
+     * @return array
+     */
+    public function getAll(): ?array
+    {
+        $sql = "SELECT * FROM ".$this->table;
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result ?? null;
+    }
+
+    /**
+     * get list
+     * @param mixed value
+     * @param string valueName
+     * @return array
+     */
+    public function getAllFromValue($value, string $valueName)
+    {
+        $sql = "SELECT * FROM ".$this->table." WHERE ".$valueName."=:value ";
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( ["value"=>$value] );
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_OBJ);
+        return $result ?? null;
     }
 
     protected function save()
     {
-
         $columns  = get_object_vars($this);
         $varsToExclude = get_class_vars(get_class());
         $columns = array_diff_key($columns, $varsToExclude);
         //$columns = array_filter($columns);
 
+        unset($columns["updatedAt"]);
+        unset($columns["createdAt"]);
+        unset($columns["id"]);
 
-       if( !is_null($this->getId()) ){
-           foreach ($columns as $key=>$value){
+        if( !is_null($this->getId()) ){
+            foreach ($columns as $key=>$value){
+                if (is_bool($value)){
+                    $columns[$key] = intval($value);
+                }
                 $setUpdate[]=$key."=:".$key;
-           }
-           $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
-       }else{
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$setUpdate)." WHERE id=".$this->getId();
+        }else{
             $sql = "INSERT INTO ".$this->table." (".implode(",", array_keys($columns)).")
             VALUES (:".implode(",:", array_keys($columns)).")";
-       }
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
     }
 
+    protected function delete()
+    {
+        if(!is_null($this->getId())){
+            $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
+        }
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+    }
 }
