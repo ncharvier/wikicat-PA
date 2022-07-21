@@ -37,7 +37,7 @@ class Role extends BaseSQL {
      */
     public function setName($name): void
     {
-        $this->name = $name;
+        $this->name = htmlspecialchars($name);
     }
 
     /**
@@ -53,7 +53,7 @@ class Role extends BaseSQL {
      */
     public function setColour($colour): void
     {
-        $this->colour = $colour;
+        $this->colour = htmlspecialchars($colour);
     }
 
     /**

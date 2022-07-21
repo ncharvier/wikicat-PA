@@ -26,6 +26,8 @@ class Validator
                 $result[] = $input["error"];
             }else if($input["type"]=="email"  && !self::checkEmail($data[$name])){
                 $result[] = $input["error"];
+            }else if($input["type"]=="color" && !self::checkColor($data[$name])){
+                $result[] = $input["error"];
             }
         }
         return $result;
@@ -50,11 +52,6 @@ class Validator
     {
         $color = htmlspecialchars($color);
         return (ctype_xdigit($color) && strlen($color) == 6);
-    }
-
-    public static function checkRoleName($name): bool
-    {
-        return strlen(htmlspecialchars($name)) <= 30;
     }
 
 }
