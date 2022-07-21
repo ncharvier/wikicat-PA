@@ -1,3 +1,7 @@
+<?php
+    use App\Core\AccessManager;
+?>
+
 <?php if (!is_null($innerTree) && count($innerTree) > 1){
     $pagePath = "";
 
@@ -14,4 +18,6 @@
 $this->includePartial("quillReader", $pageContent)
 ?>
 
-<a class="btn btn--sm btn--primary" href="/w/edit/<?=$page->GetTitle()?>">Modifier</a>
+<?php if(AccessManager::canModifyPage()): ?>
+    <a class="btn btn--sm btn--primary" href="/w/edit/<?=$page->GetTitle()?>">Modifier</a>
+<?php endif;?>

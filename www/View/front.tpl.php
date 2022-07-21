@@ -1,5 +1,6 @@
 <?php
 use App\Core\AccessManager;
+use App\Model\WikiPage;
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +28,7 @@ use App\Core\AccessManager;
                 </h1>
             </div>
             <div class="col">
-                <?php $this->includePartial("form", $page->searchPageForm()) ?>
+                <?php $this->includePartial("form", (new WikiPage())->searchPageForm()) ?>
             </div>
             <?php if (AccessManager::isAdmin()):?>
                 <div class="col-2">
@@ -41,6 +42,9 @@ use App\Core\AccessManager;
             <?php else:?>
                 <div class="col-2">
                     <a class="btn btn--sm d-block btn--success" href="/login">Connexion</a>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--success" href="/register">Inscription</a>
                 </div>
             <?php endif?>
         </nav>

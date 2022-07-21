@@ -330,15 +330,18 @@ class User extends BaseSQL
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
-                "submit"=>"Mot de passe oublié ?"
+                "action"=>"/forgotPassword",
+                "submit"=>"Réinitialiser mon mot de passe",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "email"=>[
                     "type"=>"email",
                     "placeholder"=>"email linked to the account",
                     "id"=>"recoveryEmail",
-                    "class"=>"inputEmail",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ],
             ]

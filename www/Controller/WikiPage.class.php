@@ -16,18 +16,20 @@ class WikiPage extends baseController
         $pageVersion = new PageVersion();
         $page = $page->foundByTitle($pageTitle);
 
-        if ($page == null){
+        if ($page == null && AccessManager::canCreatePage()){
             header('Location: /w/edit/'.$pageTitle);
+        } else if($page == null) {
+            http_response_code(404);
+            $view = new View("404", "front");
+            $view->assign("titleSeo", "La page n\'existe pas");
+        } else {$pageVersion = $pageVersion->getCurrentVersion($page->getId());
+            $view = new View("front/pageShow", "front");
+
+            $view->assign("innerTree", $page->getInnerTree());
+            $view->assign("titleSeo", $page->getTitle());
+            $view->assign("pageContent", $pageVersion->getContent());
+            $view->assign("page", $page);
         }
-
-        $pageVersion = $pageVersion->getCurrentVersion($page->getId());
-
-        $view = new View("front/pageShow", "front");
-
-        $view->assign("innerTree", $page->getInnerTree());
-        $view->assign("titleSeo", $page->getTitle());
-        $view->assign("pageContent", $pageVersion->getContent());
-        $view->assign("page", $page);
     }
 
     public function searchPage() {

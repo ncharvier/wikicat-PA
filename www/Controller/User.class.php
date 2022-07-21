@@ -69,7 +69,6 @@ class User extends baseController{
 
         if( !empty($_POST)){
             $result = Validator::run($user->getFormRegister(), $_POST);
-            print_r($result);
 
             if(empty($result)){
                 $user->setLogin($_POST["login"]);
@@ -77,18 +76,22 @@ class User extends baseController{
                 $user->setPassword($_POST["password"]);
                 $user->generateValidationToken();
 
-                $mailer = PHPMailerManager::getInstance();
-                echo $mailer->send('tshadow42@gmail.com', 'email de test', "je suis un email de test <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() ."></a>");
-
                 $user->save();
+                $user = $user->getByEmail($user->getEmail());
 
+                $mailer = PHPMailerManager::getInstance();
+                $mailer->send($user->getEmail(),
+                    'email de validation',
+                    "je suis un email de validation <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() . "&user=" . $user->getId() . "'>cliquez ici</a>");
+
+                $view = new View("accountCreationSuccess", "auth");
+                die();
                 header('Location: /login');
             }
+        } else {
+            $view = new View("register", "auth");
+            $view->assign("user",$user);
         }
-
-
-        $view = new View("register", "auth");
-        $view->assign("user",$user);
     }
 
     public function valideAccount()
@@ -147,6 +150,7 @@ class User extends baseController{
 
     public function forgotPassword(){
         $user = new UserModel();
+        $view = new View("forgotPassword", "auth");
 
         if( !empty($_POST)){
             $result = Validator::run($user->getForgotPassword(), $_POST);
@@ -161,16 +165,16 @@ class User extends baseController{
                     'Récupération de mot de passe Wikicat',
                     'Une demande de réinitialisation de mot de passe à été faite.
                  Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer ce mail. 
-                 Dans le cas contraire, nous vous invitons à cliquer sur ce lien : ' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "");
+                 Dans le cas contraire, nous vous invitons à <a href=\'' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "'>cliquez ici</a>");
 
                 echo "Un mail de récupération à été envoyé à l'adresse email en question";
             }
         }
-        $view = new View("forgotPassword");
         $view->assign("user",$user);
     }
 
     public function acquireNewPassword(){
+        $view = new View("acquireNewPassword", "auth");
 
         if(!empty($_GET["token"])){
             $user = new UserModel();
@@ -183,7 +187,7 @@ class User extends baseController{
 
                 $user->save();
             }
-            $view = new View("changePassword");
+            $view = new View("changePassword", "auth");
             $view->assign("user",$user);
         }else{
             echo "Il semblerait que vous essayez d'accèder à un compte dont le mot de passe a déjà été réinitialiser";
