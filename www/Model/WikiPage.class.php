@@ -56,6 +56,22 @@ class WikiPage extends BaseSQL
         return $result;
     }
 
+    public function getAllPageAndVersionWithLike(string $search) {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("WikiPage", "WikiPageVersion")
+            ->alias("page", "pageVersion")
+            ->on("page.id = pageVersion.versionOf")
+            ->where("pageVersion.isCurrentVersion = true")
+            ->like("page.title", "search");
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute(["search" => "%$search%"]);
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result;
+    }
+
     /**
      * @return null
      */
@@ -162,10 +178,12 @@ class WikiPage extends BaseSQL
     public function searchPageForm(): array {
         return [
             "config"=>[
-                "method"=>"POST",
-                "action"=>"",
+                "form-id"=>"searchPageFrom",
+                "method"=>"GET",
+                "action"=>"/searchPage",
                 "submit"=>"rechercher",
-                "submit-class"=>"btn btn--success"
+                "submit-class"=>"d-none"
+                /* "submit-class"=>"btn btn--success" */
             ],
             "inputs"=>[
                 "searchPage"=>[
@@ -177,5 +195,4 @@ class WikiPage extends BaseSQL
             ]
         ];
     }
-    
 }

@@ -10,6 +10,7 @@ class queryBuilder
     private $conditions = [];
     private $target = [];
     private $join = [];
+    private $like = "";
     private $mode = null;
 
     public function __toString(): string
@@ -18,6 +19,7 @@ class queryBuilder
         $on = !empty($this->join["condition"]) ? ' ON ' . $this->join['condition'] : '';
         $alias1 = !empty($this->join["aliasTable1"]) ? " as " . $this->join["aliasTable1"] : " as t1";
         $alias2 = !empty($this->join["aliasTable2"]) ? " as " . $this->join["aliasTable2"] : " as t2";
+        $like = $this->like === '' ? '' : " LIKE :" . $this->like ;
 
         if (!empty($this->target) || !empty($this->join)){
             switch ($this->mode){
@@ -25,13 +27,13 @@ class queryBuilder
                     if (empty($this->join)) {
                         $query = 'SELECT ' . implode(', ', $this->columns)
                             . ' FROM ' . implode(', ', $this->target)
-                            . $where . ";";
+                            . $where . $like . ";";
                     }
                     else {
                         $query = 'SELECT ' . implode(', ', $this->columns)
                             . ' FROM ' . $this->join['table1'] . $alias1
                             . ' ' . $this->join['type'] . ' JOIN  ' . $this->join['table2'] . $alias2
-                            . $on . $where . ";";
+                            . $on . $where . $like . ";";
 
                     }
                     return $query;
@@ -144,7 +146,7 @@ class queryBuilder
         $this->join["aliasTable2"] = $aliasTable2;
         return $this;
     }
-    
+
     /**
      * join on statement
      * @param string $condition - condition of join
@@ -152,6 +154,18 @@ class queryBuilder
      */
     public function on(string $condition): self {
         $this->join["condition"] = $condition;
+        return $this;
+    }
+
+    /**
+     * like statement
+     * @param string $attribute
+     * @param string $pattern
+     * @return self
+     */
+    public function like(string $attribute, string $pattern): self {
+        $this->conditions[] = $attribute;
+        $this->like = $pattern;
         return $this;
     }
 }
