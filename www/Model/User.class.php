@@ -364,4 +364,83 @@ class User extends BaseSQL
             ]
         ];
     }
+
+    public function formAdminActiveUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminActiveUser",
+                "submit"=>"Activer",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+            ]
+        ];
+    }
+
+    public function formAdminBanUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminBanUser",
+                "submit"=>"Bannir",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+            ]
+        ];
+    }
+
+    public function formAdminDeleteUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminBanUser",
+                "submit"=>"Supprimer",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+            ]
+        ];
+    }
+
+    public function formAdminResetPasswordUser(): array {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminResetPasswordUser",
+                "submit"=>"Changer mot de passe",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Changer le mot de passe",
+                    "id"=>"password",
+                    "class"=>"form-input-back",
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ],
+            ]
+        ];
+    }
 }

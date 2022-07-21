@@ -24,6 +24,11 @@
     animation-duration: 0.4s;
 }
 
+.modal-content-dark {
+    background-color: var(--backMainNavBackground);
+    border: solid 1px var(--backMainNavBorder);
+}
+
 .modal-content--sm {
     width: 40%;
 }
@@ -39,6 +44,10 @@
 .modal-header, .modal-body {
     padding: 2px 16px;
     border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header-dark, .modal-body-dark {
+    border-bottom: solid 1px var(--backMainNavBorder);
 }
 
 .modal-close-cross {

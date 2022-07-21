@@ -44,6 +44,11 @@
                     </option>
                 <?php endforeach;?>
             </select>
+        <?php elseif($input["type"] == "hidden"):?>
+            <input name="<?=$name?>"
+                type="<?=$input['type']?>"
+                value="<?=$input['value']?>"
+            >
         <?php elseif($input["type"] == "quill"):?>
             <input id="<?=$input["id"]?>" name="<?=$name?>" type="hidden">
 

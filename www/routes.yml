@@ -50,20 +50,36 @@
   controller: Admin
   action: user
 
+/adminActiveUser:
+  controller: Admin
+  action: adminActiveUser
+
+/adminBanUser:
+  controller: Admin
+  action: adminBanUser
+
+/adminDeleteUser:
+  controller: Admin
+  action: adminDeleteUser
+
+/adminResetPasswordUser:
+  controller: Admin
+  action: adminResetPasswordUser
+
 /admin/role:
   controller: Admin
   action: role
 
 /admin/roleCreate:
-  controller: admin
+  controller: Admin
   action: createRole
 
 /admin/roleUpdate:
-  controller: admin
+  controller: Admin
   action: updateRole
 
 /admin/roleDelete:
-  controller: admin
+  controller: Admin
   action: deleteRole
 
 /admin/pageList:

@@ -11,6 +11,7 @@ use App\Model\Role;
 use App\Model\Role as RoleModel;
 use App\Model\WikiPage as Page;
 use App\Model\WikiPageVersion as PageVersion;
+use App\Model\User;
 
 class Admin
 {
@@ -23,8 +24,60 @@ class Admin
 
     public function user()
     {
+        $user = new User();
+
         $view = new View("back/user", "back");
+        $view->assign("userList", $user->getAll());
         $view->assign("activePage", "user");
+    }
+
+    public function adminActiveUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId'])) {
+            $user = $user->setId($_POST['userId']);
+            $user->setStatus(1);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminBanUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId'])) {
+            $user = $user->setId($_POST['userId']);
+            $user->setStatus(2);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminResetPasswordUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId']) || !empty($_POST['resetPassword'])) {
+            $user = $user->setId($_POST['userId']);
+            $user->setPassword($_POST['resetPassword']);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminDeleteUser() {
+        $user = new User();
+
+        if (!empty($_POST['userId'])) {
+            // TODO : delete user
+            /* $user = $user->setId($_POST['userId']); */
+            /* $user->setStatus(2); */
+            /* $user->save(); */
+        }
+
+        header("location: /admin/user");
     }
 
     public function role()
