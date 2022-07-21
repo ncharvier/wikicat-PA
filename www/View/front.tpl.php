@@ -1,3 +1,8 @@
+<?php
+use App\Core\AccessManager;
+use App\Model\WikiPage;
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -23,8 +28,25 @@
                 </h1>
             </div>
             <div class="col">
-                <?php $this->includePartial("form", $page->searchPageForm()) ?>
+                <?php $this->includePartial("form", (new WikiPage())->searchPageForm()) ?>
             </div>
+            <?php if (AccessManager::isAdmin()):?>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--primary" href="/admin/dashboard">Administration</a>
+                </div>
+            <?php endif?>
+            <?php if (AccessManager::isLogged()):?>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--danger" href="/logout">Déconnexion</a>
+                </div>
+            <?php else:?>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--success" href="/login">Connexion</a>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--success" href="/register">Inscription</a>
+                </div>
+            <?php endif?>
         </nav>
         <div class="row">
             <div class="col-2 bg-grey">

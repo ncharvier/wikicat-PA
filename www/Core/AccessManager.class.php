@@ -4,7 +4,7 @@ namespace App\Core;
 
 use App\Model\Role;
 use App\Model\User as UserModel;
-use App\Model\User as RoleModel;
+use App\Model\Role as RoleModel;
 
 class AccessManager
 {
@@ -75,7 +75,7 @@ class AccessManager
             $role = new RoleModel();
             $role = $role->setId($user->getRole());
 
-            if($role->getAddComment() == 1 || $role->getIsSuperUser == 1){
+            if($role->getAddComment() == 1 || $role->getIsSuperUser() == 1){
                 return true;
             }
         }
@@ -90,7 +90,7 @@ class AccessManager
             $role = new RoleModel();
             $role = $role->setId($user->getRole());
 
-            if($role->getModifyPage() == 1 || $role->getIsSuperUser == 1){
+            if($role->getModifyPage() == 1 || $role->getIsSuperUser() == 1){
                 return true;
             }
         }
@@ -105,11 +105,50 @@ class AccessManager
             $role = new RoleModel();
             $role = $role->setId($user->getRole());
 
-            if($role->getCreatePage() == 1 || $role->getIsSuperUser == 1){
+            if($role->getCreatePage() == 1 || $role->getIsSuperUser() == 1){
                 return true;
             }
         }
         return false;
     }
 
+    public static function accessIfAdmin(): void{
+        if (!AccessManager::isAdmin()){
+            echo "Vous n'avez pas l'autorisation nécessaire";
+            http_response_code(401);
+            die();
+        }
+    }
+
+    public static function accessIfCanCreatePage(): void{
+        if (!AccessManager::canCreatePage()){
+            echo "Vous n'avez pas l'autorisation nécessaire";
+            http_response_code(401);
+            die();
+        }
+    }
+
+    public static function accessIfCanModifyPage(): void{
+        if (!AccessManager::canModifyPage()){
+            echo "Vous n'avez pas l'autorisation nécessaire";
+            http_response_code(401);
+            die();
+        }
+    }
+
+    public static function accessIfCanDeletePage(): void{
+        if (!AccessManager::canDeletePage()){
+            echo "Vous n'avez pas l'autorisation nécessaire";
+            http_response_code(401);
+            die();
+        }
+    }
+
+    public static function accessIfLogged(): void{
+        if (!AccessManager::isLogged()){
+            echo "Vous n'avez pas l'autorisation nécessaire";
+            http_response_code(401);
+            die();
+        }
+    }
 }

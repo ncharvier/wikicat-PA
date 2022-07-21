@@ -8,8 +8,6 @@ class Validator
     {
         $result = [];
 
-        print_r($config["config"]["className"]);
-
         if( count($data) != count($config["inputs"]) ){
             $result[]="Formulaire modifié par user";
         }

@@ -5,6 +5,7 @@ require "conf.inc.php";
 
 use App\Core\ErrorManager;
 use App\Controller\WikiPage;
+use App\Core\View;
 
 function myAutoloader($class){
     $class = str_ireplace("App\\", "", $class);
@@ -47,13 +48,19 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
     $routeFile = "routes.yml";
     if(!file_exists($routeFile)){
 
-        die("Le fichier ".$routeFile." n'existe pas");
+        http_response_code(500);
+        $view = new View("500", "front");
+        $view->assign("titleSeo", "Problème interne");
+        die();
     }
 
     $routes = yaml_parse_file($routeFile);
 
     if( empty($routes[$uri]) || empty($routes[$uri]["controller"])  || empty($routes[$uri]["action"]) ){
-        die("La route est introuvable");
+        http_response_code(404);
+        $view = new View("404", "front");
+        $view->assign("titleSeo", "La page n\'existe pas");
+        die();
     }
 
     /* $controller = ucfirst(strtolower($routes[$uri]["controller"])); */
@@ -62,20 +69,28 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
 
     $controllerFile = "Controller/".$controller.".class.php";
     if(!file_exists($controllerFile)){
-        die("Le controller ".$controllerFile." n'existe pas");
+        http_response_code(500);
+        $view = new View("500", "front");
+        $view->assign("titleSeo", "Problème interne");
+        die();
     }
     include $controllerFile;
 
     $controller = "App\\Controller\\".$controller;
 
     if( !class_exists($controller) ){
-        die("La classe ".$controller." n'existe pas");
+        http_response_code(500);
+        $view = new View("500", "front");
+        $view->assign("titleSeo", "Problème interne");
+        die();
     }
 
     $objectController = new $controller();
 
     if( !method_exists($objectController, $action) ){
-        die("La methode ".$action." n'existe pas");
+        http_response_code(500);
+        $view = new View("500", "front");
+        $view->assign("titleSeo", "Problème interne");
     }
 
     $objectController->$action();
