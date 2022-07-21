@@ -17,9 +17,14 @@ class Admin
 {
     public function dashboard()
     {
+        $user = new User();
+        $page = new Page();
         $view = new View("back/dashboard", "back");
         $view->assign("activePage", "dashboard");
-
+        $view->assign("nbUser", $user->count());
+        $view->assign("nbCreatedUser", $user->count(7));
+        $view->assign("nbPage", $page->count());
+        $view->assign("nbCreatedPage", $page->count(7));
     }
 
     public function user()

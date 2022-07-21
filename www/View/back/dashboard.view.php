@@ -6,11 +6,11 @@
                 <div class="row">
                     <div class="col-6 my-1 d-flex align-items-center">
                         <i class="fas fa-user-friends fa-2x"></i>
-                        <div class="badge badge--pill badge--success ml-3"> + 159</div>
+                        <div class="badge badge--pill badge--success ml-3"> + <?=$nbUser?></div>
                     </div>
                     <div class="col-6 my-1 d-flex align-items-center">
                         <i class="fas fa-user-plus fa-2x"></i>
-                        <div class="badge badge--pill badge--success ml-3"> + 59</div>
+                        <div class="badge badge--pill badge--success ml-3"> + <?=$nbCreatedUser?></div>
                     </div>
                     <div class="col-6 my-1 d-flex align-items-center">
                         <i class="fas fa-comment fa-2x"></i>
@@ -75,9 +75,11 @@
             <div class="row">
                 <div class="col-6">
                     <h2>Nouvelles Pages</h2>
+                    <span><?=$nbCreatedPage?></span>
                 </div>
                 <div class="col-6">
                     <h2>Total Pages</h2>
+                    <span><?=$nbPage?></span>
                 </div>
                 <div class="col-6">
                     <h2>Pages supprimé</h2>
