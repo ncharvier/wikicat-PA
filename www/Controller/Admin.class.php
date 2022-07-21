@@ -319,7 +319,7 @@ class Admin extends baseController
     {
         $role = new RoleModel();
 
-        var_dump($_POST);
+        $_POST["colour"] = substr($_POST["colour"], 1);
 
         $role->setName($_POST["name"]);
         $role->setColour($_POST["colour"]);
@@ -343,6 +343,8 @@ class Admin extends baseController
     {
         $role = new RoleModel();
         $role = $role->setId($_POST["id"]);
+
+        $_POST["colour"] = substr($_POST["colour"], 1);
 
         $role->setName(ucfirst(strtolower($_POST["name"])));
         $role->setColour(strtoupper($_POST["colour"]));

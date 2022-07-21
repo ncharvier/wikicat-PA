@@ -136,6 +136,15 @@
       height: 1.15em;
       border: 0.15em solid map-get(map-get($theme-colors, "grey"), "300");
     }
+
+    .checkbox-label{
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s, font-weight .2s;
+      font-weight: 400;
+      font-size: 1rem;
+      color: grey;    }
   }
 
   .form-radio[type="radio"]{
@@ -201,6 +210,8 @@
     vertical-align: middle;
     font-weight: 700;
   }
+
+
 
   &.file-group{
     display: inline-flex;
