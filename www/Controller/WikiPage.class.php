@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\AccessManager;
 use App\Core\baseController;
+use App\Core\Validator;
 use App\Core\View;
 use App\Model\WikiPage as Page;
 use App\Model\WikiPageVersion as PageVersion;
