@@ -14,10 +14,8 @@
                 <tbody>
                 <?php foreach($userList as $user):?>
                 <tr class="table-row">
-                <td><?=$user->getLogin()?> <?=$user->getId()?></td>
-                    <td>
-                    <span style="color: #<?=$user->colour?>;"><?=$user->name?></span>,
-                    </td>
+                <td><?=$user->getLogin()?></td>
+                    <td><span style="color: #<?=$user->colour?>;"><?=$user->name?></span></td>
                     <?php
                     switch ($user->getStatus()) {
                         case 0:
