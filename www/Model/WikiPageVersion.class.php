@@ -118,7 +118,7 @@ class WikiPageVersion extends BaseSQL
      */
     public function setContent(string $content): void
     {
-        $this->content = $content;
+        $this->content = strip_tags($content);
     }
 
     /**

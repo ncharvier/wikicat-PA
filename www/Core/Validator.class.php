@@ -8,8 +8,6 @@ class Validator
     {
         $result = [];
 
-        print_r($config["config"]["className"]);
-
         if( count($data) != count($config["inputs"]) ){
             $result[]="Formulaire modifié par user";
         }
@@ -25,6 +23,8 @@ class Validator
             if($input["type"]=="password" && !self::checkPassword($data[$name])){
                 $result[] = $input["error"];
             }else if($input["type"]=="email"  && !self::checkEmail($data[$name])){
+                $result[] = $input["error"];
+            }else if($input["type"]=="color" && !self::checkColor($data[$name])){
                 $result[] = $input["error"];
             }
         }
@@ -50,11 +50,6 @@ class Validator
     {
         $color = htmlspecialchars($color);
         return (ctype_xdigit($color) && strlen($color) == 6);
-    }
-
-    public static function checkRoleName($name): bool
-    {
-        return strlen(htmlspecialchars($name)) <= 30;
     }
 
 }

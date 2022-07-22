@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
 
-session_start();
-
 use App\Core\AccessManager;
+use App\Core\baseController;
 use App\Core\View;
 use App\Core\Theme;
 use App\Core\ErrorManager;
@@ -13,10 +12,11 @@ use App\Model\WikiPage as Page;
 use App\Model\WikiPageVersion as PageVersion;
 use App\Model\User;
 
-class Admin
+class Admin extends baseController
 {
     public function dashboard()
     {
+        AccessManager::accessIfAdmin();
         $user = new User();
         $page = new Page();
         $view = new View("back/dashboard", "back");
@@ -29,6 +29,7 @@ class Admin
 
     public function user()
     {
+        AccessManager::accessIfAdmin();
         $user = new User();
 
         echo "<pre>";
@@ -41,6 +42,7 @@ class Admin
     }
 
     public function adminActiveUser() {
+        AccessManager::accessIfAdmin();
         $user = new User();
 
         if (!empty($_POST['userId'])) {
@@ -53,6 +55,7 @@ class Admin
     }
 
     public function adminBanUser() {
+        AccessManager::accessIfAdmin();
         $user = new User();
 
         if (!empty($_POST['userId'])) {
@@ -65,6 +68,7 @@ class Admin
     }
 
     public function adminResetPasswordUser() {
+        AccessManager::accessIfAdmin();
         $user = new User();
 
         if (!empty($_POST['userId']) || !empty($_POST['resetPassword'])) {
@@ -77,6 +81,7 @@ class Admin
     }
 
     public function adminDeleteUser() {
+        AccessManager::accessIfAdmin();
         $user = new User();
 
         if (!empty($_POST['userId'])) {
@@ -91,6 +96,7 @@ class Admin
 
     public function role()
     {
+        AccessManager::accessIfAdmin();
         $role = new RoleModel();
         $roleList = $role->getAll();
         unset($roleList[0]); // Remove the superuser from the list
@@ -105,6 +111,7 @@ class Admin
 
     public function pageList()
     {
+        AccessManager::accessIfAdmin();
         $page = new Page();
         $view = new View("back/pageList", "back");
         $view->assign("pageList", $page->getAllPageAndVersion());
@@ -113,17 +120,20 @@ class Admin
 
     public function pageTemplate()
     {
+        AccessManager::accessIfAdmin();
         $view = new View("back/pageTemplate", "back");
         $view->assign("activePage", "page");
     }
 
     public function comment()
     {
+        AccessManager::accessIfAdmin();
         $view = new View("back/comment", "back");
         $view->assign("activePage", "comment");
     }
 
     public function visualSetting() {
+        AccessManager::accessIfAdmin();
         $selected = htmlspecialchars($_POST['selectThemeName'] ?? "default");
         $theme = new Theme();
         $errorAndTheme = ['error'=>"", 'theme'=>$selected];
@@ -159,6 +169,7 @@ class Admin
      * @return array
      */
     private function createTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
 
         if (empty($_POST['themeName']))
@@ -185,6 +196,7 @@ class Admin
      * @return array
      */
     private function modifyTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
 
         if (empty($_POST['selectThemeName']))
@@ -212,6 +224,7 @@ class Admin
      * @return array
      */
     private function deleteTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
 
         if (empty($_POST['selectThemeName']))
@@ -235,6 +248,7 @@ class Admin
      * @return array
      */
     private function importTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
         $name = basename($_FILES['fileTheme']['name']);
         $nameWithoutExt = explode('.', $name)[0];
@@ -263,6 +277,7 @@ class Admin
      * @return array
      */
     public function exportTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
         $selectedTheme = htmlspecialchars($_POST['selectThemeName']);
 
@@ -297,6 +312,7 @@ class Admin
      * @return array
      */
     public function renameTheme() {
+        AccessManager::accessIfAdmin();
         $theme = new Theme();
         $selectedTheme = htmlspecialchars($_POST['selectThemeName']);
         $renameTheme = htmlspecialchars($_POST['renameTheme']);
@@ -323,9 +339,10 @@ class Admin
      */
     public static function createRole()
     {
+        AccessManager::accessIfAdmin();
         $role = new RoleModel();
 
-        var_dump($_POST);
+        $_POST["colour"] = substr($_POST["colour"], 1);
 
         $role->setName($_POST["name"]);
         $role->setColour($_POST["colour"]);
@@ -347,8 +364,11 @@ class Admin
      */
     public static function updateRole()
     {
+        AccessManager::accessIfAdmin();
         $role = new RoleModel();
         $role = $role->setId($_POST["id"]);
+
+        $_POST["colour"] = substr($_POST["colour"], 1);
 
         $role->setName(ucfirst(strtolower($_POST["name"])));
         $role->setColour(strtoupper($_POST["colour"]));
@@ -364,6 +384,7 @@ class Admin
 
     public static function deleteRole()
     {
+        AccessManager::accessIfAdmin();
         $role = new RoleModel();
         $role = $role->setId($_POST["id"]);
 
@@ -375,12 +396,14 @@ class Admin
 
     public function plugin()
     {
+        AccessManager::accessIfAdmin();
         $view = new View("back/plugin", "back");
         $view->assign("activePage", "plugin");
     }
 
     public function globalSetting()
     {
+        AccessManager::accessIfAdmin();
         $view = new View("back/globalSetting", "back");
         $view->assign("activePage", "globalSetting");
     }

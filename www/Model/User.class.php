@@ -123,7 +123,7 @@ class User extends BaseSQL
     /**
      * @return mixed
      */
-    public function getRole(): string
+    public function getRole(): int
     {
         return $this->role;
     }
@@ -131,9 +131,9 @@ class User extends BaseSQL
     /**
      * @param mixed $role
      */
-    public function setRole($role): void
+    public function setRole(int $role): void
     {
-        $this->email = strtolower(trim($role));
+        $this->role = $role;
     }
 
     /**
@@ -191,6 +191,10 @@ class User extends BaseSQL
 
     public function clearToken(): void{
         $this->connectionToken = null;
+    }
+
+    public function clearPasswordForgetToken(): void{
+        $this->passwordForgetToken = null;
     }
 
     public function save()
@@ -345,15 +349,18 @@ class User extends BaseSQL
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"",
-                "submit"=>"Mot de passe oublié ?"
+                "action"=>"/forgotPassword",
+                "submit"=>"Réinitialiser mon mot de passe",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
                 "email"=>[
                     "type"=>"email",
-                    "placeholder"=>"email linked to the account",
+                    "placeholder"=>"Nouveau email",
                     "id"=>"recoveryEmail",
-                    "class"=>"inputEmail",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
                     "required"=>true,
                 ],
             ]
@@ -364,18 +371,33 @@ class User extends BaseSQL
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"changePassword",
-                "submit"=>"Changer votre mot passe"
+                "action"=>"/passwordReset",
+                "submit"=>"Changer votre mot passe",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
+                "idUser"=>[
+                    "type"=>"hidden",
+                    "id"=>"idUser",
+                    "required"=>true,
+                    "value"=>$this->getId()
+                ],
                 "password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre nouveau mot de passe",
                     "id"=>"pwdChangePassword",
-                    "class"=>"inputChangePassword",
+                    "class"=>"form-input",
                     "required"=>true,
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
+                "passwordConfirmation"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Confirmation de mot de passe",
+                    "id"=>"pwdConfirmation",
+                    "class"=>"form-input",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ]
             ]
         ];
     }

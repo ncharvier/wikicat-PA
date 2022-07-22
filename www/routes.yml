@@ -30,9 +30,9 @@
   controller: User
   action: acquireNewPassword
 
-/changePassword:
+/passwordReset:
   controller: User
-  action: changePassword
+  action: passwordReset
 
 /page404:
   controller: Error
@@ -114,3 +114,6 @@
   controller: WikiPage
   action: searchPage
 
+/tree/getPageTree:
+  controller: WikiPage
+  action: getPageTree

@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-session_start();
-
 use App\Core\AccessManager;
-use App\Core\BaseSQL;
+use App\Core\baseController;
 use App\Core\PHPMailerManager;
 use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User{
+class User extends baseController{
     public function logout(){
 
         if(!empty($_SESSION["connectedUser"]["id"])){
@@ -26,7 +24,7 @@ class User{
 
         session_destroy();
 
-        echo "déconnecté";
+        header('Location: /');
     }
 
     public function login()
@@ -71,7 +69,6 @@ class User{
 
         if( !empty($_POST)){
             $result = Validator::run($user->getFormRegister(), $_POST);
-            print_r($result);
 
             if(empty($result)){
                 $user->setLogin($_POST["login"]);
@@ -79,18 +76,22 @@ class User{
                 $user->setPassword($_POST["password"]);
                 $user->generateValidationToken();
 
-                $mailer = PHPMailerManager::getInstance();
-                echo $mailer->send('tshadow42@gmail.com', 'email de test', "je suis un email de test <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() ."></a>");
-
                 $user->save();
+                $user = $user->getByEmail($user->getEmail());
 
+                $mailer = PHPMailerManager::getInstance();
+                $mailer->send($user->getEmail(),
+                    'email de validation',
+                    "je suis un email de validation <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() . "&user=" . $user->getId() . "'>cliquez ici</a>");
+
+                $view = new View("accountCreationSuccess", "auth");
+                die();
                 header('Location: /login');
             }
+        } else {
+            $view = new View("register", "auth");
+            $view->assign("user",$user);
         }
-
-
-        $view = new View("register", "auth");
-        $view->assign("user",$user);
     }
 
     public function valideAccount()
@@ -149,6 +150,7 @@ class User{
 
     public function forgotPassword(){
         $user = new UserModel();
+        $view = new View("forgotPassword", "auth");
 
         if( !empty($_POST)){
             $result = Validator::run($user->getForgotPassword(), $_POST);
@@ -163,21 +165,25 @@ class User{
                     'Récupération de mot de passe Wikicat',
                     'Une demande de réinitialisation de mot de passe à été faite.
                  Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer ce mail. 
-                 Dans le cas contraire, nous vous invitons à cliquer sur ce lien : ' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "");
+                 Dans le cas contraire, nous vous invitons à <a href=\'' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "'>cliquez ici</a>");
 
-                echo "Un mail de récupération à été envoyé à l'adresse email en question";
+                $view->assign("emailSent", 1);
             }
         }
-        $view = new View("forgotPassword");
         $view->assign("user",$user);
     }
 
     public function acquireNewPassword(){
+        $view = new View("acquireNewPassword", "auth");
 
         if(!empty($_GET["token"])){
             $user = new UserModel();
 
             $user = $user->setId($_GET["id"]);
+
+            if($user->getPasswordForgetToken() == NULL){
+                header('Location: /login');
+            }
 
             if (!empty($user) && ($user->getPasswordForgetToken() == $_GET["token"])){
                 $_SESSION["forgotPasswordToken"] = $user->getPasswordForgetToken();
@@ -185,32 +191,30 @@ class User{
 
                 $user->save();
             }
-            $view = new View("changePassword");
             $view->assign("user",$user);
         }else{
             echo "Il semblerait que vous essayez d'accèder à un compte dont le mot de passe a déjà été réinitialiser";
         }
     }
 
-    public function changePassword(){
+    public function passwordReset(){
 
         $user = new UserModel();
 
-        if(isset($_SESSION["idUser"])){
-            $user = $user->setId($_SESSION["idUser"]);
+        $user = $user->setId($_POST["idUser"]);
 
-            Validator::run($user->getChangePassword(), $_POST);
+        Validator::run($user->getChangePassword(), $_POST);
 
-            if(isset($_POST["password"]) && isset($_SESSION["forgotPasswordToken"])) {
+        if(isset($_POST["password"]) && isset($_POST["passwordConfirmation"])) {
+            if($_POST["password"] == $_POST["passwordConfirmation"]){
                 $user->setPassword($_POST["password"]);
                 unset($_SESSION["forgotPasswordToken"]);
                 $user->clearPasswordForgetToken();
+                $user->clearValidationToken();
 
                 $user->save();
 
-                echo "Votre mail à bien été changé";
-            }else{
-                die("Erreur");
+                header('Location: /login');
             }
         }else{
             die("Erreur");

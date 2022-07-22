@@ -37,7 +37,7 @@ class Role extends BaseSQL {
      */
     public function setName($name): void
     {
-        $this->name = $name;
+        $this->name = htmlspecialchars($name);
     }
 
     /**
@@ -53,7 +53,7 @@ class Role extends BaseSQL {
      */
     public function setColour($colour): void
     {
-        $this->colour = $colour;
+        $this->colour = htmlspecialchars($colour);
     }
 
     /**
@@ -181,9 +181,8 @@ class Role extends BaseSQL {
                     "error"=>"Nom Invalide",
                 ],
                 "colour"=>[
-                    "type"=>"text",
-                    "id"=>"colourInput",
-                    "class"=>"form-input",
+                    "type"=>"color",
+                    "class"=>"color-picker",
                     "label"=>"Couleur du rôle",
                     "labelCLass"=>"form-label",
                     "required"=>true,
@@ -194,45 +193,50 @@ class Role extends BaseSQL {
                     "id"=>"createPageCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit de creation de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>false
                 ],
                 "modifyPage"=>[
                     "type"=>"checkbox",
                     "id"=>"modifyPageCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit de modification de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>false
                 ],
                 "deletePage"=>[
                     "type"=>"checkbox",
                     "id"=>"deletePageCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit de suppression de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>false
                 ],
                 "addComment"=>[
                     "type"=>"checkbox",
                     "id"=>"addCommentCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit d'ajout de commentaires",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>false
                 ],
                 "adminRights"=>[
                     "type"=>"checkbox",
                     "id"=>"adminRightsCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droits d'administration",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
-                    "error"=>"Valeur invalide"
+                    "error"=>"Valeur invalide",
+                    "checked"=>false
                 ],
             ]
         ];
@@ -264,22 +268,20 @@ class Role extends BaseSQL {
                     "value"=>$this->getName()
                 ],
                 "colour"=>[
-                    "type"=>"text",
-                    "id"=>"colourInput",
-                    "class"=>"form-input",
+                    "type"=>"color",
+                    "class"=>"color-picker",
                     "label"=>"Couleur du rôle",
                     "labelCLass"=>"form-label",
                     "required"=>true,
                     "error"=>"Hexadecimal invalide",
-                    "value"=>$this->getColour()
-
+                    "value"=>"#" . $this->getColour()
                 ],
                 "createPage"=>[
                     "type"=>"checkbox",
                     "id"=>"createPageCheckbox",
-                    "class"=>"form-input",
+                    "class"=>"form-checkbox",
                     "label"=>"Droit de creation de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>$this->getCreatePage()
@@ -289,7 +291,7 @@ class Role extends BaseSQL {
                     "id"=>"modifyPageCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit de modification de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>$this->getModifyPage()
@@ -299,7 +301,7 @@ class Role extends BaseSQL {
                     "id"=>"deletePageCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit de suppression de page",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>$this->getDeletePage()
@@ -309,7 +311,7 @@ class Role extends BaseSQL {
                     "id"=>"addCommentCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droit d'ajout de commentaires",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>$this->getAddComment()
@@ -319,7 +321,7 @@ class Role extends BaseSQL {
                     "id"=>"adminRightsCheckbox",
                     "class"=>"form-input",
                     "label"=>"Droits d'administration",
-                    "labelClass"=>"form-label",
+                    "labelClass"=>"checkbox-label",
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>$this->getAdminRights()
