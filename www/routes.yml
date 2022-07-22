@@ -34,6 +34,10 @@
   controller: User
   action: passwordReset
 
+/adminModifyRole:
+  controller: Admin
+  action: adminModifyRole
+
 /page404:
   controller: Error
   action: page404
