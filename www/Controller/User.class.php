@@ -121,37 +121,47 @@ class User extends baseController{
 
     public function accountUpdate()
     {
+        $changedEmail = false;
         if(AccessManager::isLogged()){
             $user = new UserModel();
             $user = $user->setId($_SESSION['connectedUser']['id']);
-            print_r($_POST);
 
-            if(!empty($_POST['login']))
+
+            if(!empty($_POST['login']) && ($_POST['login'] !== $user->getLogin()))
             {
-                $result = Validator::run($user->getLoginUpdate(), $_POST);
-                print_r($result);
-
-                $user->setLogin($_POST["login"]);
-                $user->save();
+                $result = Validator::run($user->getLoginUpdate(), ["login"=>$_POST['login']]);
+                if(empty($result)) {
+                    $user->setLogin($_POST["login"]);
+                    $user->save();
+                }
             }
-            else if(!empty($_POST['email']))
+            else if(!empty($_POST['email']) && ($_POST['email'] !== $user->getEmail()))
             {
-                $result = Validator::run($user->getEmailUpdate(), $_POST);
-                print_r($result);
+                $result = Validator::run($user->getEmailUpdate(), ["email"=>$_POST['email']]);
 
-                $user->setEmail($_POST["email"]);
-                $user->save();
+                if(empty($result)){
+                    $user->setEmail($_POST["email"]);
+                    $user->save();
+                    $changedEmail = true;
+                    $mailer = PHPMailerManager::getInstance();
+                    $mailer->send($user->getEmail(),
+                        'email de validation',
+                        "je suis un email de validation <a href='" . ROOT_URL . "/valideAccount?token=". $user->getValidationToken() . "&user=" . $user->getId());
+                }
             }
-            else if(!empty($_POST['password']))
+            else if(!empty($_POST['password']) )
             {
-                $result = Validator::run($user->getPasswordUpdate(), $_POST);
-                print_r($result);
-
-                $user->setPassword($_POST["password"]);
-                $user->save();
+                $result = Validator::run($user->getPasswordUpdate(), ["passwordail"=>$_POST["password"]]);
+                if(empty($result)){
+                    $user->setPassword($_POST["password"]);
+                    $user->save();
+                }
             }
-            $view = new View("accountUpdate");
-            $view->assign("user",$user);
+            if($changedEmail){
+                self::logout();
+            }else{
+                header("Location: /w/accueil");
+            }
         }else{
             echo 'Error';
         }

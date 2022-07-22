@@ -1,6 +1,7 @@
 <?php
 use App\Core\AccessManager;
 use App\Model\WikiPage;
+use App\Model\User;
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +37,21 @@ use App\Model\WikiPage;
                 </div>
             <?php endif?>
             <?php if (AccessManager::isLogged()):?>
+                <div class="col-2">
+                    <a class="btn btn--sm d-block btn--primary modal-open" data-target="#account">Mon compte</a>
+                </div>
+
+                <div id="account" class="modal">
+                    <div class="modal-content modal-content-dark">
+                        <div class="modal-header modal-header-dark">
+                            <span class="modal-close modal-close-cross">&times;</span>
+                            <h2>Modification des informations </h2>
+                        </div>
+                        <div class="modal-body modal-body-dark">
+                            <?php $this->includePartial("form", (new User())->changeUserInfo()) ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-2">
                     <a class="btn btn--sm d-block btn--danger" href="/logout">Déconnexion</a>
                 </div>
