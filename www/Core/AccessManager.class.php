@@ -45,7 +45,7 @@ class AccessManager
             $role = new RoleModel();
             $role = $role->setId($user->getRole());
 
-            if($role->getAdminRights() == 1 || $role->getIsSuperUser == 1) {
+            if($role->getAdminRights() == 1 || $role->getIsSuperUser() == 1) {
                 return true;
             }
         }
