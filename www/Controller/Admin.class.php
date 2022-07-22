@@ -114,6 +114,13 @@ class Admin extends baseController
         $view->assign("activePage", "page");
     }
 
+    public function pageTree()
+    {
+        AccessManager::accessIfAdmin();
+        $view = new View("back/pageTree", "back");
+        $view->assign("activePage", "page");
+    }
+
     public function pageTemplate()
     {
         AccessManager::accessIfAdmin();

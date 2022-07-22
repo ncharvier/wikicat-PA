@@ -128,6 +128,32 @@ class WikiPage extends baseController
         header('Location: /w/edit/'.$pageTitle);
     }
 
+
+    public function deletePage($pageTitle){
+        AccessManager::accessIfCanDeletePage();
+
+        $page = new Page();
+        $page = $page->foundByTitle($pageTitle);
+        if ($page == null || $page->getId() == 1){
+            http_response_code(404);
+            die();
+            header("Location: /");
+        }
+
+        foreach ((new PageVersion())->getAllByParent($page->getId()) as $version){
+            $version->delete();
+        }
+
+        foreach ($page->getAllChild() as $child){
+            $child->setParentPageId($page->getParentPageId());
+            $child->save();
+        }
+
+        $page->delete();
+
+        header("Location: /");
+    }
+
     public function getPageTree(){
         $page = new Page();
         echo "<ul class=\"tree\">" . $this->treeFiller($page->setId(1)) . "</ul>";

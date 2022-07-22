@@ -6,6 +6,11 @@
         <meta name="description" content="ceci est la description de ma page">
         <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
         <link rel="stylesheet" href="../Assets/dist/main.css">
+        
+        <script src="../Assets/js/jquery.js"></script>
+        <script src="../Assets/js/color-picker.js"></script>
+        <script src="../Assets/js/modal.js"></script>
+        <script src="../Assets/js/tree.js"></script>
     </head>
     <body id="body-back">
         <header id="main-header">
@@ -55,17 +60,18 @@
                     <span class="main-nav-icon"><i class="fas fa-cogs"></i></span>
                     <span class="main-nav-title">Paramètres</span>
                 </a>
+                <a href="/" class="main-nav-choice">
+                    <span class="main-nav-icon"><i class="fas fa-arrow-left"></i></i></span>
+                    <span class="main-nav-title">Retour wiki</span>
+                </a>
             </nav>
             <main class="col">
                 <?php include $this->view.".view.php";?>
             </main>
         </div>
-    </body>
 
-    <script src="../Assets/js/jquery.js"></script>
-    <script src="../Assets/js/Back-tpl-script.js"></script>
-    <script src="../Assets/webpack/node_modules/chart.js/dist/chart.js"></script>
-    <script src="../Assets/js/chartCanvas.js"></script>
-    <script src="../Assets/js/color-picker.js"></script>
-    <script src="../Assets/js/modal.js"></script>
+        <script src="../Assets/js/Back-tpl-script.js"></script>
+        <script src="../Assets/webpack/node_modules/chart.js/dist/chart.js"></script>
+        <script src="../Assets/js/chartCanvas.js"></script>
+    </body>
 </html>
