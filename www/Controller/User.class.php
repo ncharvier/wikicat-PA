@@ -181,38 +181,40 @@ class User extends baseController{
 
             $user = $user->setId($_GET["id"]);
 
+            if($user->getPasswordForgetToken() == NULL){
+                header('Location: /login');
+            }
+
             if (!empty($user) && ($user->getPasswordForgetToken() == $_GET["token"])){
                 $_SESSION["forgotPasswordToken"] = $user->getPasswordForgetToken();
                 $_SESSION["idUser"] = $user->getId();
 
                 $user->save();
             }
-            $view = new View("changePassword", "auth");
             $view->assign("user",$user);
         }else{
             echo "Il semblerait que vous essayez d'accèder à un compte dont le mot de passe a déjà été réinitialiser";
         }
     }
 
-    public function changePassword(){
+    public function passwordReset(){
 
         $user = new UserModel();
 
-        if(isset($_SESSION["idUser"])){
-            $user = $user->setId($_SESSION["idUser"]);
+        $user = $user->setId($_POST["idUser"]);
 
-            Validator::run($user->getChangePassword(), $_POST);
+        Validator::run($user->getChangePassword(), $_POST);
 
-            if(isset($_POST["password"]) && isset($_SESSION["forgotPasswordToken"])) {
+        if(isset($_POST["password"]) && isset($_POST["passwordConfirmation"])) {
+            if($_POST["password"] == $_POST["passwordConfirmation"]){
                 $user->setPassword($_POST["password"]);
                 unset($_SESSION["forgotPasswordToken"]);
                 $user->clearPasswordForgetToken();
+                $user->clearValidationToken();
 
                 $user->save();
 
-                echo "Votre mail à bien été changé";
-            }else{
-                die("Erreur");
+                header('Location: /login');
             }
         }else{
             die("Erreur");

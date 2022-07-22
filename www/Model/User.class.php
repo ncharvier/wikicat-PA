@@ -178,6 +178,10 @@ class User extends BaseSQL
         $this->connectionToken = null;
     }
 
+    public function clearPasswordForgetToken(): void{
+        $this->passwordForgetToken = null;
+    }
+
     public function save()
     {
         parent::save();
@@ -337,7 +341,7 @@ class User extends BaseSQL
             "inputs"=>[
                 "email"=>[
                     "type"=>"email",
-                    "placeholder"=>"email linked to the account",
+                    "placeholder"=>"Nouveau email",
                     "id"=>"recoveryEmail",
                     "class"=>"form-input",
                     "label"=>"Email",
@@ -352,18 +356,33 @@ class User extends BaseSQL
         return [
             "config"=>[
                 "method"=>"POST",
-                "action"=>"changePassword",
-                "submit"=>"Changer votre mot passe"
+                "action"=>"/passwordReset",
+                "submit"=>"Changer votre mot passe",
+                "submit-class"=>"btn btn--primary"
             ],
             "inputs"=>[
+                "idUser"=>[
+                    "type"=>"hidden",
+                    "id"=>"idUser",
+                    "required"=>true,
+                    "value"=>$this->getId()
+                ],
                 "password"=>[
                     "type"=>"password",
                     "placeholder"=>"Votre nouveau mot de passe",
                     "id"=>"pwdChangePassword",
-                    "class"=>"inputChangePassword",
+                    "class"=>"form-input",
                     "required"=>true,
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
+                "passwordConfirmation"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Confirmation de mot de passe",
+                    "id"=>"pwdConfirmation",
+                    "class"=>"form-input",
+                    "required"=>true,
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ]
             ]
         ];
     }

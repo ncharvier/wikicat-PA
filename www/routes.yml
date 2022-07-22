@@ -30,9 +30,9 @@
   controller: User
   action: acquireNewPassword
 
-/changePassword:
+/passwordReset:
   controller: User
-  action: changePassword
+  action: passwordReset
 
 /page404:
   controller: Error
