@@ -12,6 +12,8 @@ use App\Model\WikiPage as Page;
 use App\Model\WikiPageVersion as PageVersion;
 use App\Model\User;
 
+Theme::loadCurrentTheme();
+
 class Admin extends baseController
 {
     public function dashboard()
@@ -25,6 +27,7 @@ class Admin extends baseController
         $view->assign("nbCreatedUser", $user->count(7));
         $view->assign("nbPage", $page->count());
         $view->assign("nbCreatedPage", $page->count(7));
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function user()
@@ -35,6 +38,7 @@ class Admin extends baseController
         $view = new View("back/user", "back");
         $view->assign("userList", $user->getAllUserAndRole());
         $view->assign("activePage", "user");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function adminActiveUser() {
@@ -115,6 +119,7 @@ class Admin extends baseController
         $view->assign("activePage", "role");
         $view->assign("titleSeo", "Rôles");
         $view->assign("roleList", $roleList);
+        $view->assign("currentTheme", Theme::getCurrentTheme());
 
     }
 
@@ -125,6 +130,7 @@ class Admin extends baseController
         $view = new View("back/pageList", "back");
         $view->assign("pageList", $page->getAllPageAndVersion());
         $view->assign("activePage", "page");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function pageTree()
@@ -139,6 +145,7 @@ class Admin extends baseController
         AccessManager::accessIfAdmin();
         $view = new View("back/pageTemplate", "back");
         $view->assign("activePage", "page");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function comment()
@@ -146,6 +153,7 @@ class Admin extends baseController
         AccessManager::accessIfAdmin();
         $view = new View("back/comment", "back");
         $view->assign("activePage", "comment");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function visualSetting() {
@@ -157,6 +165,8 @@ class Admin extends baseController
 
         if (!empty($_POST['submitTheme']))
             $errorAndTheme = $this->createTheme();
+        else if (!empty($_POST['apply']))
+            $errorAndTheme = $this->applyTheme();
         else if (!empty($_POST['modify']))
             $errorAndTheme = $this->modifyTheme();
         else if (!empty($_POST['delete']))
@@ -175,8 +185,14 @@ class Admin extends baseController
         $view = new View("back/visualSetting", "back");
         $view->assign("content", json_decode($theme->getContent(), true));
         $view->assign("selectedTheme", $selectedTheme);
+        $view->assign("currentTheme", Theme::getCurrentTheme());
         $view->assign("activePage", "visualSetting");
         $view->assign("themeList", Theme::getThemeList());
+        $view->assign("cssAttributeCol1", Theme::getAttribute(0, 4));
+        $view->assign("cssAttributeCol2", Theme::getAttribute(4, 8));
+        $view->assign("cssAttributeCol3", Theme::getAttribute(8, 12));
+        $view->assign("cssAttributeCol4", Theme::getAttribute(12, 14));
+        $view->assign("cssAttributeCol5", Theme::getAttribute(14, 16));
         $view->assign("error", $error);
     }
 
@@ -189,22 +205,37 @@ class Admin extends baseController
         $theme = new Theme();
 
         if (empty($_POST['themeName']))
-            return ['error'=>"You need to en enter a name", 'theme'=>"default"];
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
 
         $themeName = htmlspecialchars($_POST['themeName']);
         unset($_POST['themeName']);
         unset($_POST['submitTheme']);
         unset($_POST['selectThemeName']);
-        unset($_POST['picture']);
 
         if (Theme::exist($themeName))
-            return ['error'=>"Theme name already exist", 'theme'=>"default"];
+            return ['error'=>"Le theme existe déjà", 'theme'=>"default"];
 
         $theme->setName($themeName);
         $theme->setContent(json_encode($_POST));
         $theme->save();
 
         return ['error'=>"", 'theme'=>$themeName];
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function applyTheme() {
+        $theme = new Theme();
+
+        if (empty($_POST['selectThemeName']))
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
+
+        Theme::$currentTheme = htmlspecialchars($_POST['selectThemeName']);
+        file_put_contents(PATHCURRENTTHEME.'/currentTheme.txt', Theme::$currentTheme);
+        return ['error'=>"", 'theme'=>Theme::$currentTheme];
     }
 
     /**
@@ -216,17 +247,17 @@ class Admin extends baseController
         $theme = new Theme();
 
         if (empty($_POST['selectThemeName']))
-            return ['error'=>"You need to en enter a name", 'theme'=>"default"];
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
 
         $themeName = htmlspecialchars($_POST['selectThemeName']);
         unset($_POST['themeName']);
         unset($_POST['modify']);
         unset($_POST['submitTheme']);
         unset($_POST['selectThemeName']);
-        unset($_POST['picture']);
+        unset($_POST['renameTheme']);
 
         if (!Theme::exist($themeName))
-            return ['error'=>"Theme name does not exist", 'theme'=>"default"];
+            return ['error'=>"Le theme n'éxiste pas", 'theme'=>"default"];
 
         $theme->setName($themeName);
         $theme->setContent(json_encode($_POST));
@@ -244,15 +275,15 @@ class Admin extends baseController
         $theme = new Theme();
 
         if (empty($_POST['selectThemeName']))
-            return ['error'=>"You need to en enter a name", 'theme'=>"default"];
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
 
         $themeName = htmlspecialchars($_POST['selectThemeName']);
 
         if ($themeName == "default")
-            return ['error'=>"You can't delete default theme", 'theme'=>"default"];
+            return ['error'=>"Vous ne pouvez pas supprimer le theme par defaut", 'theme'=>"default"];
 
         if (!Theme::exist($themeName))
-            return ['error'=>"Theme name does not exist", 'theme'=>"default"];
+            return ['error'=>"Le theme n'éxiste pas", 'theme'=>"default"];
 
         Theme::delete($themeName);
 
@@ -273,13 +304,13 @@ class Admin extends baseController
         $type = $_FILES['fileTheme']['type'];
 
         if ($size <= 0 || $size > 20000)
-            return ['error'=>"File size too heavy", 'theme'=>"default"];
+            return ['error'=>"Fichier trop gros", 'theme'=>"default"];
 
         if ($type !== "application/json")
-            return ['error'=>"File must be a json", 'theme'=>"default"];
+            return ['error'=>"Le fichier doit être un json", 'theme'=>"default"];
 
         if (Theme::exist($nameWithoutExt))
-            return ['error'=>"Theme name already exist", 'theme'=>"default"];
+            return ['error'=>"Le theme existe déjà", 'theme'=>"default"];
 
         $theme->setName($nameWithoutExt);
         $theme->setContent(file_get_contents($tmpName));
@@ -298,18 +329,18 @@ class Admin extends baseController
         $selectedTheme = htmlspecialchars($_POST['selectThemeName']);
 
         if (empty($selectedTheme))
-            return ['error'=>"You need to en enter a name", 'theme'=>"default"];
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
 
         $fullPath = PATHTMP."/$selectedTheme.zip";
 
         if (!Theme::exist($selectedTheme))
-            return ['error'=>"File does not exist", 'theme'=>"default"];
+            return ['error'=>"Le theme n'éxiste pas", 'theme'=>"default"];
 
         $theme->getByName($selectedTheme);
         $code = $theme->compressToZip($selectedTheme.".zip");
 
         if ($code !== 0)
-            return ['error'=>"Something wrong with compression : $code", 'theme'=>$selectedTheme];
+            return ['error'=>"Il y a eu une erreur avec la compression", 'theme'=>$selectedTheme];
 
         header('Content-Description: Download theme');
         /* header('Content-Type: application/octet-stream'); */
@@ -334,13 +365,13 @@ class Admin extends baseController
         $renameTheme = htmlspecialchars($_POST['renameTheme']);
 
         if (empty($renameTheme) || empty($selectedTheme))
-            return ['error'=>"You need to en enter a name", 'theme'=>"default"];
+            return ['error'=>"Vous devez entrer un nom de theme", 'theme'=>"default"];
 
         if ($selectedTheme === $renameTheme)
-            return ['error'=>"New name and old name cannot be the same", 'theme'=>$selectedTheme];
+            return ['error'=>"L'ancien et le nouveau nom de peuvent pas être identique", 'theme'=>$selectedTheme];
 
         if (!Theme::exist($selectedTheme))
-            return ['error'=>"File does not exist", 'theme'=>"default"];
+            return ['error'=>"Le theme n'éxiste pas", 'theme'=>"default"];
 
         $theme->getByName($selectedTheme);
         $theme->setName($renameTheme);
@@ -415,6 +446,7 @@ class Admin extends baseController
         AccessManager::accessIfAdmin();
         $view = new View("back/plugin", "back");
         $view->assign("activePage", "plugin");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function globalSetting()
@@ -422,5 +454,6 @@ class Admin extends baseController
         AccessManager::accessIfAdmin();
         $view = new View("back/globalSetting", "back");
         $view->assign("activePage", "globalSetting");
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 }

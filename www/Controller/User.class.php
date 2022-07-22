@@ -8,6 +8,9 @@ use App\Core\PHPMailerManager;
 use App\Core\Validator;
 use App\Core\View;
 use App\Model\User as UserModel;
+use App\Core\Theme;
+
+Theme::loadCurrentTheme();
 
 class User extends baseController{
     public function logout(){
@@ -61,6 +64,7 @@ class User extends baseController{
 
         $view->assign("titleSeo","Se connecter au site");
         $view->assign("user",$user);
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function register()
@@ -92,6 +96,11 @@ class User extends baseController{
             $view = new View("register", "auth");
             $view->assign("user",$user);
         }
+
+
+        $view = new View("register", "auth");
+        $view->assign("user",$user);
+        $view->assign("currentTheme", Theme::getCurrentTheme());
     }
 
     public function valideAccount()

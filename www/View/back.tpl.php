@@ -6,7 +6,7 @@
         <meta name="description" content="ceci est la description de ma page">
         <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
         <link rel="stylesheet" href="../Assets/dist/main.css">
-        
+        <link rel="stylesheet" href="../Assets/themes/<?=$currentTheme?>.css">
         <script src="../Assets/js/jquery.js"></script>
         <script src="../Assets/js/color-picker.js"></script>
         <script src="../Assets/js/modal.js"></script>

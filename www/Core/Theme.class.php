@@ -4,11 +4,58 @@ namespace App\Core;
 class Theme {
     protected $name = "";
     protected $content = "";
+    public static $currentTheme;
+    public static $attribute = [
+        ["name" => "backHeaderColor", "description" => "Couleur entête"],
+        ["name" => "backBackground", "description" => "Arrière-plan"],
+        ["name" => "backMainNavBackground", "description" => "Background nav"],
+        ["name" => "backMainNavBorder", "description" => "Bordure nav"],
+        ["name" => "backMainNavhover", "description" => "Hover nav"],
+        ["name" => "backMainNavActive", "description" => "Active nav"],
+        ["name" => "backMainNavSubChoiceBackground", "description" => "Sous-choix arrière-plan nav"],
+        ["name" => "backMainNavSubChoiceBorder", "description" => "Sous-choix bordure nav"],
+        ["name" => "backMainSectionBackground", "description" => "Section arrière-plan"],
+        ["name" => "backMainSectionHr", "description" => "Section hr"],
+        ["name" => "backCheckboxBackground", "description" => "Checkbox arrière-plan"],
+        ["name" => "backCheckboxBorder", "description" => "Checkbox bordure"],
+        ["name" => "backRadioBackground", "description" => "Radio arrière-plan"],
+        ["name" => "backRadioBorder", "description" => "Radio bordure"],
+        ["name" => "authBackgroundColor", "description" => "Couleur arrière-plan authentification"],
+        ["name" => "authColor", "description" => "Couleur authentification"],
+    ];
 
     public function __construct() {
         // temporaire le temps de faire l'installeur
         if (!file_exists(PATHTMP))
             mkdir(PATHTMP);
+    }
+
+    /**
+     * get css attribute
+     * @param int $start (optional)
+     * @param int $end (optional)
+     * @return array
+     */
+    public static function getAttribute(int $start = 0, int $end = null): array {
+        $end = $end === null ? count(Theme::$attribute) - 1 : $end;
+        $result = [];
+
+        for ($i = $start; $i < $end; $i++)
+            $result[] = Theme::$attribute[$i];
+
+        return $result;
+    }
+
+    public static function loadCurrentTheme() {
+        if (!file_exists(PATHCURRENTTHEME.'/currentTheme.txt')) {
+            touch(PATHCURRENTTHEME.'/currentTheme.txt');
+            file_put_contents(PATHCURRENTTHEME.'/currentTheme.txt', 'default');
+        }
+        Theme::$currentTheme = file_get_contents(PATHCURRENTTHEME.'/currentTheme.txt');
+    }
+
+    public static function getCurrentTheme() {
+        return Theme::$currentTheme;
     }
 
     /**
@@ -121,13 +168,15 @@ class Theme {
      */
     private function formatToCss(): string {
         $contentJson = json_decode($this->getContent());
-        $contentCss = "";
+        $contentCss = ":root {\n";
 
         foreach ($contentJson as $k => $v) {
-            $contentCss .= ".$k {\n";
-            $contentCss .= "    css-attr: $v;\n";
-            $contentCss .= "}\n";
+            $contentCss .= "    --$k : $v;\n";
+            /* $contentCss .= ".$k {\n"; */
+            /* $contentCss .= "    css-attr: $v;\n"; */
+            /* $contentCss .= "}\n"; */
         }
+        $contentCss .= "}\n";
 
         return $contentCss;
     }

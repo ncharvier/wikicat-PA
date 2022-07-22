@@ -6,6 +6,7 @@
         <meta name="description" content="ceci est la description de ma page">
         <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
         <link rel="stylesheet" href="../Assets/dist/main.css">
+        <link rel="stylesheet" href="../Assets/themes/<?=$currentTheme?>.css">
     </head>
     <body id="body-auth">
         <main class="d-flex justify-content-center align-items-center">
