@@ -2,6 +2,8 @@
 namespace App\Model;
 
 use App\Core\BaseSQL;
+use App\Core\queryBuilder;
+use App\Model\Role;
 
 class User extends BaseSQL
 {
@@ -31,6 +33,21 @@ class User extends BaseSQL
 
     public function getByEmail($email): ?object{
         return parent::getFromValue(strtolower(trim($email)), "email");
+    }
+
+    public function getAllUserAndRole() {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("Role", "User")
+            ->alias("role", "user")
+            ->on('role.id = user.role');
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute();
+
+        $userResult = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+
+        return $userResult;
     }
 
     /**
@@ -401,6 +418,45 @@ class User extends BaseSQL
                     "id" => "userId",
                     "value" => $this->getId()
                 ],
+            ]
+        ];
+    }
+
+    public function formAdminModifyRoleUser(): array {
+        $roleInstance = new Role();
+        $roleList = $roleInstance->getAll();
+
+        $optionRole = [];
+
+        foreach ($roleList as $role) {
+            if ($role->getId() !== 1) {
+                $optionRole[] = [
+                    "value" => $role->getId(),
+                    "text" => $role->getName(),
+                    "selected" => false
+                ];
+            }
+        }
+
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/adminModifyRole",
+                "submit"=>"Modifier role",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "userId" => [
+                    "type" => "hidden",
+                    "id" => "userId",
+                    "value" => $this->getId()
+                ],
+                "role" => [
+                    "type" => "select",
+                    "id" => "role",
+                    "class" => "form-input-back",
+                    "options" => $optionRole
+                ]
             ]
         ];
     }

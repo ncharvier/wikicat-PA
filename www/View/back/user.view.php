@@ -14,8 +14,10 @@
                 <tbody>
                 <?php foreach($userList as $user):?>
                 <tr class="table-row">
-                    <td><?=$user->getLogin()?></td>
-                    <td><span style="color: #D22D3D;">Admin</span>, <span style="color: #625BC1;">Defaut</span></td>
+                <td><?=$user->getLogin()?> <?=$user->getId()?></td>
+                    <td>
+                    <span style="color: #<?=$user->colour?>;"><?=$user->name?></span>,
+                    </td>
                     <?php
                     switch ($user->getStatus()) {
                         case 0:
@@ -43,6 +45,7 @@
                             <?php $this->includePartial("form", $user->formAdminBanUser()) ?>
                             <?php $this->includePartial("form", $user->formAdminResetPasswordUser()) ?>
                             <?php $this->includePartial("form", $user->formAdminDeleteUser()) ?>
+                            <?php $this->includePartial("form", $user->formAdminModifyRoleUser()) ?>
                         </div>
                         <div class="modal-footer modal-footer-dark">
                             <button class="btn btn--secondary modal-close">Fermer</button>

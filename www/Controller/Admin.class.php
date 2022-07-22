@@ -33,7 +33,7 @@ class Admin extends baseController
         $user = new User();
 
         $view = new View("back/user", "back");
-        $view->assign("userList", $user->getAll());
+        $view->assign("userList", $user->getAllUserAndRole());
         $view->assign("activePage", "user");
     }
 
@@ -57,6 +57,19 @@ class Admin extends baseController
         if (!empty($_POST['userId'])) {
             $user = $user->setId($_POST['userId']);
             $user->setStatus(2);
+            $user->save();
+        }
+
+        header("location: /admin/user");
+    }
+
+    public function adminModifyRole() {
+        AccessManager::accessIfAdmin();
+        $user = new User();
+
+        if (!empty($_POST['userId']) || !empty($_POST['role']) || $_POST['role'] !== null) {
+            $user = $user->setId($_POST['userId']);
+            $user->setRole($_POST['role']);
             $user->save();
         }
 
