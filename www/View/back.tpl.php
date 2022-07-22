@@ -6,6 +6,7 @@
         <meta name="description" content="ceci est la description de ma page">
         <link rel="stylesheet" href="../Assets/Lib/fontawesome/css/all.css">
         <link rel="stylesheet" href="../Assets/dist/main.css">
+        <link rel="stylesheet" href="../Assets/themes/<?=$currentTheme?>.css">
     </head>
     <body id="body-back">
         <header id="main-header">
@@ -68,4 +69,5 @@
     <script src="../Assets/js/chartCanvas.js"></script>
     <script src="../Assets/js/color-picker.js"></script>
     <script src="../Assets/js/modal.js"></script>
+    <script src="../Assets/js/theme.js"></script>
 </html>
