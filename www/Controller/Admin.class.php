@@ -31,8 +31,12 @@ class Admin
     {
         $user = new User();
 
+        echo "<pre>";
+        var_dump($user->getAllUserAndRole());
+        echo "</pre>";
+
         $view = new View("back/user", "back");
-        $view->assign("userList", $user->getAll());
+        $view->assign("userList", $user->getAllUserAndRole());
         $view->assign("activePage", "user");
     }
 

@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use App\Core\BaseSQL;
+use App\Core\queryBuilder;
 
 class User extends BaseSQL
 {
@@ -31,6 +32,20 @@ class User extends BaseSQL
 
     public function getByEmail($email): ?object{
         return parent::getFromValue(strtolower(trim($email)), "email");
+    }
+
+    public function getAllUserAndRole() {
+        $pdo = parent::getPdoSession();
+        $query = (new queryBuilder)->select("*")
+            ->join("User", "Role")
+            ->alias("user", "role")
+            ->on('user.role = role.id');
+
+        $queryPrepared = $pdo->prepare($query);
+        $queryPrepared->execute();
+
+        $result = $queryPrepared->fetchAll(\PDO::FETCH_CLASS, get_called_class());
+        return $result;
     }
 
     /**
