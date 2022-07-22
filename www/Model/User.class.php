@@ -283,9 +283,11 @@ class User extends BaseSQL
                     "type"=>"text",
                     "placeholder"=>"Pseudonyme",
                     "id"=>"loginRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
-                    "error"=>"Pseudonyme invalide"
+                    "class"=>"form-input",
+                    "label"=>"Pseudonyme",
+                    "labelClass"=>"form-label",
+                    "error"=>"Pseudonyme invalide",
+                    "value"=>$_SESSION["connectedUser"]["login"]
                 ]
             ]
         ];
@@ -303,8 +305,13 @@ class User extends BaseSQL
                     "type"=>"email",
                     "placeholder"=>"Votre email ...",
                     "id"=>"emailRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
+                    "error"=>"Email incorrect",
+                    "unicity"=>true,
+                    "errorUnicity"=>"Un compte existe déjà sur cette adresse email",
+                    "value"=>$_SESSION["connectedUser"]["email"]
                 ],
             ]
         ];
@@ -322,8 +329,9 @@ class User extends BaseSQL
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe ...",
                     "id"=>"pwdRegister",
-                    "class"=>"inputRegister",
-                    "required"=>true,
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
             ]
@@ -462,6 +470,51 @@ class User extends BaseSQL
                     "class"=>"form-input-back",
                     "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
                 ],
+            ]
+        ];
+    }
+
+    public function changeUserInfo(): array {
+
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/accountUpdate",
+                "submit"=>"Changer mes informations",
+                "submit-class"=>"btn btn--primary d-block w-100"
+            ],
+            "inputs" => [
+                "login"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Pseudonyme",
+                    "id"=>"loginRegister",
+                    "class"=>"form-input",
+                    "label"=>"Pseudonyme",
+                    "labelClass"=>"form-label",
+                    "error"=>"Pseudonyme invalide",
+                    "value"=>$_SESSION["connectedUser"]["login"]
+                ],
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "id"=>"emailRegister",
+                    "class"=>"form-input",
+                    "label"=>"Email",
+                    "labelClass"=>"form-label",
+                    "error"=>"Email incorrect",
+                    "unicity"=>true,
+                    "errorUnicity"=>"Un compte existe déjà sur cette adresse email",
+                    "value"=>$_SESSION["connectedUser"]["email"]
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "id"=>"pwdRegister",
+                    "class"=>"form-input",
+                    "label"=>"Mot de passe",
+                    "labelClass"=>"form-label",
+                    "error"=>"Votre mot de passe doit faire entre 8 et 16 et contenir des chiffres et des lettres",
+                ]
             ]
         ];
     }
