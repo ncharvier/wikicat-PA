@@ -141,6 +141,11 @@ class WikiPage extends BaseSQL
         parent::save();
     }
 
+    public function delete()
+    {
+        parent::delete();
+    }
+
     public function getPageEditForm(?string $pageContent): array
     {
         $parentPageList = [];

@@ -82,6 +82,10 @@
   controller: Admin
   action: deleteRole
 
+/admin/pageTree:
+  controller: Admin
+  action: pageTree
+
 /admin/pageList:
   controller: Admin
   action: pageList

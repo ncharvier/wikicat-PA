@@ -2,11 +2,8 @@
     <div class="col p-0">
         <section class="main-section">
             <div class="btn-group">
-                <button class="btn btn--outline-primary">Mode arborescence</button>
+                <a href="/admin/pageTree" class="btn btn--outline-primary">Mode arborescence</a>
                 <button class="btn btn--primary">Mode liste</button>
-            </div>
-            <div class="form-controller">
-                <input class="form-input-back" type="text" placeholder="Recherche">
             </div>
             <table class="table table--hover table--dark">
                 <thead>
@@ -21,17 +18,17 @@
                 <tbody>
                 <?php foreach($pageList as $page): ?>
                     <tr class="table-row">
-                        <td style="text-decoration: underline"><?=$page->getTitle();?></td>
-                        <td>8064</td>
+                        <td style="text-decoration: underline"><a href="/w/<?=$page->getTitle();?>"><?=$page->getTitle();?></a></td>
+                        <td>-</td>
                         <td class="text-italic text-weight-200"><?=$page->versionNumber?></td>
                         <td> 
                         <?php if ($page->getParentPageId()): ?>
-                            <?=$page->getParentPage()->getTitle()?>
+                            <a href="/w/<?=$page->getParentPage()->getTitle();?>"><?=$page->getParentPage()->getTitle()?></a>
                         <?php else:?>
                             -
                         <?php endif?>
                         </td>
-                        <td><button class="btn btn--primary">Editer</button></td>
+                        <td><a href="/w/edit/<?=$page->getTitle();?>" class="btn btn--primary">Editer</a></td>
                     </tr>
                 <?php endforeach ?>
                 </tbody>

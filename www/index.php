@@ -44,6 +44,13 @@ if (preg_match("#^\/w\/((?!\/).)*$#", $uri)){
 
     $wikiPage->updatePage(strtolower($uri));
 
+} else if (preg_match("#^\/w\/delete\/((?!\/).)*$#", $uri)){
+    $wikiPage = new WikiPage();
+
+    $uri = trim(str_replace('/w/delete/','',$uri));
+
+    $wikiPage->deletePage(strtolower($uri));
+
 } else {
     $routeFile = "routes.yml";
     if(!file_exists($routeFile)){

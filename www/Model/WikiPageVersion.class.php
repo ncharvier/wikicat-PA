@@ -49,6 +49,10 @@ class WikiPageVersion extends BaseSQL
         return $queryPrepared->fetchObject(get_called_class());
     }
 
+    public function getAllByParent(int $parentId): ?array{
+        return parent::getAllFromValue($parentId, "versionOf");
+    }
+
     /**
      * @return mixed
      */
@@ -156,5 +160,10 @@ class WikiPageVersion extends BaseSQL
     public function save()
     {
         parent::save();
+    }
+
+    public function delete()
+    {
+        parent::delete();
     }
 }
