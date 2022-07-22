@@ -167,7 +167,7 @@ class User extends baseController{
                  Si vous n\'êtes pas à l\'origine de cette demande, vous pouvez ignorer ce mail. 
                  Dans le cas contraire, nous vous invitons à <a href=\'' . ROOT_URL . "/acquireNewPassword?id=" . $user->getId() . "&token="  . $user->getPasswordForgetToken() . "'>cliquez ici</a>");
 
-                echo "Un mail de récupération à été envoyé à l'adresse email en question";
+                $view->assign("emailSent", 1);
             }
         }
         $view->assign("user",$user);

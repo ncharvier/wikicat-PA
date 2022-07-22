@@ -207,7 +207,6 @@ class Role extends BaseSQL {
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>false
-
                 ],
                 "deletePage"=>[
                     "type"=>"checkbox",
@@ -218,7 +217,6 @@ class Role extends BaseSQL {
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>false
-
                 ],
                 "addComment"=>[
                     "type"=>"checkbox",
@@ -229,7 +227,6 @@ class Role extends BaseSQL {
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>false
-
                 ],
                 "adminRights"=>[
                     "type"=>"checkbox",
@@ -240,7 +237,6 @@ class Role extends BaseSQL {
                     "required"=>true,
                     "error"=>"Valeur invalide",
                     "checked"=>false
-
                 ],
             ]
         ];
