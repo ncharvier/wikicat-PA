@@ -111,10 +111,10 @@ class User extends baseController{
             $user = $user->setId($_GET["user"]);
 
             if (!empty($user) && ($user->getValidationToken() == $_GET["token"])){
-                echo "lien ok";
                 $user->setStatus(1);
                 $user->clearValidationToken();
                 $user->save();
+                header('Location: /login');
             }
         }
     }
@@ -151,7 +151,7 @@ class User extends baseController{
             }
             else if(!empty($_POST['password']) )
             {
-                $result = Validator::run($user->getPasswordUpdate(), ["passwordail"=>$_POST["password"]]);
+                $result = Validator::run($user->getPasswordUpdate(), ["password"=>$_POST["password"]]);
                 if(empty($result)){
                     $user->setPassword($_POST["password"]);
                     $user->save();
