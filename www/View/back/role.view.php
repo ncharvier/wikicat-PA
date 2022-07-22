@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="modal-body modal-body-dark">
                                     <?php $this->includePartial("form", $role->getFormUpdateRole()) ?>
-                                    <?php if($this->getId() != 2){ $this->includePartial("form", $role->getDeleteRole()); } ?>
+                                    <?php if($role->getId() != 2){ $this->includePartial("form", $role->getDeleteRole()); } ?>
                                 </div>
                             </div>
                         </div>
